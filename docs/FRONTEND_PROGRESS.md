@@ -74,9 +74,24 @@ Every SHA below is copied from `git log`. Test results are from runs actually ex
 - **Tests:** typecheck ✓, lint ✓, **46/46 unit**, **11/11 Playwright**.
 - **Screenshots:** `client/e2e/screenshots/{mobile,tablet,desktop}-{1-portal,2-occupations,3-simulator,4-report}.png`
 
+## Photo occupation cards · `a31d154`, `f80756b` (merged via PR #4)
+- **Change:** photos cropped from the supplied mockup (WebP, 12–14 KB each, lazy-loaded); occupations without a photo keep the door illustration.
+- **Tests:** unit 46/46.
+
+## Navbar redesign · `10e548b`
+- **Design:** full-width three-zone grid. Logo anchored 48px from the left (it was inside a centred `max-w-6xl` container); primary links truly centred; divider, My Journey with user icon, and a filled Sign in pill with arrow anchored right. 80px tall.
+- **Active state:** coral underline driven by the current route via `aria-current`, not hardcoded.
+- **Surface:** ivory on inner pages. Midnight on the portal (approved landing design), where Sign in inverts to ivory so it stays visible.
+- **Responsive:** single row from 1024px. Bug found by screenshot: at 1024px "My Journey" and "Sign in" wrapped; fixed with tighter `lg` spacing and `whitespace-nowrap`. Below 1024px an accessible menu: `aria-expanded`/`aria-controls`, focus moves into the menu, Escape closes and returns focus, closes after navigation.
+- **Measured:** every item's vertical centre at the same pixel (y=70) at 1024 and 1440px; no overflow at 360/768/1024/1440.
+- **Files:** `client/src/components/BrandHeader.tsx`, `client/src/components/BrandHeader.test.tsx` (new), refreshed `client/e2e/screenshots/*`.
+- **Tests:** typecheck ✓, lint ✓, **unit 51/51** (5 new navbar tests), **Playwright 10/10** functional and accessibility.
+- **LCP:** the throttled-4G test failed at the end of the full suite (median 3196ms) under machine load. In isolation this commit measured 1932ms against 2220ms for the previous commit, so there's no regression.
+
 ---
 
 ## Known issues
+0. **The LCP test is load-sensitive.** On this WSL machine it fails when run straight after the full suite and passes in isolation. Run it alone (`npx playwright test -g LCP --workers=1`) for a meaningful number.
 1. **API not confirmed.** All endpoints, including the research ones, are provisional (see the contract doc's questions for Persons 2–5).
 2. **Research and recommendation content is placeholder.** Real findings, events, tasks and suggestion rules come from Persons 3 and 5.
 3. **Fonts come from Google Fonts.** Self-hosting would remove a third-party request; that's a team decision (privacy and hosting).
