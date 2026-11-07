@@ -57,6 +57,32 @@
   }
 }
 
+/* Print: the report is a keepsake. Hide site chrome, keep the mock label, show source URLs. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  a[href='#main'] {
+    display: none !important;
+  }
+  [data-section='research'] a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  * {
+    box-shadow: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

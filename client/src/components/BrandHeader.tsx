@@ -61,7 +61,9 @@ export function BrandHeader({ variant = 'light' }: { variant?: 'light' | 'dark' 
   );
 
   return (
-    <header className={`relative z-30 ${dark ? 'bg-midnight text-ivory-50' : 'text-midnight'}`}>
+    <header
+      className={`relative z-30 print:hidden ${dark ? 'bg-midnight text-ivory-50' : 'text-midnight'}`}
+    >
       <div className="container-page flex h-16 items-center justify-between gap-4 sm:h-24">
         <Link
           to="/"

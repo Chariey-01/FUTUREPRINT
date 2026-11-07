@@ -37,6 +37,15 @@ describe('My Futureprint report', () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it('offers print / save as PDF', async () => {
+    await completedSession();
+    const print = vi.spyOn(window, 'print').mockImplementation(() => {});
+    const { user } = renderApp('/report');
+    await user.click(await screen.findByRole('button', { name: /print or save as pdf/i }));
+    expect(print).toHaveBeenCalledTimes(1);
+    print.mockRestore();
+  });
+
   it('links every research finding to its source in a new tab', async () => {
     await completedSession();
     renderApp('/report');

@@ -13,11 +13,11 @@ export function SourceLink({
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex flex-wrap items-baseline gap-x-1 text-sm font-medium underline decoration-1 underline-offset-4 hover:decoration-2 ${
-        tone === 'dark' ? 'text-ivory-50' : 'text-midnight'
+        tone === 'dark' ? 'text-ivory-50 print:text-midnight' : 'text-midnight'
       }`}
     >
       <span>{source.title}</span>
-      <span className={tone === 'dark' ? 'text-ivory-200' : 'text-midnight/80'}>
+      <span className={tone === 'dark' ? 'text-ivory-200 print:text-midnight' : 'text-midnight/80'}>
         — {source.publisher}
         {source.year ? `, ${source.year}` : ''}
       </span>
