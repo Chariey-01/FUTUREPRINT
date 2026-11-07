@@ -63,7 +63,11 @@ export function BrandHeader({ variant = 'light' }: { variant?: 'light' | 'dark' 
   return (
     <header className={`relative z-30 ${dark ? 'bg-midnight text-ivory-50' : 'text-midnight'}`}>
       <div className="container-page flex h-16 items-center justify-between gap-4 sm:h-24">
-        <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="FUTUREPRINT home">
+        <Link
+          to="/"
+          className="flex min-w-0 items-center gap-2 sm:gap-3"
+          aria-label="FUTUREPRINT home"
+        >
           <LogoMark />
           <span className="truncate text-base font-semibold tracking-[0.14em] min-[400px]:text-lg min-[400px]:tracking-[0.2em] sm:text-2xl sm:tracking-[0.22em]">
             FUTUREPRINT

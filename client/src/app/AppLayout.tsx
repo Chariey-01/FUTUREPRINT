@@ -8,6 +8,7 @@ const TITLES: Record<string, string> = {
   '/start': 'Choose an occupation — FUTUREPRINT',
   '/simulate': 'Future scenario simulator — FUTUREPRINT',
   '/report': 'My Futureprint — FUTUREPRINT',
+  '/signin': 'Sign in (preview) — FUTUREPRINT',
 };
 
 export function AppLayout() {

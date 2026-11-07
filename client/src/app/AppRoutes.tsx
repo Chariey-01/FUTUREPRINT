@@ -8,6 +8,7 @@ import PortalPage from '../features/portal/PortalPage';
 const OccupationsPage = lazy(() => import('../features/occupations/OccupationsPage'));
 const SimulatorPage = lazy(() => import('../features/simulator/SimulatorPage'));
 const ReportPage = lazy(() => import('../features/report/ReportPage'));
+const SignInPage = lazy(() => import('../features/auth/SignInPage'));
 const NotFoundPage = lazy(() => import('./NotFoundPage'));
 
 export function AppRoutes() {
@@ -36,6 +37,14 @@ export function AppRoutes() {
           element={
             <Lazy>
               <ReportPage />
+            </Lazy>
+          }
+        />
+        <Route
+          path="signin"
+          element={
+            <Lazy>
+              <SignInPage />
             </Lazy>
           }
         />

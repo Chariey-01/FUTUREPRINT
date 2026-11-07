@@ -32,7 +32,7 @@ window.scrollTo = () => {};
 HTMLCanvasElement.prototype.getContext = () => null;
 
 // Route chunks are lazy-loaded; dynamic imports in jsdom can exceed the 1s default.
-configure({ asyncUtilTimeout: 5000 });
+configure({ asyncUtilTimeout: 10_000 });
 
 beforeEach(() => {
   window.sessionStorage.clear();
