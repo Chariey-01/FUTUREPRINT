@@ -23,21 +23,40 @@ Mock mode shows a "Mock mode · sample data, not real research" strip on every p
 | `npm run test:e2e`              | Playwright: full journey, refresh-resume, a11y (axe, WCAG 2.1 AA), 360/768/1440 screenshots → `e2e/screenshots/` |
 | `npm run build`                 | production build (mock code is excluded unless `VITE_USE_MOCKS=true`)                                            |
 
-First e2e run: `npx playwright install chromium`.
+First e2e run: `npx playwright install chromium`. The e2e suite also checks accessibility and overflow on the research and sign-in pages, and measures page load (LCP) on throttled 4G (median of 3 cold loads, under 2.5s).
+
+Visual QA against a running dev server: `node scripts/shoot.mjs http://localhost:5173 qa-shots /,/start --full` saves screenshots at 360, 768 and 1440px.
+
+## Routes
+
+| Route | Screen |
+|---|---|
+| `/` | Future Portal |
+| `/start` | Occupation selection (search, "door" cards) |
+| `/simulate` | Scenario simulator (3 server-driven chapters) |
+| `/report` | My Futureprint (printable) |
+| `/observatory` | Workforce Observatory (sample data until research arrives) |
+| `/occupations/:slug` | Task Scanner |
+| `/methodology` | Methodology framework |
+| `/signin` | Sign in / create account, a **design preview only** (sends and stores nothing) |
 
 ## Structure
 
 ```
 src/
-  app/          providers, routes (lazy per feature), layout
-  components/   BrandHeader, DecisionCard, OccupationCard, ProgressSteps, PathwayCard,
+  app/          providers, route table (lazy per feature), layout, lazy motion features
+  components/   ui/ (Button, PageHeader, Badge, Tabs, SearchInput), BrandHeader, SiteFooter,
+                DecisionCard, OccupationCard, ProgressSteps, PathwayCard, PathwayIcon,
                 ReportSection, SourceLink, Loading/Error/EmptyState, MockModeBadge
-  features/     portal (/), occupations (/start), simulator (/simulate), report (/report)
+  features/     portal, occupations, simulator, report, observatory, task-scanner,
+                methodology, auth (preview)
   hooks/        TanStack Query hooks for the session
-  lib/          api client, session token store, config, pathway presentation
-  mocks/        in-browser mock server that follows the provisional contract
+  lib/          api client, session token store, config, pathway + evidence labels
+  mocks/        in-browser mock server following the provisional contract
   types/api.ts  shared API types (provisional, see ../docs/api-contract-provisional.md)
 ```
+
+Design decisions: [../docs/DESIGN_AUDIT.md](../docs/DESIGN_AUDIT.md). Milestones, commits and test results: [../docs/FRONTEND_PROGRESS.md](../docs/FRONTEND_PROGRESS.md).
 
 ## Rules the UI follows
 
