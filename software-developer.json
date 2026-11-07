@@ -1,0 +1,730 @@
+{
+  "content_version": {
+    "label": "v0.2-draft"
+  },
+  "occupation": {
+    "slug": "software-developer",
+    "title": "Software Developer",
+    "aliases": [
+      "software engineer",
+      "programmer",
+      "web developer",
+      "software dev"
+    ],
+    "summary": "Software developers design, build and improve the programs and systems that run on computers and networks. Day to day that means working out what users need, writing and testing code, fixing problems and explaining progress to other people.",
+    "onet_code": "15-1252.00"
+  },
+  "tags": {
+    "capabilities": {
+      "engineering_fundamentals": "Engineering fundamentals",
+      "system_design": "System design",
+      "code_quality": "Testing, debugging and code review",
+      "ai_tooling": "Working with AI-assisted tools",
+      "data_literacy": "Data and model literacy",
+      "product_thinking": "Product thinking",
+      "communication": "Communication and collaboration",
+      "learning_in_public": "Learning by building and sharing"
+    },
+    "tradeoffs": {
+      "less_breadth": "Less time for exploring other areas",
+      "less_depth": "Less time for deep specialist skills",
+      "slower_start": "Slower to show visible results at first",
+      "less_hands_on_coding": "Less time writing code day to day"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "dev-d1",
+      "depth": 1,
+      "prompt": "AI-assisted development tools are becoming common. How do you respond?",
+      "prompt_variants": {
+        "adapt": "Deepen the fundamentals that let you understand a system, review code and ship safely.",
+        "transform": "Learn how to work with AI tools so you can move faster and still make good decisions.",
+        "discover": "Look for the adjacent work that combines product sense, communication and software judgment."
+      },
+      "choices": [
+        {
+          "id": "dev-d1-adapt",
+          "label": "Deepen my engineering fundamentals",
+          "next_scenario_id": "dev-d2-adapt",
+          "signals": {
+            "pathway": {
+              "adapt": 2
+            },
+            "capabilities": [
+              "engineering_fundamentals"
+            ],
+            "tradeoffs": [
+              "less_breadth"
+            ]
+          }
+        },
+        {
+          "id": "dev-d1-transform",
+          "label": "Explore AI-assisted development",
+          "next_scenario_id": "dev-d2-transform",
+          "signals": {
+            "pathway": {
+              "transform": 2
+            },
+            "capabilities": [
+              "ai_tooling"
+            ],
+            "tradeoffs": [
+              "less_depth"
+            ]
+          }
+        },
+        {
+          "id": "dev-d1-discover",
+          "label": "Explore an adjacent direction such as product engineering",
+          "next_scenario_id": "dev-d2-discover",
+          "signals": {
+            "pathway": {
+              "discover": 2
+            },
+            "capabilities": [
+              "product_thinking"
+            ],
+            "tradeoffs": [
+              "slower_start"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-d2-adapt",
+      "depth": 2,
+      "prompt": "You want to deepen your engineering fundamentals. What do you do next?",
+      "prompt_variants": {
+        "adapt": "Build stronger habits for reasoning, debugging and review instead of chasing the newest tool.",
+        "transform": "Use AI as a co-pilot while you keep a deep understanding of the system you are changing.",
+        "discover": "Explore adjacent work that makes your engineering judgement more useful in context."
+      },
+      "choices": [
+        {
+          "id": "dev-d2-adapt-1",
+          "label": "Study system design and data structures",
+          "next_scenario_id": "dev-d3",
+          "signals": {
+            "pathway": {
+              "adapt": 2
+            },
+            "capabilities": [
+              "system_design"
+            ],
+            "tradeoffs": [
+              "less_breadth"
+            ]
+          }
+        },
+        {
+          "id": "dev-d2-adapt-2",
+          "label": "Strengthen testing and review habits",
+          "next_scenario_id": "dev-d3",
+          "signals": {
+            "pathway": {
+              "adapt": 2
+            },
+            "capabilities": [
+              "code_quality"
+            ],
+            "tradeoffs": [
+              "less_breadth"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-d2-transform",
+      "depth": 2,
+      "prompt": "You want to use AI tools to become more effective. What do you do next?",
+      "prompt_variants": {
+        "adapt": "Treat AI as a tool for faster iteration while you sharpen your engineering fundamentals.",
+        "transform": "Learn the workflows that make AI useful without losing your judgment over the result.",
+        "discover": "Use AI to explore adjacent work and compare the trade-offs before committing."
+      },
+      "choices": [
+        {
+          "id": "dev-d2-transform-1",
+          "label": "Build AI workflows for coding and review",
+          "next_scenario_id": "dev-d3",
+          "signals": {
+            "pathway": {
+              "transform": 2
+            },
+            "capabilities": [
+              "ai_tooling"
+            ],
+            "tradeoffs": [
+              "less_hands_on_coding"
+            ]
+          }
+        },
+        {
+          "id": "dev-d2-transform-2",
+          "label": "Grow your data and model literacy",
+          "next_scenario_id": "dev-d3",
+          "signals": {
+            "pathway": {
+              "transform": 2
+            },
+            "capabilities": [
+              "data_literacy"
+            ],
+            "tradeoffs": [
+              "less_hands_on_coding"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-d2-discover",
+      "depth": 2,
+      "prompt": "You are exploring a nearby direction instead of a narrow software role. What matters most?",
+      "prompt_variants": {
+        "adapt": "Use your engineering judgement to navigate a broader role with a stronger product lens.",
+        "transform": "Use AI tools to learn adjacent work while staying grounded in operational realities.",
+        "discover": "Explore the shape of a role that blends software, product and communication work."
+      },
+      "choices": [
+        {
+          "id": "dev-d2-discover-1",
+          "label": "Build product sense and communication",
+          "next_scenario_id": "dev-d3",
+          "signals": {
+            "pathway": {
+              "discover": 2
+            },
+            "capabilities": [
+              "product_thinking",
+              "communication"
+            ],
+            "tradeoffs": [
+              "slower_start"
+            ]
+          }
+        },
+        {
+          "id": "dev-d2-discover-2",
+          "label": "Learn by shipping and explaining your work",
+          "next_scenario_id": "dev-d3",
+          "signals": {
+            "pathway": {
+              "discover": 2
+            },
+            "capabilities": [
+              "learning_in_public",
+              "communication"
+            ],
+            "tradeoffs": [
+              "slower_start"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-d3",
+      "depth": 3,
+      "prompt": "You have a clearer picture of your direction. What do you focus on next?",
+      "prompt_variants": {
+        "adapt": "Keep building the technical fundamentals that make you reliable in changing teams.",
+        "transform": "Keep using AI well so your role expands rather than narrows.",
+        "discover": "Keep exploring work that combines software, context and communication."
+      },
+      "choices": [
+        {
+          "id": "dev-d3-projects",
+          "label": "Build a small project end to end",
+          "next_scenario_id": null,
+          "signals": {
+            "pathway": {
+              "adapt": 1,
+              "transform": 1
+            },
+            "capabilities": [
+              "engineering_fundamentals"
+            ],
+            "tradeoffs": [
+              "less_breadth"
+            ]
+          }
+        },
+        {
+          "id": "dev-d3-human",
+          "label": "Work on communication and stakeholder judgment",
+          "next_scenario_id": null,
+          "signals": {
+            "pathway": {
+              "discover": 1
+            },
+            "capabilities": [
+              "communication"
+            ],
+            "tradeoffs": [
+              "slower_start"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "pathways": [
+    {
+      "kind": "adapt",
+      "description": "Develop capabilities relevant to your evolving occupation.",
+      "opportunities": [
+        "Strong fundamentals help you judge and debug code you did not write yourself.",
+        "Testing and review habits carry over between languages, tools and teams.",
+        "Systems knowledge opens work that involves designing, not only implementing."
+      ],
+      "trade_offs": [
+        "Less time to try adjacent areas such as product or data work.",
+        "Depth is gradual and can be hard to show in a short project."
+      ],
+      "skills_to_build": [
+        "Data structures and algorithms",
+        "Testing and debugging",
+        "System design basics",
+        "Code review"
+      ],
+      "next_steps": [
+        "Build one small system end to end, such as a link shortener with a database and tests.",
+        "Review one open-source pull request each week and note what you would change.",
+        "Read one system-design case study, then redraw its architecture from memory.",
+        "Add automated tests to a project you already have."
+      ],
+      "evidence_ids": []
+    },
+    {
+      "kind": "transform",
+      "description": "Apply existing skills in a changing or adjacent field.",
+      "opportunities": [
+        "AI can speed up repeated tasks such as boilerplate code, draft tests and first-pass documentation.",
+        "People who learn tool workflows can move faster without losing responsibility for the result.",
+        "A stronger workflow makes it easier to prototype ideas and turn them into working software."
+      ],
+      "trade_offs": [
+        "More time may be spent reviewing and refining AI output rather than writing raw code.",
+        "It is easy to lean too much on generated code without checking system fit."
+      ],
+      "skills_to_build": [
+        "Prompting and review workflows",
+        "Working with AI-assisted tools",
+        "Model and data literacy",
+        "Evaluation and debugging of generated output"
+      ],
+      "next_steps": [
+        "Use an AI tool to draft a small feature, then review each output before merging it.",
+        "Compare two different prompting strategies on one task and note which gives a better result.",
+        "Keep one checklist for data quality, testing and architecture checks when you use AI-assisted tools.",
+        "Document the workflows you trust and the ones you avoid."
+      ],
+      "evidence_ids": []
+    },
+    {
+      "kind": "discover",
+      "description": "Explore a different occupational direction.",
+      "opportunities": [
+        "A broader role can combine technical work with product thinking and communication.",
+        "Teams often need people who can connect user needs, constraints and implementation choices.",
+        "Close contact with context can help you notice where software can create real value."
+      ],
+      "trade_offs": [
+        "The role can be less clearly defined at first, so the career curve can feel less predictable.",
+        "You may spend more time learning the surrounding domain before you are seen as a specialist."
+      ],
+      "skills_to_build": [
+        "Product thinking",
+        "Stakeholder communication",
+        "Learning in public",
+        "Contextual problem framing"
+      ],
+      "next_steps": [
+        "Shadow a product or delivery conversation and note where software choices affect real decisions.",
+        "Try a small project that includes user feedback, not only code output.",
+        "Talk to one person in an adjacent role and ask how they decide what matters.",
+        "Share one project update in public and ask for concrete feedback."
+      ],
+      "evidence_ids": []
+    }
+  ],
+  "rules": [
+    {
+      "id": "r-fundamentals-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "engineering_fundamentals"
+          },
+          {
+            "pathway": "adapt"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "build-a-small-system-from-scratch"
+      },
+      "reason": "You chose to deepen your engineering fundamentals on the Adapt path.",
+      "priority": 10,
+      "evidence_ids": []
+    },
+    {
+      "id": "r-systems-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "system_design"
+          },
+          {
+            "pathway": "adapt"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "design-one-small-system"
+      },
+      "reason": "You chose to strengthen system design on the Adapt path.",
+      "priority": 20,
+      "evidence_ids": []
+    },
+    {
+      "id": "r-quality-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "code_quality"
+          },
+          {
+            "pathway": "adapt"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "add-tests-and-review-one-pr"
+      },
+      "reason": "You chose to improve code quality on the Adapt path.",
+      "priority": 30,
+      "evidence_ids": []
+    },
+    {
+      "id": "r-ai-tooling-skill",
+      "condition": {
+        "all": [
+          {
+            "tag": "ai_tooling"
+          },
+          {
+            "pathway": "transform"
+          }
+        ]
+      },
+      "output": {
+        "type": "skill",
+        "ref": "TODO: e.g. prompt-and-review-workflows"
+      },
+      "reason": "You chose to work with AI-assisted tools on the Transform path.",
+      "priority": 40,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-ai-review-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "ai_tooling"
+          },
+          {
+            "pathway": "transform"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "review-one-ai-draft"
+      },
+      "reason": "You chose to build AI review workflows in the Transform path.",
+      "priority": 50,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-models-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "data_literacy"
+          },
+          {
+            "pathway": "transform"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "compare-model-output"
+      },
+      "reason": "You chose to improve model and data literacy on the Transform path.",
+      "priority": 60,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-product-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "product_thinking"
+          },
+          {
+            "pathway": "discover"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "talk-to-users"
+      },
+      "reason": "You chose to explore product thinking on the Discover path.",
+      "priority": 70,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-data-decisions-activity",
+      "condition": {
+        "all": [
+          {
+            "tag": "data_literacy"
+          },
+          {
+            "pathway": "discover"
+          }
+        ]
+      },
+      "output": {
+        "type": "activity",
+        "ref": "use-data-to-make-a-decision"
+      },
+      "reason": "You chose to use data to support decisions on the Discover path.",
+      "priority": 80,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-communication-activity",
+      "condition": {
+        "tag": "communication"
+      },
+      "output": {
+        "type": "activity",
+        "ref": "share-a-draft-and-ask-for-feedback"
+      },
+      "reason": "Communication and collaboration is a valuable capability across all pathways.",
+      "priority": 90,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-learning-in-public-activity",
+      "condition": {
+        "tag": "learning_in_public"
+      },
+      "output": {
+        "type": "activity",
+        "ref": "publish-a-project-update"
+      },
+      "reason": "Learning in public makes your progress legible to others.",
+      "priority": 100,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-hands-on-tradeoff-activity",
+      "condition": {
+        "tradeoff": "less_hands_on_coding"
+      },
+      "output": {
+        "type": "activity",
+        "ref": "keep-one-thing-you-build-yourself"
+      },
+      "reason": "You are trading away some hands-on coding time in order to use tool workflows more effectively.",
+      "priority": 110,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    },
+    {
+      "id": "r-breadth-tradeoff-activity",
+      "condition": {
+        "tradeoff": "less_breadth"
+      },
+      "output": {
+        "type": "activity",
+        "ref": "keep-one-thing-you-build-yourself"
+      },
+      "reason": "You are trading away some breadth in order to deepen a specific area.",
+      "priority": 120,
+      "evidence_ids": [
+        "ev-002"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-001",
+      "publisher": "O*NET Resource Center (U.S. Department of Labor)",
+      "title": "15-1252.00 - Software Developers",
+      "url": "https://www.onetonline.org/link/details/15-1252.00",
+      "published_on": "2026",
+      "accessed_on": "2026-11-07",
+      "finding": "The occupation page lists 17 task statements for software developers, split into core and supplemental tasks. They cover working out user needs and feasibility, designing and modifying software, writing and running tests, fixing errors and improving performance, setting performance standards, consulting with colleagues and customers, reporting on status, coordinating installation and training users. The page also lists many software tool categories used in the work.",
+      "geographic_scope": "United States",
+      "evidence_class": "official_statistic",
+      "limitations": "Describes typical tasks in the United States, not how the work is done in Kenya. The page does not rate any task for AI exposure, so it supports the task list but not the classifications. Only the task list and tool categories were reviewed; skill ratings were not.",
+      "licence": "CC BY 4.0 (per PRD section 14; confirm wording on the O*NET attribution page)"
+    },
+    {
+      "id": "ev-002",
+      "publisher": "International Labour Organization",
+      "title": "TODO: Future of Jobs Report, edition you actually opened",
+      "url": "TODO",
+      "published_on": "TODO",
+      "accessed_on": "TODO",
+      "finding": "TODO: paraphrase, with page number",
+      "geographic_scope": "Global",
+      "evidence_class": "research",
+      "limitations": "TODO",
+      "licence": "CC BY 4.0"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t-001",
+      "description": "Work out what users need and whether a design is realistic within the time and budget.",
+      "classification": "human_centred",
+      "rationale": "Our judgement: this task is mostly about listening, weighing trade-offs and agreeing limits with people. AI tools can help draft a list of requirements, but deciding what is feasible depends on context and accountability that stay with the developer. No cited source classifies this task.",
+      "skills": [
+        "Requirements analysis",
+        "Communication",
+        "Estimation"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-002",
+      "description": "Create and run tests, then fix the issues they reveal.",
+      "classification": "augmented",
+      "rationale": "Our judgement: AI-assisted tools can draft tests and documentation quickly, but a person still decides what needs testing, checks the results and owns the outcome. The work shifts toward reviewing and choosing, not away from the developer. No cited source classifies this task.",
+      "skills": [
+        "Testing",
+        "Debugging",
+        "Review"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-003",
+      "description": "Diagnose defects and trace them back to root causes in a large or unfamiliar system.",
+      "classification": "augmented",
+      "rationale": "Our judgement: summaries can be drafted from tickets or commit history, while a person decides what matters to the audience and what to flag. Tools reduce the writing effort more than the judgement.",
+      "skills": [
+        "Debugging",
+        "System reading",
+        "Problem framing"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-004",
+      "description": "Write updates and communicate progress to colleagues, users or project partners.",
+      "classification": "human_centred",
+      "rationale": "Our judgement: rollouts depend on trust, timing and answering people's questions in their own context. Tools can draft guides, but coordinating a team and helping colleagues adjust is relationship work.",
+      "skills": [
+        "Communication",
+        "Relationship building",
+        "Stakeholder management"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-005",
+      "description": "Choose what counts as good enough for a feature or decision.",
+      "classification": "human_centred",
+      "rationale": "Our judgement: choosing what good enough means depends on user needs and business priorities. Tools can collect measurements, but the standard is a human decision with trade-offs that people need to agree on. No cited source classifies this task.",
+      "skills": [
+        "Requirements analysis",
+        "Product judgment",
+        "Stakeholder communication"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-006",
+      "description": "Check and clean data used in a product or analysis workflow.",
+      "classification": "automated",
+      "rationale": "Our judgement: the repetitive parts, such as queries and data clean-up scripts, can often be generated or scripted, so tools may take over much of that routine work. A developer still chooses what to measure and checks that the results make sense.",
+      "skills": [
+        "Data cleanup",
+        "SQL",
+        "Quality checks"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-007",
+      "description": "Design software and choose between competing architectures.",
+      "classification": "augmented",
+      "rationale": "Our judgement: tools can propose designs and sketch alternatives, but weighing cost, risk and long-term maintenance against the needs of a specific team still takes human judgement. The developer's role moves toward evaluating options.",
+      "skills": [
+        "System design",
+        "Architecture",
+        "Trade-off analysis"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    },
+    {
+      "id": "t-008",
+      "description": "Roll out a change and help people adjust to it.",
+      "classification": "human_centred",
+      "rationale": "Our judgement: rollouts depend on trust, timing and answering people's questions in their own context. Tools can draft guides, but coordinating a team and helping colleagues adjust is relationship work.",
+      "skills": [
+        "Communication",
+        "Change management",
+        "Team support"
+      ],
+      "evidence_ids": [
+        "ev-001"
+      ]
+    }
+  ]
+}
