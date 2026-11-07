@@ -120,6 +120,48 @@ export interface Report {
   suggestions: Suggestion[];
 }
 
+/* ---------- Research interfaces (PROVISIONAL — no contract yet; owner: Person 3) ---------- */
+
+export type EvidenceLevel =
+  'official_statistics' | 'peer_reviewed' | 'industry_report' | 'news_report';
+
+export type WorkforceEventType = 'adoption' | 'restructuring' | 'new_role' | 'policy' | 'training';
+
+export interface WorkforceEvent {
+  id: string;
+  /** ISO date (YYYY-MM or YYYY-MM-DD). */
+  date: string;
+  title: string;
+  summary: string;
+  industry: string;
+  organisation?: string;
+  eventType: WorkforceEventType;
+  evidenceLevel: EvidenceLevel;
+  source: Source;
+}
+
+export interface ObservatoryResponse {
+  items: WorkforceEvent[];
+  industries: string[];
+}
+
+export type TaskClassification = 'routine' | 'augmented' | 'human_led' | 'emerging';
+
+export interface OccupationTask {
+  id: string;
+  name: string;
+  classification: TaskClassification;
+  explanation: string;
+  skills: string[];
+  source?: Source;
+}
+
+export interface TaskBreakdown {
+  occupation: Occupation;
+  tasks: OccupationTask[];
+  limitations: string[];
+}
+
 export type ApiErrorCode =
   | 'VALIDATION_ERROR'
   | 'NOT_FOUND'

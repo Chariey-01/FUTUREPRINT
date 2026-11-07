@@ -1,5 +1,6 @@
 import type { Transport } from '../lib/api';
 import { fail, mockControl, mockServer, type MockResult } from './mockServer';
+import { SAMPLE_EVENTS, sampleTaskBreakdown } from './researchData';
 
 const delay = (ms: number, signal?: AbortSignal) =>
   new Promise<void>((resolve, reject) => {
@@ -34,8 +35,26 @@ export const mockTransport: Transport = async ({ method, path, headers, body, si
     case 'POST /api/v1/sessions/current/report':
       result = mockServer.createReport(headers);
       break;
-    default:
-      result = fail(404, 'NOT_FOUND', `No mock route for ${method} ${pathname}`);
+    case 'GET /api/v1/observatory/events':
+      result = {
+        status: 200,
+        body: {
+          items: [...SAMPLE_EVENTS].sort((a, b) => b.date.localeCompare(a.date)),
+          industries: [...new Set(SAMPLE_EVENTS.map((e) => e.industry))].sort(),
+        },
+      };
+      break;
+    default: {
+      const tasks = method === 'GET' && pathname.match(/^\/api\/v1\/occupations\/([^/]+)\/tasks$/);
+      const breakdown = tasks ? sampleTaskBreakdown(decodeURIComponent(tasks[1]!)) : null;
+      result = breakdown
+        ? { status: 200, body: breakdown }
+        : fail(
+            404,
+            'NOT_FOUND',
+            tasks ? 'We couldn’t find that occupation.' : `No mock route for ${method} ${pathname}`,
+          );
+    }
   }
   // Deep-copy so callers can't mutate mock state, like a real network boundary.
   return { status: result.status, body: JSON.parse(JSON.stringify(result.body)) };

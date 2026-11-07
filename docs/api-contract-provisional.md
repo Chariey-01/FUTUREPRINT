@@ -45,6 +45,19 @@
 | `VALIDATION_ERROR` | 422 | inline message |
 | 5xx / network | – | retry (queries auto-retry twice for cold starts) |
 
+## Research endpoints (provisional, added for the Observatory and Task Scanner)
+
+| Method | Path | Success |
+|---|---|---|
+| GET | `/observatory/events` | 200 `{ items: WorkforceEvent[], industries: string[] }` |
+| GET | `/occupations/:id/tasks` | 200 `TaskBreakdown` · 404 if the occupation is unknown |
+
+`WorkforceEvent`: `{ id, date (YYYY-MM[-DD]), title, summary, industry, organisation?, eventType: adoption|restructuring|new_role|policy|training, evidenceLevel: official_statistics|peer_reviewed|industry_report|news_report, source }`
+
+`TaskBreakdown`: `{ occupation, tasks: { id, name, classification: routine|augmented|human_led|emerging, explanation, skills: string[], source? }[], limitations: string[] }`
+
+**Person 3:** please confirm or replace these classifications and evidence levels. The labels shown to visitors live in `client/src/lib/evidence.ts`.
+
 ## Questions for the team
 1. **Person 2:** Is the step number in the choice body acceptable for stale detection, or would you prefer an `If-Match`/version field or an `Idempotency-Key` header?
 2. **Person 2:** What is the session TTL, and is `expiresAt` returned?

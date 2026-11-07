@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { EmptyState } from '../../components/EmptyState';
 import { ErrorState } from '../../components/ErrorState';
 import { LoadingState } from '../../components/LoadingState';
@@ -54,6 +54,15 @@ export default function OccupationsPage() {
         title="Which future would you like to explore?"
         intro="Pick an occupation — yours, one you’re curious about, or one you’re heading toward. Then make three decisions about how its future could unfold."
       />
+      <p className="mt-4 text-sm text-midnight/80">
+        Not sure where to start?{' '}
+        <Link
+          to="/observatory"
+          className="font-semibold text-midnight underline underline-offset-4"
+        >
+          Browse the Workforce Observatory
+        </Link>
+      </p>
 
       {token && (
         <div className="mt-8 flex flex-col gap-3 rounded-3xl border border-adapt-ink/25 bg-adapt-soft px-5 py-4 sm:flex-row sm:items-center sm:justify-between">

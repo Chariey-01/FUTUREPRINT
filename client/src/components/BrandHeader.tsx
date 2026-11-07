@@ -26,9 +26,9 @@ export function BrandHeader({ variant = 'light' }: { variant?: 'light' | 'dark' 
     <>
       {SECTIONS.map((s) => (
         <li key={s.href}>
-          <a href={s.href} className={linkCls}>
+          <Link to={s.href} className={linkCls}>
             {s.label}
-          </a>
+          </Link>
         </li>
       ))}
       {token && (

@@ -1,6 +1,7 @@
 import { m } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { PathwayCard } from '../../components/PathwayCard';
+import { ButtonLink } from '../../components/ui/Button';
 import { PATHWAY_ORDER } from '../../lib/pathways';
 import { HeroSection } from './HeroSection';
 
@@ -103,15 +104,18 @@ export default function PortalPage() {
                 and each one explains why it was made.
               </p>
               <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                <Link
-                  to="/start"
-                  className="btn min-h-[56px] bg-transform px-8 text-xl font-bold text-midnight hover:bg-[#EDB3A3]"
-                >
+                <ButtonLink to="/start" variant="accent" size="lg">
                   Begin <span aria-hidden="true">→</span>
+                </ButtonLink>
+                <ButtonLink to="/observatory" variant="light" size="lg">
+                  Workforce Observatory
+                </ButtonLink>
+                <Link
+                  to="/methodology"
+                  className="text-sm font-semibold underline underline-offset-4"
+                >
+                  Our methodology
                 </Link>
-                <p className="text-sm text-ivory-200">
-                  About 3 minutes · No sign-up · Kept only in this tab
-                </p>
               </div>
             </m.div>
           </div>

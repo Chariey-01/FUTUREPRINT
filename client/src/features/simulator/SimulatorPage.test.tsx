@@ -19,10 +19,9 @@ describe('Future Scenario Simulator', () => {
   it('asks the visitor to choose an occupation when there is no session', async () => {
     renderApp('/simulate');
     expect(await screen.findByRole('heading', { name: /hasn’t started yet/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /choose an occupation/i })).toHaveAttribute(
-      'href',
-      '/start',
-    );
+    expect(
+      within(screen.getByRole('main')).getByRole('link', { name: /choose an occupation/i }),
+    ).toHaveAttribute('href', '/start');
   });
 
   it('renders the server scenario with occupation, progress and decision cards', async () => {

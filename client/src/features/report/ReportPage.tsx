@@ -166,6 +166,14 @@ function ReportContent({ report }: { report: Report }) {
             </dd>
           </div>
         </dl>
+        <p className="mt-6 print:hidden">
+          <Link
+            to={`/occupations/${encodeURIComponent(report.occupation.id)}`}
+            className="text-sm font-semibold underline underline-offset-4"
+          >
+            See how {report.occupation.title} tasks are changing
+          </Link>
+        </p>
       </ReportSection>
 
       <ReportSection

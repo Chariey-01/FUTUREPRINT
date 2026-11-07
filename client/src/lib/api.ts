@@ -3,7 +3,9 @@ import type {
   ApiErrorCode,
   CreateSessionRequest,
   CreateSessionResponse,
+  ObservatoryResponse,
   OccupationListResponse,
+  TaskBreakdown,
   Report,
   Session,
   SubmitChoiceRequest,
@@ -172,4 +174,11 @@ export const api = {
     request<Session>('/api/v1/sessions/current/choices', { method: 'POST', body, auth: true }),
   createReport: () =>
     request<Report>('/api/v1/sessions/current/report', { method: 'POST', auth: true }),
+  // Provisional research endpoints (see docs/api-contract-provisional.md).
+  listWorkforceEvents: (signal?: AbortSignal) =>
+    request<ObservatoryResponse>('/api/v1/observatory/events', { signal }),
+  getOccupationTasks: (occupationId: string, signal?: AbortSignal) =>
+    request<TaskBreakdown>(`/api/v1/occupations/${encodeURIComponent(occupationId)}/tasks`, {
+      signal,
+    }),
 };
