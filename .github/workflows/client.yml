@@ -1,0 +1,40 @@
+# Frontend checks: formatting, lint, types, unit tests and a production build.
+# Runs only when client code (or this workflow) changes, so backend-only PRs stay fast.
+name: Client
+
+on:
+  push:
+    branches: [main]
+    paths: ["client/**", ".nvmrc", ".github/workflows/client.yml"]
+  pull_request:
+    paths: ["client/**", ".nvmrc", ".github/workflows/client.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: client-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      # Both build modes ship: the real-API build and the mock-data demo build.
+      - run: npm run build
+      - run: npm run build:mock
