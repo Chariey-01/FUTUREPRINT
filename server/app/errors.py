@@ -128,6 +128,17 @@ def register_error_handlers(app: Flask) -> None:
             response.headers["Allow"] = ", ".join(exc.valid_methods)  # type: ignore[attr-defined]
         return response
 
+    from app.engine.adapter import EngineError
+
+    @app.errorhandler(EngineError)
+    def _handle_engine_error(exc: EngineError):  # type: ignore[no-untyped-def]
+        # Reached when an engine fault is not translated by a service (e.g. while
+        # presenting the current scenario). Details are logged, never returned.
+        logger.error("engine_error", extra={"reason": str(exc)})
+        response = jsonify(_payload("engine_error", "The scenario engine could not complete this request."))
+        response.status_code = 500
+        return response
+
     @app.errorhandler(Exception)
     def _handle_unexpected(exc: Exception):  # type: ignore[no-untyped-def]
         logger.exception("unhandled_exception", extra={"error_type": type(exc).__name__})

@@ -10,6 +10,7 @@ from alembic.script import ScriptDirectory
 
 from app import MIGRATIONS_DIR, __version__
 from app.repositories import health_repository
+from app.services.content_service import get_engine
 
 logger = logging.getLogger(__name__)
 
@@ -47,4 +48,12 @@ def readiness() -> tuple[dict[str, Any], int]:
         checks.setdefault("migrations", "unknown")
         checks.setdefault("content", "unknown")
     ready = all(v == "ok" for v in checks.values())
-    return {"status": "ready" if ready else "not_ready", "checks": checks}, (200 if ready else 503)
+    engine = get_engine()
+    body = {
+        "status": "ready" if ready else "not_ready",
+        "checks": checks,
+        # Not a readiness failure: the app only starts with the reference
+        # engine when that is allowed. Shown so deployments can see it.
+        "engine": {"is_reference": engine.is_reference, "version": engine.version},
+    }
+    return body, (200 if ready else 503)

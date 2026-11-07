@@ -132,16 +132,16 @@ def test_session_row_is_locked_during_choice_processing(app, client, new_session
         assert result["status"] == 200
 
 
-def test_engine_contract_violation_returns_500_without_persisting(app, client, new_session):
-    token, _ = new_session()
+def test_engine_contract_violation_returns_500_without_persisting(app, client, seeded):
     broken = types.ModuleType("broken_engine")
     broken.start_state = reference.start_state
     broken.present_scenario = reference.present_scenario
     broken.generate_report = reference.generate_report
     broken.apply_choice = lambda content, state, sid, cid: {"state": state, "completed": False, "next_scenario_id": str(uuid.uuid4())}
     original = app.extensions[ENGINE_KEY]
-    app.extensions[ENGINE_KEY] = EngineAdapter(broken, is_reference=False)
+    app.extensions[ENGINE_KEY] = EngineAdapter(broken)
     try:
+        token = client.post("/api/v1/sessions", json={"occupation_slug": "test-occupation"}).get_json()["session_token"]
         response = submit(client, token, choice("s1", "a"))
     finally:
         app.extensions[ENGINE_KEY] = original

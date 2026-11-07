@@ -74,7 +74,8 @@ All settings are environment variables, validated at start-up; see [`.env.exampl
 | `SECRET_KEY` | Required. At least 32 characters in production. It also derives report share tokens, so rotating it breaks existing share links. |
 | `CORS_ORIGINS` | Comma-separated frontend origins. `*` is rejected in production. |
 | `SESSION_TTL_HOURS` | Default 72. Extended each time a choice is submitted. |
-| `SCENARIO_ENGINE_MODULE` | Import path of Person 3's engine. When empty, the reference stand-in is used. |
+| `SCENARIO_ENGINE_MODULE` | Import path of Person 3's engine. When empty, the reference stand-in is used, but only where it is allowed. |
+| `ALLOW_REFERENCE_ENGINE` | When unset, the stand-in is allowed in development and testing and **refused in production** (the app won't start). Set `true` or `false` to override. |
 | `AI_INSIGHTS_ENABLED` | Default `false`. When `true`, `OPENAI_API_KEY` and `OPENAI_MODEL` are required. |
 
 ## Migrations
@@ -85,7 +86,8 @@ flask db downgrade base                # roll everything back (development only)
 flask db migrate -m "describe change"  # autogenerate after editing models; always review the file
 ```
 
-`0001_initial_schema` creates all tables: content, sessions, choices, reports and AI usage. It also creates a trigger that makes report snapshots immutable.
+- `0001_initial_schema` creates all tables: content, sessions, choices, reports and AI usage. It also creates a trigger that makes report snapshots immutable.
+- `0002_session_engine_id` adds `anonymous_sessions.engine_id`, recording which engine created each session's state. Existing rows are backfilled to `app.engine.reference`.
 
 ## Seed data
 
@@ -103,9 +105,12 @@ Tests run against real PostgreSQL. They rely on behaviour SQLite cannot reproduc
 ```bash
 cd server
 export TEST_DATABASE_URL=postgresql://futureprint:<password>@localhost:5432/futureprint_test
-pytest                       # 88 tests
+pytest                       # 115 tests
 pytest --cov=app             # with coverage
+pytest tests/test_engine_integration.py   # scenario-engine integration tests only
 ```
+
+To check the configured scenario engine against the loaded seed data, run `flask engine check` (see [docs/engine-integration.md](docs/engine-integration.md)).
 
 Safety guard: the suite refuses to run unless the database name ends in `_test`. It drops and rebuilds that database's `public` schema from the migrations, so **never point `TEST_DATABASE_URL` at a database you care about**.
 
@@ -144,7 +149,8 @@ Each response carries an `X-Request-ID` header. Send your own (8–64 characters
 ```http
 GET /api/v1/health          → 200 {"status": "ok", "version": "0.1.0", "database": "ok"}
                               503 {"status": "degraded", "version": "0.1.0", "database": "unavailable"}
-GET /api/v1/health/ready    → 200 {"status": "ready", "checks": {"database": "ok", "migrations": "ok", "content": "ok"}}
+GET /api/v1/health/ready    → 200 {"status": "ready", "checks": {"database": "ok", "migrations": "ok", "content": "ok"},
+                                    "engine": {"is_reference": false, "version": "1.0.0"}}
 ```
 
 ### Occupations
@@ -206,7 +212,7 @@ Content-Type: application/json
     "status": "active",
     "occupation": {"slug": "software-developer", "name": "Software Developer"},
     "content_version": "2026.11.07+589cc455",
-    "engine": {"name": "app.engine.reference", "is_reference": true},
+    "engine": {"name": "app.engine.reference", "version": null, "is_reference": true},
     "step_count": 0,
     "current_scenario": {
       "id": "1b0c...uuid",
@@ -226,7 +232,7 @@ Content-Type: application/json
 ```
 Errors: `404 occupation_not_found`, `422 validation_error` (bad slug or unknown field), `415` (body is not JSON).
 
-**Resume.** `GET /api/v1/sessions/current` returns `{"session": {...}}` in the same shape. Errors: `401 invalid_token`, `401 session_expired`.
+**Resume.** `GET /api/v1/sessions/current` returns `{"session": {...}}` in the same shape. Errors: `401 invalid_token`, `401 session_expired`, `409 session_engine_mismatch` (the session was started under a different engine or engine version: start a new session), and `500 engine_error`.
 
 **Submit a choice.** Send **only** `choice_id`. The server works out the current scenario from the session; a `scenario_id` field is rejected.
 
@@ -251,6 +257,8 @@ Content-Type: application/json
 | 422 | `invalid_choice` | The choice is not one of the current scenario's choices |
 | 409 | `duplicate_choice` | This choice was already accepted (double click, retry or concurrent request) |
 | 409 | `session_completed` | The simulation is finished |
+| 422 | `choice_rejected` | The engine rejected the choice under its own rules, for example a locked choice (nothing is saved) |
+| 409 | `session_engine_mismatch` | The session was started under a different engine or version; start a new session |
 | 401 | `invalid_token` / `session_expired` | Missing, unknown or expired token |
 | 500 | `engine_error` | The scenario engine failed or broke the contract (nothing is saved) |
 
@@ -262,7 +270,7 @@ Concurrency: the session row is locked (`SELECT ... FOR UPDATE`) while a choice 
 POST /api/v1/sessions/current/report
 Authorization: Bearer fps_...
 ```
-Returns `201` the first time and `200` with the **same** report and share token afterwards. Errors: `409 session_not_completed`, and `422 unexpected_fields` if the body contains any fields.
+Returns `201` the first time and `200` with the **same** report and share token afterwards. Errors: `409 session_not_completed`, `409 session_engine_mismatch` (only when a *new* report would need a different engine; existing reports are always returned), and `422 unexpected_fields` if the body contains any fields.
 
 ```json
 {
@@ -317,19 +325,20 @@ The model only explains curated evidence and never decides simulation outcomes. 
 
 ## Scenario engine integration (for Person 3)
 
-The backend depends only on this contract (full details in [`app/engine/contract.py`](app/engine/contract.py)):
+The full guide is in **[docs/engine-integration.md](docs/engine-integration.md)**: how the engine is loaded, the required signatures, input and output structures, error translation, the production guard, `flask engine check`, and the open decisions for Person 3.
+
+In short:
 
 ```python
 start_state() -> dict
 apply_choice(content, state, current_scenario_id, choice_id) -> StepResult  # {"state", "next_scenario_id", "completed", "feedback"}
+present_scenario(content, scenario_id, state) -> dict                       # {"id", "title", "narrative", "choices": [...]}
 generate_report(content, occupation_slug, choices, state) -> dict
-present_scenario(content, scenario_id, state) -> dict
 ```
 
-- The functions must be pure: no Flask, no database, no I/O. The backend passes `content` as plain dicts built from PostgreSQL.
-- **Before** calling the engine, the backend checks that the choice belongs to the current scenario. **After** the call, it checks the result: valid shape, JSON-serialisable, and a `next_scenario_id` that exists and is not the current scenario.
-- To plug the engine in, put the module where it can be imported (suggested: `server/engine_core/`) and set `SCENARIO_ENGINE_MODULE=engine_core.scenario`. The app checks for the four functions at start-up.
-- Until then, `app/engine/reference.py` is a **stand-in, not the real engine**. It follows the `next` and `effects` values in the seed data and tallies which pathway kind each choice leans towards. `session.engine.is_reference` is `true` while it is in use.
+- Configure with `SCENARIO_ENGINE_MODULE=<module>`. Signatures and a `start_state()` smoke call are checked at start-up.
+- Optional `ENGINE_VERSION` is recorded on sessions and reports. Optional `InvalidChoiceError` lets the engine reject a choice with `422 choice_rejected`.
+- `app/engine/reference.py` is a **development stand-in, not the real engine**. Production refuses to start with it unless `ALLOW_REFERENCE_ENGINE=true`.
 
 ## Security notes
 

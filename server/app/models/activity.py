@@ -58,6 +58,9 @@ class AnonymousSession(UUIDPrimaryKeyMixin, TimestampMixin, db.Model):
         UUID(as_uuid=True), ForeignKey("scenarios.id", ondelete="RESTRICT")
     )
     state: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False, default=dict)
+    # Which engine (module[@version]) created ``state``; state is never fed
+    # to a different engine.
+    engine_id: Mapped[str] = mapped_column(String(255), nullable=False)
     step_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     last_seen_at: Mapped[datetime] = mapped_column(

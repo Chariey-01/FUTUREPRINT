@@ -21,6 +21,7 @@ def create(
     content_version_id: uuid.UUID,
     current_scenario_id: uuid.UUID,
     state: dict[str, Any],
+    engine_id: str,
     expires_at: datetime,
 ) -> AnonymousSession:
     session = AnonymousSession(
@@ -29,6 +30,7 @@ def create(
         content_version_id=content_version_id,
         current_scenario_id=current_scenario_id,
         state=state,
+        engine_id=engine_id,
         status="active",
         step_count=0,
         expires_at=expires_at,

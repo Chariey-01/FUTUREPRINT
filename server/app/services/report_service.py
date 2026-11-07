@@ -73,7 +73,7 @@ def _build_snapshot(session: AnonymousSession, engine_report: dict[str, Any], co
         "schema_version": SNAPSHOT_SCHEMA_VERSION,
         "generated_at": s.iso(session_service.utcnow()),
         "content_version": session.content_version.version,
-        "engine": {"name": engine.name, "is_reference": engine.is_reference},
+        "engine": engine.describe(),
         "occupation": {
             "slug": occupation.slug,
             "name": occupation.name,
@@ -117,6 +117,7 @@ def create_or_get_report(session_id: uuid.UUID) -> dict[str, Any]:
             session_repository.commit()  # release the row lock
             return _share_payload(existing, created=False)
 
+        session_service.ensure_engine_compatible(session)
         content = build_engine_content(session.occupation, session.content_version)
         engine_choices = [
             {"step_index": r.step_index, "scenario_id": str(r.scenario_id), "choice_id": str(r.choice_id)}
