@@ -33,6 +33,25 @@ describe('Occupation selection', () => {
     expect(screen.getByRole('button', { name: /try again/i })).toBeInTheDocument();
   });
 
+  it('filters occupations by search and announces the result count', async () => {
+    const { user } = renderApp('/start');
+    const search = await screen.findByRole('searchbox', { name: /search occupations/i });
+    await user.type(search, 'clinical');
+    // (the test harness's <output> location probe is also a "status", so match by text)
+    expect(screen.getByText('1 of 4 occupations match “clinical”')).toHaveAttribute(
+      'aria-live',
+      'polite',
+    );
+    expect(screen.getByRole('button', { name: /registered nurse/i })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /accountant/i })).not.toBeInTheDocument();
+
+    await user.clear(search);
+    await user.type(search, 'astronaut');
+    expect(screen.getByRole('heading', { name: /no doors match/i })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /clear search/i }));
+    expect(screen.getByText('4 occupations to explore')).toBeInTheDocument();
+  });
+
   it('shows an empty state when there are no occupations', async () => {
     vi.spyOn(apiModule.api, 'listOccupations').mockResolvedValue({ items: [] });
     renderApp('/start');

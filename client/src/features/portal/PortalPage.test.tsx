@@ -18,7 +18,7 @@ describe('Future Portal', () => {
     await user.click(begin!);
     expect(screen.getByTestId('location')).toHaveTextContent('/start');
     expect(
-      await screen.findByRole('heading', { name: /which work would you like to explore/i }),
+      await screen.findByRole('heading', { name: /which future would you like to explore/i }),
     ).toBeInTheDocument();
   });
 
