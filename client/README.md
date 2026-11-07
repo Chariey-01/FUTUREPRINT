@@ -8,7 +8,7 @@ React + TypeScript + Vite + Tailwind + React Router + Framer Motion + TanStack Q
 cd client
 npm install
 npm run dev:mock     # full journey on in-browser mock data, no backend needed
-npm run dev          # real API: set VITE_API_BASE_URL in .env.local (see .env.example)
+npm run dev          # real API: proxies /api to Flask on :5000 (see .env.example)
 ```
 
 Mock mode shows a "Mock mode · sample data, not real research" strip on every page.
