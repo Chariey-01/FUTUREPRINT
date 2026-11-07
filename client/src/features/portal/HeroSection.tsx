@@ -1,6 +1,6 @@
 import { m } from 'framer-motion';
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { ButtonLink } from '../../components/ui/Button';
 import { PATHWAYS } from '../../lib/pathways';
 import type { PathwayId } from '../../types/api';
 import { HorizonScene, LaptopIcon, RocketIcon, SproutIcon } from './HeroIllustration';
@@ -54,8 +54,8 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-8 max-w-xl text-lg leading-relaxed text-ivory-200 sm:text-xl"
           >
-            A future-of-work career exploration platform that lets you experience real career
-            choices, see the possible outcomes, and discover pathways for your next step.
+            An interactive journey into evolving careers, emerging skills and the possibilities
+            ahead.
           </m.p>
           <m.div
             initial={{ opacity: 0, y: 12 }}
@@ -63,12 +63,9 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="relative mt-10 inline-flex"
           >
-            <Link
-              to="/start"
-              className="btn min-h-[64px] bg-transform px-10 text-2xl font-bold text-midnight shadow-[0_10px_30px_-10px_rgba(231,161,143,0.7)] hover:bg-[#EDB3A3] sm:min-h-[72px] sm:px-12 sm:text-3xl"
-            >
+            <ButtonLink to="/start" variant="accent" size="xl">
               Begin <span aria-hidden="true">→</span>
-            </Link>
+            </ButtonLink>
             <Sparks className="absolute -right-10 -top-6 h-10 w-10 text-transform" />
           </m.div>
         </div>
@@ -90,7 +87,7 @@ export function HeroSection() {
                 >
                   {b.icon}
                   <span className="mt-1 text-lg font-bold sm:mt-2 sm:text-2xl">{p.name}</span>
-                  <span className="mt-1 max-w-[12ch] text-xs leading-snug sm:text-sm">
+                  <span className="mt-1 hidden max-w-[12ch] text-sm leading-snug sm:block">
                     {p.tagline}
                   </span>
                 </div>

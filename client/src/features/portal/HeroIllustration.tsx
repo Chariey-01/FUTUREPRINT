@@ -62,6 +62,19 @@ export function HorizonScene({ className = '' }: { className?: string }) {
         <path d="M1380 225c12-28 58-30 72-8 20-22 66-14 68 16 28 0 38 32 14 40h-150c-26-6-24-44-4-48z" />
       </g>
 
+      {/* skyline (industry & work) and a wind turbine (emerging fields), cut-paper style */}
+      <g fill="#6E6496" opacity="0.85">
+        <rect x="905" y="262" width="16" height="40" />
+        <rect x="924" y="248" width="20" height="54" />
+        <rect x="947" y="270" width="14" height="32" />
+        <rect x="964" y="256" width="18" height="46" />
+        <rect x="985" y="276" width="12" height="26" />
+      </g>
+      <g stroke="#EDE7DD" strokeWidth="2.5" strokeLinecap="round" opacity="0.8">
+        <path d="M1500 346 V282" />
+        <path d="M1500 282 L1500 254 M1500 282 L1524 296 M1500 282 L1476 296" />
+      </g>
+
       {/* far hills */}
       <path
         d="M0 300 C160 250 300 290 420 280 C560 268 640 300 760 300 C880 300 960 280 1090 300 C1240 322 1380 270 1600 286 V460 H0 Z"
@@ -103,7 +116,39 @@ export function HorizonScene({ className = '' }: { className?: string }) {
         fill="#E9DFEF"
         filter="url(#hz-paper)"
       />
+
+      {/* travellers: one walking each pathway toward the horizon */}
+      <Traveller x={905} y={366} scale={0.5} shirt="#EDE7DD" pack="#54457F" />
+      <Traveller x={1098} y={424} scale={0.66} shirt="#F4F0E9" pack="#8C3F2B" />
+      <Traveller x={1318} y={364} scale={0.48} shirt="#EDE7DD" pack="#2E5B3E" />
+      {/* foreground visitors looking on (cropped away on narrow screens) */}
+      <Traveller x={170} y={490} scale={2.1} shirt="#DDD3C3" pack="#3A4F7A" hair="#2A1E1A" />
+      <Traveller x={1470} y={496} scale={2.3} shirt="#BFB3A0" pack="#24365A" hair="#3A2A22" />
     </svg>
+  );
+}
+
+interface TravellerProps {
+  x: number;
+  y: number;
+  scale: number;
+  shirt: string;
+  pack: string;
+  hair?: string;
+}
+
+/** A simple cut-paper figure seen from behind; (x, y) is the point between the feet. */
+function Traveller({ x, y, scale, shirt, pack, hair = '#1B1A2E' }: TravellerProps) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+      <ellipse cx="0" cy="0" rx="14" ry="3" fill="#17243B" opacity="0.18" />
+      <rect x="-9" y="-26" width="7.5" height="26" rx="3.5" fill="#24365A" />
+      <rect x="1.5" y="-26" width="7.5" height="26" rx="3.5" fill="#24365A" />
+      <path d="M-12 -24 C-13 -40 -10 -50 0 -51 C10 -50 13 -40 12 -24 Z" fill={shirt} />
+      <rect x="-8" y="-48" width="16" height="19" rx="5" fill={pack} />
+      <rect x="-3" y="-56" width="6" height="6" fill="#C99C84" />
+      <circle cx="0" cy="-62" r="8.5" fill={hair} />
+    </g>
   );
 }
 
