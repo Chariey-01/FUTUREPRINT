@@ -1,0 +1,299 @@
+{
+  "pathways": [
+    {
+      "occupation": "customer-service-agent", "slug": "ai-assisted-care-specialist", "kind": "adapt", "display_order": 1,
+      "title": "Adapt: AI-assisted customer care specialist",
+      "summary": "Stay in customer service, use AI assistants for routine drafting and record-keeping, and specialise in the complex, emotional and multilingual cases that customers still want a person to handle.",
+      "steps": [
+        "Learn the AI assistant and knowledge tools your employer uses, and practise checking their suggestions before sending",
+        "Volunteer for escalations and complaints to build complex problem-solving experience",
+        "Strengthen service in more than one language, for example English and Kiswahili",
+        "Track your quality and resolution results to show you can handle difficult cases"
+      ],
+      "target_roles": ["Senior customer care agent", "Escalations and complaints specialist", "Team lead"],
+      "skills": ["ai-tool-fluency", "ai-output-verification", "empathy-active-listening", "problem-solving", "multilingual-communication"],
+      "evidence": [
+        {"source": "nber-w31161-genai-at-work", "note": "AI assistance raised productivity most for novice agents, suggesting AI can speed up learning on the job (outside Africa)."},
+        {"source": "klarna-ai-assistant-press-2024", "note": "Even in a heavily automated deployment, customers could still choose live agents (company statement, outside Africa)."}
+      ]
+    },
+    {
+      "occupation": "customer-service-agent", "slug": "conversation-and-quality-designer", "kind": "transform", "display_order": 2,
+      "title": "Transform: Conversation designer or CX quality analyst",
+      "summary": "Move from answering conversations to improving them: design chatbot flows, maintain the knowledge base AI tools rely on, and review automated conversations for quality and fairness.",
+      "steps": [
+        "Document the questions customers ask most and the answers that work",
+        "Learn the basics of conversation design and knowledge-base writing",
+        "Join quality reviews of automated or AI-assisted conversations",
+        "Build a small portfolio: an improved FAQ, a chatbot flow, or a quality report"
+      ],
+      "target_roles": ["Conversation designer", "Knowledge base specialist", "Customer experience quality analyst"],
+      "skills": ["conversation-design", "clear-communication", "ai-output-verification", "responsible-ai-use"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "AI and big data and technology literacy are among the fastest-growing skills employers expect."}
+      ]
+    },
+    {
+      "occupation": "customer-service-agent", "slug": "customer-data-and-operations", "kind": "discover", "display_order": 3,
+      "title": "Discover: Customer data and digital operations",
+      "summary": "Use your knowledge of customers and service systems as a bridge into data analysis or CRM administration, roles that turn service data into decisions.",
+      "steps": [
+        "Learn spreadsheets and basic SQL using exported service data (with personal data removed)",
+        "Build dashboards of common complaint types or resolution times",
+        "Take an introductory data-analysis course",
+        "Apply for junior analyst or CRM administrator roles, internal ones first"
+      ],
+      "target_roles": ["Junior data analyst", "CRM administrator", "Service operations analyst"],
+      "skills": ["data-analysis", "crm-systems", "digital-literacy"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "Data analysts and scientists are among the fastest-growing jobs for 2025-2030."}
+      ]
+    },
+    {
+      "occupation": "accountant", "slug": "tech-enabled-accountant", "kind": "adapt", "display_order": 1,
+      "title": "Adapt: Tech-enabled accountant",
+      "summary": "Let software and AI take the routine processing, and focus on review, certification, tax judgement and explaining the numbers to clients.",
+      "steps": [
+        "Master the accounting and tax software used by your clients or employer",
+        "Practise reviewing AI-drafted reconciliations and statements for errors",
+        "Deepen tax and regulatory expertise, where judgement is hardest to automate",
+        "Offer clearer client explanations and advice alongside compliance work"
+      ],
+      "target_roles": ["Accountant", "Tax advisor", "Finance manager"],
+      "skills": ["financial-reporting", "tax-compliance", "ai-output-verification", "professional-judgement"],
+      "evidence": [
+        {"source": "ilo-genai-task-scores-2025", "note": "Statement preparation scores higher on exposure than tax advice, investigations and audit."}
+      ]
+    },
+    {
+      "occupation": "accountant", "slug": "forensic-audit-and-risk", "kind": "transform", "display_order": 2,
+      "title": "Transform: Forensic accounting, audit and risk",
+      "summary": "Move toward the least exposed parts of accountancy: investigations, audit and risk, using data analytics to examine whole transaction sets.",
+      "steps": [
+        "Build data-analysis skills for auditing (spreadsheets, SQL, audit analytics tools)",
+        "Seek audit or internal-control assignments",
+        "Study fraud examination and forensic accounting",
+        "Develop interviewing and evidence-documentation skills"
+      ],
+      "target_roles": ["Forensic accountant", "Internal auditor", "Risk and compliance analyst"],
+      "skills": ["audit-forensics", "data-analysis", "professional-judgement", "problem-solving"],
+      "evidence": [
+        {"source": "ilo-genai-task-scores-2025", "note": "Financial investigations (0.415) and auditing (0.4335) are the least exposed accountancy tasks."}
+      ]
+    },
+    {
+      "occupation": "accountant", "slug": "fintech-and-financial-data", "kind": "discover", "display_order": 3,
+      "title": "Discover: Fintech and financial data roles",
+      "summary": "Combine financial knowledge with technology in fintech products, financial data analysis or business intelligence. Kenya's mobile-money ecosystem shows how financial technology can reshape an economy.",
+      "steps": [
+        "Learn how digital payments and mobile money products work",
+        "Build business intelligence and data-visualisation skills",
+        "Complete a project analysing financial data for a small business",
+        "Explore roles at fintech companies, banks' digital units and payment providers"
+      ],
+      "target_roles": ["Fintech product analyst", "Business intelligence analyst", "Financial data analyst"],
+      "skills": ["data-analysis", "financial-analysis", "digital-literacy"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "FinTech engineers and data analysts are among the fastest-growing jobs."},
+        {"source": "ilo-un-mind-the-ai-divide-2024", "note": "M-Pesa in Kenya increased financial inclusion and helped propel SME growth."}
+      ]
+    },
+    {
+      "occupation": "software-developer", "slug": "ai-augmented-developer", "kind": "adapt", "display_order": 1,
+      "title": "Adapt: AI-augmented developer",
+      "summary": "Use AI pair programmers to move faster, and become the person who can judge, test and secure AI-generated code.",
+      "steps": [
+        "Use an AI coding assistant on personal projects and review every suggestion",
+        "Strengthen testing and code-review habits for AI-generated code",
+        "Learn secure coding basics to catch vulnerabilities AI tools may introduce",
+        "Contribute to open-source projects to practise reviewing others' code"
+      ],
+      "target_roles": ["Software developer", "Senior developer", "Technical lead"],
+      "skills": ["ai-tool-fluency", "ai-output-verification", "software-testing", "cybersecurity-fundamentals"],
+      "evidence": [
+        {"source": "arxiv-copilot-developer-productivity-2023", "note": "AI pair programmers sped up a defined coding task by 55.8% (outside Africa)."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Testing and requirements analysis are the most exposed developer tasks."}
+      ]
+    },
+    {
+      "occupation": "software-developer", "slug": "ai-and-ml-engineering", "kind": "transform", "display_order": 2,
+      "title": "Transform: AI and machine learning engineering",
+      "summary": "Move from using AI tools to building AI-powered products, including for African languages and markets.",
+      "steps": [
+        "Learn the fundamentals of machine learning and model evaluation",
+        "Build an application that uses an AI model to solve a local problem",
+        "Learn how to deploy and monitor models responsibly",
+        "Follow and contribute to local-language AI initiatives"
+      ],
+      "target_roles": ["Machine learning engineer", "AI application developer", "MLOps engineer"],
+      "skills": ["machine-learning-engineering", "cloud-devops", "responsible-ai-use", "data-analysis"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "AI and machine learning specialists are among the fastest-growing jobs."},
+        {"source": "microsoft-g42-kenya-2024", "note": "Announced investment in local-language AI model development and AI skills training in Kenya."}
+      ]
+    },
+    {
+      "occupation": "software-developer", "slug": "security-and-devops", "kind": "discover", "display_order": 3,
+      "title": "Discover: Security and DevOps",
+      "summary": "Apply engineering skills to protecting and operating systems, areas where the WEF projects fast growth.",
+      "steps": [
+        "Learn Linux, networking and cloud fundamentals",
+        "Practise in capture-the-flag challenges or a home lab",
+        "Automate deployments for a personal project with CI/CD",
+        "Pursue an entry-level security or cloud certification"
+      ],
+      "target_roles": ["Information security analyst", "DevOps engineer", "Cloud engineer"],
+      "skills": ["cybersecurity-fundamentals", "cloud-devops", "problem-solving"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "Security management specialists, information security analysts and DevOps engineers are among the fastest-growing jobs, and networks and cybersecurity is the second-fastest-growing skill."}
+      ]
+    },
+    {
+      "occupation": "secondary-school-teacher", "slug": "ai-literate-teacher", "kind": "adapt", "display_order": 1,
+      "title": "Adapt: AI-literate teacher",
+      "summary": "Use AI to save time on preparation and differentiation while keeping teaching, relationships and assessment decisions in human hands, following privacy and age-appropriate safeguards.",
+      "steps": [
+        "Try AI tools for drafting lesson materials and check them against the syllabus",
+        "Learn your school's and UNESCO's guidance on data privacy and student use",
+        "Teach students to question AI output",
+        "Share what works with colleagues in a short professional-learning session"
+      ],
+      "target_roles": ["Secondary school teacher", "Head of department", "ICT integration lead"],
+      "skills": ["ai-tool-fluency", "responsible-ai-use", "curriculum-design", "teaching-mentoring"],
+      "evidence": [
+        {"source": "unesco-genai-education-guidance-2023", "note": "Calls for a human-centred approach, data-privacy protection and age limits for independent use."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Curriculum design and marking are the most exposed teaching tasks; classroom teaching is low exposure."}
+      ]
+    },
+    {
+      "occupation": "secondary-school-teacher", "slug": "digital-learning-designer", "kind": "transform", "display_order": 2,
+      "title": "Transform: Digital learning designer",
+      "summary": "Apply teaching expertise to designing digital and blended learning materials that work for real classrooms and learners.",
+      "steps": [
+        "Learn instructional design principles",
+        "Build one digital unit for your subject and test it with learners",
+        "Learn an authoring or learning-management tool",
+        "Collect evidence of what improved learning, and build a portfolio"
+      ],
+      "target_roles": ["Instructional designer", "Digital learning content specialist", "EdTech curriculum specialist"],
+      "skills": ["curriculum-design", "digital-literacy", "assessment-design", "ux-design"],
+      "evidence": [
+        {"source": "unesco-genai-education-guidance-2023", "note": "Stresses developing human capacity for the responsible use of new technologies in education."}
+      ]
+    },
+    {
+      "occupation": "secondary-school-teacher", "slug": "learning-and-development", "kind": "discover", "display_order": 3,
+      "title": "Discover: Learning and development in organisations",
+      "summary": "Take teaching and mentoring skills into workplaces, where employers expect large-scale reskilling needs.",
+      "steps": [
+        "Run a training session for adults, for example at a community group or business",
+        "Learn the basics of workplace learning needs analysis",
+        "Build a short course on a practical skill",
+        "Network with HR and training teams"
+      ],
+      "target_roles": ["Corporate trainer", "Learning and development specialist", "Skills programme coordinator"],
+      "skills": ["teaching-mentoring", "clear-communication", "curriculum-design"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "Employers estimate that 59 out of every 100 workers would need training by 2030."}
+      ]
+    },
+    {
+      "occupation": "graphic-designer", "slug": "ai-fluent-visual-designer", "kind": "adapt", "display_order": 1,
+      "title": "Adapt: AI-fluent visual designer",
+      "summary": "Use generative tools for exploration and production, and compete on the parts AI does poorly: understanding the brief, cultural fit, originality and client relationships.",
+      "steps": [
+        "Experiment with image-generation tools for moodboards and variations",
+        "Learn the licensing and copyright terms of the tools you use",
+        "Show your process, not only final images, in your portfolio",
+        "Specialise in a sector or local audience you understand well"
+      ],
+      "target_roles": ["Graphic designer", "Art director", "Brand designer"],
+      "skills": ["ai-tool-fluency", "creative-thinking", "collaboration-negotiation", "responsible-ai-use"],
+      "evidence": [
+        {"source": "ilo-genai-task-scores-2025", "note": "Briefing and negotiating with clients are the least exposed design tasks."},
+        {"source": "wef-future-of-jobs-2025", "note": "Graphic designers appear just outside the top ten fastest-declining jobs, a first-time prediction."}
+      ]
+    },
+    {
+      "occupation": "graphic-designer", "slug": "ui-ux-designer", "kind": "transform", "display_order": 2,
+      "title": "Transform: UI and UX designer",
+      "summary": "Apply visual skills to designing digital products: research users, design flows and build prototypes for apps and services.",
+      "steps": [
+        "Learn user research and usability testing basics",
+        "Redesign a local app or service flow and test it with five users",
+        "Learn a prototyping tool and accessibility standards",
+        "Build two or three case studies showing problem, process and outcome"
+      ],
+      "target_roles": ["UI designer", "UX designer", "Product designer"],
+      "skills": ["ux-design", "visual-design", "empathy-active-listening"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "UI and UX designers are among the fastest-growing jobs, and design and user experience is a rising skill."}
+      ]
+    },
+    {
+      "occupation": "graphic-designer", "slug": "brand-and-content-strategy", "kind": "discover", "display_order": 3,
+      "title": "Discover: Brand and content strategy",
+      "summary": "Move from making assets to deciding what should be made and why, by combining creative thinking with audience insight and marketing.",
+      "steps": [
+        "Learn marketing fundamentals and audience research",
+        "Plan a content strategy for a small business or community organisation",
+        "Measure results with basic analytics",
+        "Position yourself as a creative strategist, not only a producer"
+      ],
+      "target_roles": ["Brand strategist", "Content strategist", "Creative strategist"],
+      "skills": ["creative-thinking", "data-analysis", "clear-communication"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "Creative thinking is among the skills employers expect to rise most in importance."}
+      ]
+    },
+    {
+      "occupation": "registered-nurse", "slug": "digitally-confident-nurse", "kind": "adapt", "display_order": 1,
+      "title": "Adapt: Digitally confident nurse",
+      "summary": "Keep doing hands-on care while becoming confident with digital records, decision-support tools and telehealth.",
+      "steps": [
+        "Become a confident user of the health information systems in your facility",
+        "Learn how decision-support tools work and where they can be wrong",
+        "Practise protecting patient data in digital systems",
+        "Act as a digital champion for colleagues"
+      ],
+      "target_roles": ["Registered nurse", "Nurse in charge", "Digital health champion"],
+      "skills": ["health-informatics", "digital-literacy", "clinical-care", "professional-judgement"],
+      "evidence": [
+        {"source": "ilo-genai-task-scores-2025", "note": "Hands-on nursing tasks are rated Very Low exposure; documentation and research tasks are higher."},
+        {"source": "wef-future-of-jobs-2025", "note": "Nursing professionals are among the care jobs expected to grow significantly."}
+      ]
+    },
+    {
+      "occupation": "registered-nurse", "slug": "nurse-educator-community-health", "kind": "transform", "display_order": 2,
+      "title": "Transform: Nurse educator or community health lead",
+      "summary": "Build on health education and mentoring to train nurses and lead community health promotion.",
+      "steps": [
+        "Take on precepting or mentoring of student nurses",
+        "Develop health education materials in local languages",
+        "Pursue further qualifications in nursing education or public health",
+        "Lead a community health promotion activity"
+      ],
+      "target_roles": ["Nurse educator", "Clinical instructor", "Community health nurse"],
+      "skills": ["teaching-mentoring", "multilingual-communication", "clear-communication"],
+      "evidence": [
+        {"source": "who-state-of-worlds-nursing-2025", "note": "WHO calls for investment in nursing education and the workforce to close shortages."}
+      ]
+    },
+    {
+      "occupation": "registered-nurse", "slug": "health-informatics", "kind": "discover", "display_order": 3,
+      "title": "Discover: Health informatics",
+      "summary": "Combine clinical knowledge with data and systems skills to improve how health information supports care.",
+      "steps": [
+        "Learn data-analysis basics with health service data",
+        "Get involved in implementing or improving a records system",
+        "Study health informatics through a short course",
+        "Connect with digital health programmes in your county or organisation"
+      ],
+      "target_roles": ["Health informatics officer", "Clinical data specialist", "Digital health programme officer"],
+      "skills": ["health-informatics", "data-analysis", "responsible-ai-use"],
+      "evidence": [
+        {"source": "wef-future-of-jobs-2025", "note": "AI and big data top the fastest-growing skills; technological literacy is also rising."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "companies": [
+    {"slug": "klarna", "name": "Klarna", "headquarters_country": "Sweden", "sector": "Financial technology (payments)", "website": "https://www.klarna.com"},
+    {"slug": "dropbox", "name": "Dropbox", "headquarters_country": "United States", "sector": "Software (cloud storage and collaboration)", "website": "https://www.dropbox.com"},
+    {"slug": "microsoft", "name": "Microsoft", "headquarters_country": "United States", "sector": "Software and cloud computing", "website": "https://www.microsoft.com"}
+  ],
+  "events": [
+    {
+      "slug": "klarna-ai-assistant-2024",
+      "company": "klarna",
+      "title": "Klarna reports its AI assistant handled two-thirds of customer service chats in its first month",
+      "event_date": "2024-02-27",
+      "event_type": "ai_deployment",
+      "summary": "Klarna announced that its AI customer-service assistant had 2.3 million conversations in its first month, two-thirds of its customer service chats, and estimated this was the equivalent work of 700 full-time agents.",
+      "reported_figures": [
+        {"figure": "2.3 million conversations", "context": "Conversations handled by the AI assistant in its first month, two-thirds of Klarna's customer service chats.", "verbatim": true},
+        {"figure": "700 full-time agents", "context": "Klarna's estimate of the full-time-agent equivalent of the assistant's work.", "verbatim": true},
+        {"figure": "less than 2 mins vs 11 mins", "context": "Klarna's reported resolution time with the assistant compared with before.", "verbatim": true}
+      ],
+      "interpretation_note": "This shows AI performing a large share of chat-based customer-service tasks at one company. It does not show job losses: the release reports a full-time-agent equivalent, not redundancies, and says customers can still choose live agents. The figures are the company's own claims. Evidence from outside Africa.",
+      "geographic_scope": "Klarna's customer service in 23 markets; headquartered in Sweden",
+      "region": "outside_africa",
+      "occupations": ["customer-service-agent"],
+      "primary_source": "klarna-ai-assistant-press-2024",
+      "evidence": []
+    },
+    {
+      "slug": "dropbox-workforce-reduction-2023",
+      "company": "dropbox",
+      "title": "Dropbox cuts about 16% of its workforce, citing the arrival of the AI era among its reasons",
+      "event_date": "2023-04-27",
+      "event_type": "workforce_reduction",
+      "summary": "Dropbox's CEO announced a reduction of about 16% of the global workforce (500 employees), citing slowing growth and the arrival of 'the AI era of computing', which he said required a different mix of skills, particularly in AI and early-stage product development.",
+      "reported_figures": [
+        {"figure": "about 16%, or 500 Dropboxers", "context": "Size of the global workforce reduction announced by the CEO.", "verbatim": true}
+      ],
+      "interpretation_note": "AI was one of several stated reasons, and the cut was made to redirect investment towards AI skills, not because AI tools replaced the affected workers' tasks. It illustrates how companies change their skill mix during technology shifts. Evidence from outside Africa.",
+      "geographic_scope": "Dropbox's global workforce (the announcement names the United States)",
+      "region": "outside_africa",
+      "occupations": ["software-developer"],
+      "primary_source": "dropbox-ceo-message-2023",
+      "evidence": []
+    },
+    {
+      "slug": "microsoft-g42-kenya-investment-2024",
+      "company": "microsoft",
+      "title": "Microsoft and G42 announce a $1 billion digital and AI initiative for Kenya",
+      "event_date": "2024-05-22",
+      "event_type": "skills_programme",
+      "summary": "Microsoft and G42 announced an initial $1 billion package of digital investments in Kenya with the Ministry of Information, Communications and the Digital Economy. It includes a green data centre for a new East Africa cloud region, local-language AI model development and research, and an East Africa Innovation Lab coupled with broad AI digital-skills training.",
+      "reported_figures": [
+        {"figure": "$1 billion", "context": "Initial investment G42 will lead the arrangement of, for the components of the package.", "verbatim": true}
+      ],
+      "interpretation_note": "This is an announcement and letter of intent, not evidence of jobs created or people trained. FUTUREPRINT did not verify delivery after May 2024. It is included as Kenyan context on investment in AI capacity and skills.",
+      "geographic_scope": "Kenya and East Africa",
+      "region": "kenya",
+      "occupations": ["software-developer"],
+      "primary_source": "microsoft-g42-kenya-2024",
+      "evidence": []
+    }
+  ]
+}

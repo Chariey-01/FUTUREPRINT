@@ -1,0 +1,917 @@
+{
+  "tasks": [
+    {
+      "occupation": "customer-service-agent",
+      "slug": "handle-incoming-contacts",
+      "title": "Handle incoming calls and messages",
+      "isco_task_statement": "Dealing with incoming calls and messages from clients, whether to answer queries, handle calls for service or sort out complaints.",
+      "ilo_task_score": 0.56,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 4222); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI assistants can suggest replies, pull up policies and summarise long conversations in real time, but agents still own complaints, unusual cases and upset customers. In the NBER field study, AI suggestions increased issues resolved per hour, most of all for newer agents.",
+      "skills": [
+        "empathy-active-listening",
+        "clear-communication",
+        "problem-solving",
+        "ai-tool-fluency"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.56 (Medium) for this ISCO-08 4222 task."
+        },
+        {
+          "source": "nber-w31161-genai-at-work",
+          "note": "Field evidence that AI assistance raised productivity on this type of task, especially for novice agents (outside Africa)."
+        }
+      ],
+      "display_order": 1
+    },
+    {
+      "occupation": "customer-service-agent",
+      "slug": "record-customer-requests",
+      "title": "Record customer requests in computer systems",
+      "isco_task_statement": "Identifying requirements and entering events into a computer system.",
+      "ilo_task_score": 0.625,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 4222); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: Speech-to-text and AI summaries can now fill in much of a case record automatically. The agent's role shifts to checking and correcting what the system captured.",
+      "skills": [
+        "crm-systems",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.625 (Medium) for this ISCO-08 4222 task."
+        }
+      ],
+      "display_order": 2
+    },
+    {
+      "occupation": "customer-service-agent",
+      "slug": "route-requests",
+      "title": "Route requests to other teams",
+      "isco_task_statement": "Dispatching tasks to other units, when relevant.",
+      "ilo_task_score": 0.52,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 4222); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Systems can suggest where a request should go, but knowing which team can actually solve an unusual problem still relies on experience.",
+      "skills": [
+        "crm-systems",
+        "problem-solving"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.52 (Medium) for this ISCO-08 4222 task."
+        }
+      ],
+      "display_order": 3
+    },
+    {
+      "occupation": "customer-service-agent",
+      "slug": "handle-payments",
+      "title": "Handle invoices and payments",
+      "isco_task_statement": "Invoicing or handling payments, where necessary.",
+      "ilo_task_score": 0.61,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 4222); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: Self-service and automated payment flows can handle many routine transactions. Agents handle disputes, errors and cases where trust or fraud checks matter.",
+      "skills": [
+        "crm-systems",
+        "digital-literacy",
+        "responsible-ai-use"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.61 (Medium) for this ISCO-08 4222 task."
+        }
+      ],
+      "display_order": 4
+    },
+    {
+      "occupation": "customer-service-agent",
+      "slug": "send-customer-documents",
+      "title": "Send letters and documents to customers",
+      "isco_task_statement": "Sending letters, information sheets and other documents to clients.",
+      "ilo_task_score": 0.655,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 4222); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: Drafting and sending standard documents is the most exposed task in this occupation (score 0.655). AI can draft, but someone must check accuracy and tone.",
+      "skills": [
+        "clear-communication",
+        "ai-tool-fluency",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.655 (Medium) for this ISCO-08 4222 task."
+        }
+      ],
+      "display_order": 5
+    },
+    {
+      "occupation": "customer-service-agent",
+      "slug": "advise-on-products",
+      "title": "Advise customers on additional products or services",
+      "isco_task_statement": "Advising clients of additional products or services.",
+      "ilo_task_score": 0.515,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 4222); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can surface relevant offers, but recommending something that genuinely fits a customer, and not pressuring them, depends on listening and judgement.",
+      "skills": [
+        "empathy-active-listening",
+        "clear-communication",
+        "multilingual-communication"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.515 (Medium) for this ISCO-08 4222 task."
+        }
+      ],
+      "display_order": 6
+    },
+    {
+      "occupation": "accountant",
+      "slug": "prepare-financial-statements",
+      "title": "Prepare and certify financial statements",
+      "isco_task_statement": "Preparing and certifying financial statements for presentation to management, shareholders and statutory or other bodies.",
+      "ilo_task_score": 0.65,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: The most exposed accountancy task (score 0.65). Drafting statements from clean ledgers is increasingly automated, but certifying them remains a professional responsibility with legal accountability.",
+      "skills": [
+        "financial-reporting",
+        "ai-output-verification",
+        "professional-judgement"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.65 (Medium) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 1
+    },
+    {
+      "occupation": "accountant",
+      "slug": "prepare-tax-returns",
+      "title": "Prepare tax returns and advise on tax",
+      "isco_task_statement": "Preparing tax returns, advising on taxation problems and contesting disputed claims before tax officials.",
+      "ilo_task_score": 0.465,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Software can prepare returns, but interpreting rules for a client's situation and contesting disputed claims before tax officials need expertise and representation.",
+      "skills": [
+        "tax-compliance",
+        "clear-communication",
+        "professional-judgement"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.465 (Low) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 2
+    },
+    {
+      "occupation": "accountant",
+      "slug": "forecasts-and-budgets",
+      "title": "Prepare profit forecasts and budgets",
+      "isco_task_statement": "Preparing or reporting on profit forecasts and budgets.",
+      "ilo_task_score": 0.515,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can generate forecast drafts and scenarios quickly. Choosing assumptions and explaining risks to decision-makers stays with the accountant.",
+      "skills": [
+        "financial-analysis",
+        "data-analysis"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.515 (Medium) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 3
+    },
+    {
+      "occupation": "accountant",
+      "slug": "investigate-fraud-insolvency",
+      "title": "Investigate fraud, insolvency and bankruptcy",
+      "isco_task_statement": "Conducting financial investigations in such matters as suspected fraud, insolvency and bankruptcy.",
+      "ilo_task_score": 0.415,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: The least exposed accountancy task (score 0.415). Data tools help spot anomalies, but investigations depend on scepticism, interviews and evidence handling.",
+      "skills": [
+        "audit-forensics",
+        "professional-judgement",
+        "problem-solving"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.415 (Low) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 4
+    },
+    {
+      "occupation": "accountant",
+      "slug": "audit-records",
+      "title": "Audit accounts and bookkeeping records",
+      "isco_task_statement": "Auditing accounts and bookkeeping records.",
+      "ilo_task_score": 0.4335,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Analytics can test whole populations of transactions instead of samples. Auditors interpret exceptions and form an independent opinion.",
+      "skills": [
+        "audit-forensics",
+        "data-analysis",
+        "professional-judgement"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.4335 (Low) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 5
+    },
+    {
+      "occupation": "accountant",
+      "slug": "design-accounting-systems",
+      "title": "Advise on and install accounting policies and systems",
+      "isco_task_statement": "Advising on, planning and installing budgetary, accounts controlling and other accounting policies and systems.",
+      "ilo_task_score": 0.4625,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Choosing and configuring digital accounting systems, including AI features, for an organisation is a growing advisory task.",
+      "skills": [
+        "financial-reporting",
+        "digital-literacy",
+        "collaboration-negotiation"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.4625 (Low) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 6
+    },
+    {
+      "occupation": "accountant",
+      "slug": "advise-management",
+      "title": "Advise management on the financial side of decisions",
+      "isco_task_statement": "Conducting investigations and advising management on financial aspects of productivity, stockholdings, sales, new products, etc.",
+      "ilo_task_score": 0.565,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2411); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Analysis of productivity, stock and sales can be accelerated by AI tools; turning it into sound advice still needs business understanding.",
+      "skills": [
+        "financial-analysis",
+        "clear-communication",
+        "data-analysis"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.565 (Medium) for this ISCO-08 2411 task."
+        }
+      ],
+      "display_order": 7
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "analyse-requirements",
+      "title": "Analyse and evaluate software requirements",
+      "isco_task_statement": "Researching, analysing and evaluating requirements for software applications and operating systems.",
+      "ilo_task_score": 0.605,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can draft user stories and spot gaps in specifications, but understanding what users actually need requires conversation and context.",
+      "skills": [
+        "software-design",
+        "clear-communication",
+        "problem-solving"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.605 (Medium) for this ISCO-08 2512 task."
+        }
+      ],
+      "display_order": 1
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "design-and-build-software",
+      "title": "Design and build software systems",
+      "isco_task_statement": "Researching, designing, and developing computer software systems.",
+      "ilo_task_score": 0.5,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI pair programmers can generate much routine code. In one controlled experiment, developers using one finished a task 55.8% faster. Design decisions, integration and code review remain human responsibilities.",
+      "skills": [
+        "software-design",
+        "ai-tool-fluency",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.5 (Medium) for this ISCO-08 2512 task."
+        },
+        {
+          "source": "arxiv-copilot-developer-productivity-2023",
+          "note": "Controlled experiment on AI-assisted coding speed (outside Africa)."
+        }
+      ],
+      "display_order": 2
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "test-and-validate",
+      "title": "Develop and direct software testing",
+      "isco_task_statement": "Developing and directing software testing and validation procedures.",
+      "ilo_task_score": 0.655,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: The most exposed developer task (score 0.655). AI can generate test cases quickly; deciding what must be tested and whether results can be trusted is the skilled part.",
+      "skills": [
+        "software-testing",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.655 (Medium) for this ISCO-08 2512 task."
+        }
+      ],
+      "display_order": 3
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "maintain-and-fix-software",
+      "title": "Fix, adapt and improve existing software",
+      "isco_task_statement": "Modifying existing software to correct errors, to adapt it to new hardware or to upgrade interfaces and improve performance.",
+      "ilo_task_score": 0.5,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI tools help explain unfamiliar code and propose fixes, but changes to production systems need careful review and testing.",
+      "skills": [
+        "software-design",
+        "software-testing",
+        "problem-solving"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.5 (Medium) for this ISCO-08 2512 task."
+        }
+      ],
+      "display_order": 4
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "direct-development-and-docs",
+      "title": "Direct programming work and documentation",
+      "isco_task_statement": "Directing software programming and development of documentation.",
+      "ilo_task_score": 0.52,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Documentation drafts can be generated from code. Leading a team and keeping documentation accurate are coordination and judgement tasks.",
+      "skills": [
+        "clear-communication",
+        "collaboration-negotiation",
+        "ai-tool-fluency"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.52 (Medium) for this ISCO-08 2512 task."
+        }
+      ],
+      "display_order": 5
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "consult-on-interfaces",
+      "title": "Consult engineers on hardware-software interfaces",
+      "isco_task_statement": "Consulting with engineering staff to evaluate interfaces between hardware and software.",
+      "ilo_task_score": 0.4525,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: A low-exposure, collaborative task (score 0.4525) that depends on shared technical problem-solving with other engineers.",
+      "skills": [
+        "collaboration-negotiation",
+        "problem-solving"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.4525 (Low) for this ISCO-08 2512 task."
+        }
+      ],
+      "display_order": 6
+    },
+    {
+      "occupation": "software-developer",
+      "slug": "consult-customers-on-maintenance",
+      "title": "Consult customers about software maintenance",
+      "isco_task_statement": "Consulting with customers concerning maintenance of software system.",
+      "ilo_task_score": 0.45,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2512); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: A low-exposure task (score 0.45): understanding customers' operational constraints and agreeing priorities.",
+      "skills": [
+        "clear-communication",
+        "collaboration-negotiation"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.45 (Low) for this ISCO-08 2512 task."
+        }
+      ],
+      "display_order": 7
+    },
+    {
+      "occupation": "secondary-school-teacher",
+      "slug": "design-curricula",
+      "title": "Design and adapt curricula and courses",
+      "isco_task_statement": "Designing and modifying curricula and preparing educational courses of study in accordance with curriculum guidelines.",
+      "ilo_task_score": 0.465,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2330); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: The most exposed teaching task (score 0.465). AI can draft schemes of work and materials aligned to a syllabus, which teachers must check for accuracy and local relevance.",
+      "skills": [
+        "curriculum-design",
+        "ai-tool-fluency",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.465 (Low) for this ISCO-08 2330 task."
+        }
+      ],
+      "display_order": 1
+    },
+    {
+      "occupation": "secondary-school-teacher",
+      "slug": "deliver-lessons",
+      "title": "Prepare and give lessons and demonstrations",
+      "isco_task_statement": "Preparing and giving lessons, discussions and demonstrations in one or more subjects.",
+      "ilo_task_score": 0.265,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2330); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: A low-exposure task (score 0.265). Explaining, demonstrating and responding to a class in real time is central to the role.",
+      "skills": [
+        "teaching-mentoring",
+        "clear-communication"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.265 (Low) for this ISCO-08 2330 task."
+        }
+      ],
+      "display_order": 2
+    },
+    {
+      "occupation": "secondary-school-teacher",
+      "slug": "differentiate-instruction",
+      "title": "Adapt teaching to students' different needs",
+      "isco_task_statement": "Adapting teaching methods and instructional materials to meet students' varying needs and interests.",
+      "ilo_task_score": 0.26,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2330); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can produce alternative explanations and practice at different levels, but recognising what each learner needs relies on knowing the students.",
+      "skills": [
+        "teaching-mentoring",
+        "empathy-active-listening",
+        "ai-tool-fluency"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.26 (Low) for this ISCO-08 2330 task."
+        }
+      ],
+      "display_order": 3
+    },
+    {
+      "occupation": "secondary-school-teacher",
+      "slug": "assess-students",
+      "title": "Prepare and mark tests and assignments",
+      "isco_task_statement": "Preparing, administering and marking tests, assignments and examinations to evaluate pupils' progress.",
+      "ilo_task_score": 0.35,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2330); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Question generation and marking support are among the more exposed teaching tasks (score 0.35). UNESCO's guidance stresses human-centred use and data protection when AI touches student work.",
+      "skills": [
+        "assessment-design",
+        "responsible-ai-use"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.35 (Low) for this ISCO-08 2330 task."
+        },
+        {
+          "source": "unesco-genai-education-guidance-2023",
+          "note": "Guidance on privacy and human-centred use of generative AI in education."
+        }
+      ],
+      "display_order": 4
+    },
+    {
+      "occupation": "secondary-school-teacher",
+      "slug": "manage-classroom",
+      "title": "Maintain order and classroom routines",
+      "isco_task_statement": "Establishing and enforcing rules for behaviour and procedures for maintaining order among students.",
+      "ilo_task_score": 0.225,
+      "exposure_level": "very_low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2330); label 'Very Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: Among the least exposed teaching tasks (score 0.225, Very Low): relationships, presence and authority in the classroom.",
+      "skills": [
+        "teaching-mentoring",
+        "empathy-active-listening"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.225 (Very Low) for this ISCO-08 2330 task."
+        }
+      ],
+      "display_order": 5
+    },
+    {
+      "occupation": "secondary-school-teacher",
+      "slug": "report-to-parents",
+      "title": "Report on pupils' progress to parents and colleagues",
+      "isco_task_statement": "Preparing reports about pupils' work and conferring with other teachers and parents.",
+      "ilo_task_score": 0.34,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2330); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can help draft reports, but conversations with parents about a child's progress need care and personal knowledge.",
+      "skills": [
+        "clear-communication",
+        "empathy-active-listening",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.34 (Low) for this ISCO-08 2330 task."
+        }
+      ],
+      "display_order": 6
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "agree-design-brief",
+      "title": "Agree the design brief with clients",
+      "isco_task_statement": "Determining the objectives and constraints of the design brief by consulting with clients and stakeholders.",
+      "ilo_task_score": 0.41,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: A low-exposure task (score 0.41). Understanding a client's audience, goals and constraints comes before any image is generated.",
+      "skills": [
+        "collaboration-negotiation",
+        "clear-communication"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.41 (Low) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 1
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "formulate-concepts",
+      "title": "Formulate design concepts",
+      "isco_task_statement": "Formulating design concepts for the subject to be communicated.",
+      "ilo_task_score": 0.585,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Generative tools can produce many visual directions quickly (score 0.585). Choosing and refining the idea that fits the brief and the culture is the designer's value.",
+      "skills": [
+        "creative-thinking",
+        "visual-design",
+        "ai-tool-fluency"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.585 (Medium) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 2
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "sketch-and-layout",
+      "title": "Prepare sketches, illustrations and layouts",
+      "isco_task_statement": "Preparing sketches, diagrams, illustrations and layouts to communicate design concepts.",
+      "ilo_task_score": 0.5625,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can draft layouts and illustrations; designers direct, edit and ensure the work is coherent and original.",
+      "skills": [
+        "visual-design",
+        "ai-tool-fluency"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.5625 (Medium) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 3
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "design-graphics-animation",
+      "title": "Design complex graphics and animation",
+      "isco_task_statement": "Designing complex graphics and animation to satisfy functional, aesthetic and creative requirements of the design brief.",
+      "ilo_task_score": 0.52,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Medium' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI-assisted tools speed up production, but complex motion and brand systems still need craft and art direction.",
+      "skills": [
+        "motion-3d",
+        "visual-design"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.52 (Medium) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 4
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "create-2d-3d-images",
+      "title": "Create 2D and 3D images and animations",
+      "isco_task_statement": "Creating two-dimensional and three-dimensional images depicting objects in motion or illustrating a process, using computer animation or modelling programmes.",
+      "ilo_task_score": 0.6125,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: The most exposed design task (score 0.6125). Image and video generation can produce much of this output directly, which raises questions about originality, rights and quality control.",
+      "skills": [
+        "motion-3d",
+        "responsible-ai-use",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.6125 (Medium) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 5
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "negotiate-design-solutions",
+      "title": "Negotiate design solutions with clients and teams",
+      "isco_task_statement": "Negotiating design solutions with clients, management, sales and production staff.",
+      "ilo_task_score": 0.37,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: The least exposed design task (score 0.37): persuasion, compromise and relationship management.",
+      "skills": [
+        "collaboration-negotiation",
+        "clear-communication"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.37 (Low) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 6
+    },
+    {
+      "occupation": "graphic-designer",
+      "slug": "prepare-for-production",
+      "title": "Detail and document designs for production",
+      "isco_task_statement": "Detailing and documenting the selected design for production.",
+      "ilo_task_score": 0.5525,
+      "exposure_level": "medium",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2166); label 'Medium' as published",
+      "likely_change": "partial_automation",
+      "transformation_note": "FUTUREPRINT editorial note: Preparing specifications and production files is increasingly automated by design software.",
+      "skills": [
+        "visual-design",
+        "digital-literacy"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.5525 (Medium) for this ISCO-08 2166 task."
+        }
+      ],
+      "display_order": 7
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "plan-and-evaluate-care",
+      "title": "Plan, provide and evaluate nursing care",
+      "isco_task_statement": "Planning, providing and evaluating nursing care for patients according to the practice and standards of modern nursing.",
+      "ilo_task_score": 0.205,
+      "exposure_level": "very_low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Very Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: Very low exposure (score 0.205). Assessing and caring for patients is physical, interpersonal and accountable work.",
+      "skills": [
+        "clinical-care",
+        "professional-judgement"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.205 (Very Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 1
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "coordinate-care",
+      "title": "Coordinate patient care with the health team",
+      "isco_task_statement": "Coordinating the care of patients in consultation with other health professionals and members of health teams.",
+      "ilo_task_score": 0.285,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: Low exposure (score 0.285). Digital records help share information, but coordination happens through people.",
+      "skills": [
+        "clear-communication",
+        "collaboration-negotiation",
+        "health-informatics"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.285 (Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 2
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "administer-treatments",
+      "title": "Administer medications and treatments",
+      "isco_task_statement": "Planning and providing personal care, treatments and therapies including administering medications, and monitoring responses to treatment or care plan.",
+      "ilo_task_score": 0.11,
+      "exposure_level": "very_low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Very Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: Very low exposure (score 0.11). Decision support and electronic records can reduce errors, but administering care is hands-on.",
+      "skills": [
+        "clinical-care",
+        "health-informatics"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.11 (Very Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 3
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "wound-care",
+      "title": "Clean wounds and apply dressings",
+      "isco_task_statement": "Cleaning wounds and applying surgical dressings and bandages.",
+      "ilo_task_score": 0.0625,
+      "exposure_level": "very_low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Very Low' as published",
+      "likely_change": "mostly_human",
+      "transformation_note": "FUTUREPRINT editorial note: The least exposed nursing task (score 0.0625).",
+      "skills": [
+        "clinical-care"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.0625 (Very Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 4
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "health-education",
+      "title": "Run health education and promotion",
+      "isco_task_statement": "Planning and participating in health education programmes, health promotion and nurse education activities in clinical and community settings.",
+      "ilo_task_score": 0.355,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: AI can help prepare health education materials in different languages and reading levels; nurses ensure accuracy and connect with communities.",
+      "skills": [
+        "teaching-mentoring",
+        "clear-communication",
+        "multilingual-communication"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.355 (Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 5
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "answer-patient-questions",
+      "title": "Answer patients' and families' questions",
+      "isco_task_statement": "Answering questions from patients and families and providing information about prevention of ill-health, treatment and care.",
+      "ilo_task_score": 0.365,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: Information tools can support answers, but explaining care to worried families requires empathy and clinical judgement.",
+      "skills": [
+        "empathy-active-listening",
+        "clear-communication"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.365 (Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 6
+    },
+    {
+      "occupation": "registered-nurse",
+      "slug": "nursing-research",
+      "title": "Research nursing practice and share findings",
+      "isco_task_statement": "Conducting research on nursing practices and procedures and disseminating findings such as through scientific papers and reports.",
+      "ilo_task_score": 0.46,
+      "exposure_level": "low",
+      "exposure_basis": "ILO 2025 task-level GenAI exposure score (ISCO-08 2221); label 'Low' as published",
+      "likely_change": "augmentation",
+      "transformation_note": "FUTUREPRINT editorial note: The most exposed nursing task, though still Low (score 0.46). AI can help with literature searches and drafting, which nurses must verify.",
+      "skills": [
+        "health-informatics",
+        "ai-output-verification"
+      ],
+      "evidence": [
+        {
+          "source": "ilo-genai-task-scores-2025",
+          "note": "ILO 2025 task-level score 0.46 (Low) for this ISCO-08 2221 task."
+        }
+      ],
+      "display_order": 7
+    }
+  ]
+}

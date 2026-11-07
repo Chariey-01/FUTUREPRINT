@@ -1,0 +1,263 @@
+{
+  "occupations": [
+    {
+      "slug": "customer-service-agent",
+      "name": "Customer Service / Contact Centre Agent",
+      "category": "Clerical support and business process outsourcing",
+      "isco_08_code": "4222",
+      "isco_08_title": "Contact centre information clerks",
+      "summary": "Answers customer questions and resolves problems by phone, chat, email and social media, often in a contact centre or business process outsourcing (BPO) firm.",
+      "description": "Contact centre agents are often a customer's first human contact with a bank, telecom operator, retailer or public service. They answer queries, sort out complaints, record requests, route work to other teams and sometimes handle payments or recommend products. ISCO-08 classifies the role as clerical support work (unit group 4222).",
+      "responsibilities": [
+        "Deal with incoming calls and messages to answer queries, handle service requests and resolve complaints",
+        "Identify customer requirements and record them in computer systems",
+        "Dispatch tasks to other units when needed",
+        "Handle invoicing or payments where required",
+        "Send letters, information sheets and other documents to customers",
+        "Advise customers about additional products or services"
+      ],
+      "exposure": {
+        "gradient": "gradient_3",
+        "label": "Exposed: Gradient 3 (significant exposure, high task variability)",
+        "mean_score": 0.58,
+        "score_sd": 0.06,
+        "summary": "In the ILO's 2025 index, contact centre information clerks are in Gradient 3, and every ISCO task for the role falls in the 'Medium' exposure band. Generative AI can draft replies, summarise conversations, fill in case records and route requests. The ILO stresses that this measures exposure, not job loss. In a large field study, an AI assistant raised average productivity, and novice agents gained the most."
+      },
+      "kenya_context": "Contact-centre and other BPO work is one way digital work reaches Kenya. The UN-ILO report Mind the AI Divide describes BPO, including contact or call centre work, as an important source of formal and relatively well-paid employment, particularly for women, in several developing countries; the examples it names are India and the Philippines. The same report cites a case study of a data-annotation firm with offices in Kenya that found low pay and insecure work, so digital work is not automatically decent work. Most Kenyan workers are informally employed (86.5% in 2019 according to ILOSTAT), so formal contact-centre jobs are a small but visible part of the labour market.",
+      "limitations": "The ILO exposure scores are global and assume full adoption of the technology; actual adoption depends on cost, connectivity, language support and employer decisions. FUTUREPRINT has not found verified national statistics on the number of contact-centre workers in Kenya. The productivity study and the Klarna announcement come from outside Africa.",
+      "skills": [
+        {"skill": "empathy-active-listening", "importance": "core"},
+        {"skill": "clear-communication", "importance": "core"},
+        {"skill": "problem-solving", "importance": "core"},
+        {"skill": "crm-systems", "importance": "supporting"},
+        {"skill": "multilingual-communication", "importance": "supporting"},
+        {"skill": "ai-tool-fluency", "importance": "emerging"},
+        {"skill": "ai-output-verification", "importance": "emerging"}
+      ],
+      "evidence": [
+        {"source": "ilo-wp140-genai-exposure-2025", "note": "Classifies contact centre information clerks (ISCO 4222) in Gradient 3 with a mean task score of 0.58, and notes that customer service jobs are concentrated in higher-income countries."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Task-level scores for all six ISCO tasks of the role, all in the Medium band."},
+        {"source": "ilo-un-mind-the-ai-divide-2024", "note": "Discusses BPO and call-centre work as formal employment in developing countries, and a Kenyan data-annotation case study showing poor working conditions."},
+        {"source": "nber-w31161-genai-at-work", "note": "Field evidence that AI assistance raised customer-support productivity, most of all for novice workers (outside Africa)."},
+        {"source": "ilostat-kenya-informal-employment-2019", "note": "Shows that most employment in Kenya is informal, which frames how many workers formal contact-centre jobs can reach."}
+      ],
+      "display_order": 1
+    },
+    {
+      "slug": "accountant",
+      "name": "Accountant",
+      "category": "Business and finance professionals",
+      "isco_08_code": "2411",
+      "isco_08_title": "Accountants",
+      "summary": "Prepares and certifies financial statements, advises on tax, budgets and financial systems, and audits or investigates financial records.",
+      "description": "Accountants plan and run accounting systems, prepare financial statements, advise on tax and budgets, audit records and investigate financial irregularities. ISCO-08 separates professional accountants (2411) from accounting and bookkeeping clerks (4311). The distinction matters because the clerical work is considerably more exposed to generative AI.",
+      "responsibilities": [
+        "Prepare and certify financial statements for management, shareholders and regulators",
+        "Prepare tax returns and advise on tax problems",
+        "Prepare profit forecasts and budgets",
+        "Audit accounts and bookkeeping records",
+        "Investigate suspected fraud, insolvency and bankruptcy",
+        "Advise management on accounting systems, costs and the financial side of business decisions"
+      ],
+      "exposure": {
+        "gradient": "gradient_3",
+        "label": "Exposed: Gradient 3 (significant exposure, high task variability)",
+        "mean_score": 0.51,
+        "score_sd": 0.08,
+        "summary": "Professional accountants are in Gradient 3 of the ILO's 2025 index. Preparing financial statements is the most exposed task (score 0.65), while investigations, audit and advisory tasks score lower. Accounting and bookkeeping clerks are in the highest gradient (Gradient 4), and the WEF lists them among the fastest-declining jobs. Routine processing is under the most pressure; judgement-heavy work less so."
+      },
+      "kenya_context": "Kenya's economy runs largely on small and informal enterprises: about nine in ten new jobs in 2024 were in the informal sector, according to a news report of the KNBS Economic Survey 2025. Mobile money has already changed how these businesses transact. The UN-ILO report notes that M-Pesa increased financial inclusion and helped propel the growth of SMEs. Digital and AI-assisted bookkeeping could widen access to accounting services for small firms, but FUTUREPRINT has not found verified data on AI adoption by Kenyan accountancy firms.",
+      "limitations": "Exposure is measured globally, not for Kenya. The WEF's declining-jobs projection covers accounting, bookkeeping and payroll clerks, not professional accountants, and reflects the expectations of mostly large employers in the formal economy. The Kenyan job-creation figures come from a secondary news source because the KNBS site could not be accessed securely.",
+      "skills": [
+        {"skill": "financial-reporting", "importance": "core"},
+        {"skill": "tax-compliance", "importance": "core"},
+        {"skill": "professional-judgement", "importance": "core"},
+        {"skill": "audit-forensics", "importance": "supporting"},
+        {"skill": "financial-analysis", "importance": "supporting"},
+        {"skill": "data-analysis", "importance": "emerging"},
+        {"skill": "ai-output-verification", "importance": "emerging"}
+      ],
+      "evidence": [
+        {"source": "ilo-wp140-genai-exposure-2025", "note": "Accountants (2411) are in Gradient 3 (mean 0.51); accounting and bookkeeping clerks (4311) are in Gradient 4 (mean 0.64)."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Task-level scores show statement preparation as the most exposed task and investigations as the least."},
+        {"source": "wef-future-of-jobs-2025", "note": "Lists 'Accounting, Bookkeeping and Payroll Clerks' among the fastest-declining jobs for 2025-2030."},
+        {"source": "knbs-economic-survey-2025-the-star", "note": "About 90% of the new jobs created in Kenya in 2024 were in the informal sector (secondary report of KNBS data)."},
+        {"source": "ilo-un-mind-the-ai-divide-2024", "note": "M-Pesa as a Kenyan example of technology increasing financial inclusion and SME growth."}
+      ],
+      "display_order": 2
+    },
+    {
+      "slug": "software-developer",
+      "name": "Software Developer",
+      "category": "Information and communications technology professionals",
+      "isco_08_code": "2512",
+      "isco_08_title": "Software developers",
+      "summary": "Researches, designs, builds, tests and maintains software systems, working with users, engineers and customers.",
+      "description": "Software developers analyse requirements, design and build software, test and fix it, document it, and keep it running as needs and platforms change. Generative AI coding assistants already sit inside many developers' daily tools, which makes this an occupation where AI is changing how the work is done.",
+      "responsibilities": [
+        "Research, analyse and evaluate requirements for software applications",
+        "Research, design and develop software systems",
+        "Develop and direct software testing and validation",
+        "Modify existing software to fix errors, adapt it to new hardware or improve performance",
+        "Direct programming work and the development of documentation",
+        "Consult with engineers and customers about interfaces and maintenance"
+      ],
+      "exposure": {
+        "gradient": "gradient_3",
+        "label": "Exposed: Gradient 3 (significant exposure, high task variability)",
+        "mean_score": 0.53,
+        "score_sd": 0.07,
+        "summary": "Software developers are in Gradient 3 of the ILO's 2025 index. Testing and validation (0.655) and requirements analysis (0.605) are the most exposed tasks; consulting with engineers and customers is the least exposed. The ILO notes that web and multimedia developers and applications programmers became more exposed between 2023 and 2025. The WEF nevertheless projects software and applications developers among the fastest-growing jobs. High exposure and growing demand can coexist."
+      },
+      "kenya_context": "AI investment is arriving in Kenya. In May 2024 Microsoft and G42 announced an initial $1 billion digital package with Kenya's ICT ministry, including local-language AI model development and broad AI digital-skills training; this is an announcement, and its delivery has not been verified here. The UN-ILO report warns that the AI value chain is unequal: it notes that South America and Africa together account for just 7% of the mobile app developer market. Kenyan developers who build AI-assisted and AI-powered products are positioned where the WEF expects growth.",
+      "limitations": "The ILO scores are global. The coding-productivity evidence comes from a single controlled task outside Africa and may overstate gains on real projects. FUTUREPRINT has not found verified national data on the number of software developers in Kenya.",
+      "skills": [
+        {"skill": "software-design", "importance": "core"},
+        {"skill": "software-testing", "importance": "core"},
+        {"skill": "problem-solving", "importance": "core"},
+        {"skill": "cloud-devops", "importance": "supporting"},
+        {"skill": "cybersecurity-fundamentals", "importance": "supporting"},
+        {"skill": "ai-tool-fluency", "importance": "emerging"},
+        {"skill": "ai-output-verification", "importance": "emerging"},
+        {"skill": "machine-learning-engineering", "importance": "emerging"}
+      ],
+      "evidence": [
+        {"source": "ilo-wp140-genai-exposure-2025", "note": "Software developers (2512) are in Gradient 3 (mean 0.53)."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Task-level scores for software development tasks."},
+        {"source": "wef-future-of-jobs-2025", "note": "Software and applications developers are among the fastest-growing jobs, and AI and big data top the fastest-growing skills."},
+        {"source": "arxiv-copilot-developer-productivity-2023", "note": "Controlled experiment: developers using an AI pair programmer finished a task 55.8% faster (outside Africa)."},
+        {"source": "microsoft-g42-kenya-2024", "note": "Announced AI and digital-skills investment in Kenya (May 2024)."},
+        {"source": "ilo-un-mind-the-ai-divide-2024", "note": "The global AI value chain is unequal; Africa and South America hold a small share of the app-developer market."}
+      ],
+      "display_order": 3
+    },
+    {
+      "slug": "secondary-school-teacher",
+      "name": "Secondary School Teacher",
+      "category": "Teaching professionals",
+      "isco_08_code": "2330",
+      "isco_08_title": "Secondary education teachers",
+      "summary": "Plans and teaches lessons in one or more subjects, assesses learners, manages the classroom and works with parents and colleagues.",
+      "description": "Secondary school teachers design and adapt lessons, teach and demonstrate, keep order, assess progress, report to parents and take part in school life. In Kenya, education is the largest area of public employment. Generative AI is arriving in classrooms faster than most education systems can write rules for it.",
+      "responsibilities": [
+        "Design and adapt curricula and courses of study in line with curriculum guidelines",
+        "Prepare and give lessons, discussions and demonstrations",
+        "Adapt teaching methods and materials to students' different needs",
+        "Prepare, administer and mark tests, assignments and examinations",
+        "Maintain order and set rules for behaviour",
+        "Report on pupils' work and confer with parents and colleagues"
+      ],
+      "exposure": {
+        "gradient": "not_exposed",
+        "label": "Not exposed",
+        "mean_score": 0.30,
+        "score_sd": 0.07,
+        "summary": "The ILO's 2025 index classifies secondary education teachers as 'Not Exposed'. Most teaching tasks, such as giving lessons, keeping order and observing students, score low or very low. Curriculum design (0.465) and preparing and marking tests (0.35) are the most exposed tasks. AI is more likely to change how teachers prepare and assess than to replace teaching itself."
+      },
+      "kenya_context": "Education is the largest public employer in Kenya: according to a news report of the KNBS Economic Survey 2025, it accounted for 45.2% of all public jobs. The WEF expects demand for secondary education teachers to grow over 2025-2030. UNESCO warns that most countries lack rules for generative AI in education, leaving learners' data unprotected and schools unprepared. That applies to Kenyan schools adopting AI tools too.",
+      "limitations": "The 'Not Exposed' classification concerns the potential for generative AI to perform tasks. It says nothing about class sizes, teacher shortages or how quickly schools adopt digital tools. Kenyan public-employment figures come from a secondary news source. FUTUREPRINT has no verified data on AI use in Kenyan classrooms.",
+      "skills": [
+        {"skill": "teaching-mentoring", "importance": "core"},
+        {"skill": "curriculum-design", "importance": "core"},
+        {"skill": "assessment-design", "importance": "core"},
+        {"skill": "clear-communication", "importance": "core"},
+        {"skill": "empathy-active-listening", "importance": "supporting"},
+        {"skill": "digital-literacy", "importance": "supporting"},
+        {"skill": "responsible-ai-use", "importance": "emerging"},
+        {"skill": "ai-tool-fluency", "importance": "emerging"}
+      ],
+      "evidence": [
+        {"source": "ilo-wp140-genai-exposure-2025", "note": "Secondary education teachers (2330) are classified as Not Exposed (mean 0.30)."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Task-level scores: curriculum design is the most exposed task; maintaining order the least."},
+        {"source": "wef-future-of-jobs-2025", "note": "Secondary education teachers are among the education roles expected to grow significantly."},
+        {"source": "unesco-genai-education-guidance-2023", "note": "UNESCO guidance on human-centred, privacy-protecting use of generative AI in education."},
+        {"source": "knbs-economic-survey-2025-the-star", "note": "Education accounted for 45.2% of public jobs in Kenya in 2024 (secondary report of KNBS data)."}
+      ],
+      "display_order": 4
+    },
+    {
+      "slug": "graphic-designer",
+      "name": "Graphic Designer",
+      "category": "Creative and design professionals",
+      "isco_08_code": "2166",
+      "isco_08_title": "Graphic and multimedia designers",
+      "summary": "Creates visual concepts, layouts, illustrations, animation and digital media that communicate ideas for clients and organisations.",
+      "description": "Graphic and multimedia designers turn a client's brief into visual communication: they research requirements, develop concepts, sketch and lay out designs, create 2D and 3D images and animation, and prepare work for production. Image-generating AI has made this one of the most visible occupations in debates about AI and creative work.",
+      "responsibilities": [
+        "Agree the objectives and constraints of a design brief with clients and stakeholders",
+        "Research and analyse what a design needs to communicate",
+        "Develop design concepts, sketches, illustrations and layouts",
+        "Design graphics and animation that meet functional and creative goals",
+        "Create 2D and 3D images and animations using software",
+        "Negotiate design solutions with clients and production staff and prepare work for production"
+      ],
+      "exposure": {
+        "gradient": "gradient_2",
+        "label": "Exposed: Gradient 2 (moderate exposure, high task variability)",
+        "mean_score": 0.49,
+        "score_sd": 0.09,
+        "summary": "Graphic and multimedia designers are in Gradient 2 of the ILO's 2025 index: a mix of highly exposed and less exposed tasks. Creating 2D and 3D images (0.6125) and formulating concepts (0.585) score Medium; agreeing briefs, negotiating with clients and supervising production score Low. The WEF lists graphic designers just outside the top ten fastest-declining jobs and calls this a first-time prediction that may illustrate GenAI's growing capacity for knowledge work. The same report lists UI and UX designers among the fastest-growing roles."
+      },
+      "kenya_context": "FUTUREPRINT has not found verified Kenyan statistics on graphic designers. The wider context: most Kenyan employment is informal (ILOSTAT, 2019), so much design work is likely done by freelancers and small studios rather than large employers. In the WEF's Sub-Saharan Africa outlook, 59% of businesses highlighted broadening digital access as a key trend, which could expand the market for digital design.",
+      "limitations": "The WEF projection reflects large employers' expectations, mostly outside Kenya, and covers formal jobs only. Exposure scores do not capture client preferences for human-made work, cultural and local-language design needs, or copyright questions about AI-generated images. The absence of Kenyan occupational data is a known gap.",
+      "skills": [
+        {"skill": "visual-design", "importance": "core"},
+        {"skill": "creative-thinking", "importance": "core"},
+        {"skill": "collaboration-negotiation", "importance": "core"},
+        {"skill": "motion-3d", "importance": "supporting"},
+        {"skill": "ux-design", "importance": "emerging"},
+        {"skill": "ai-tool-fluency", "importance": "emerging"},
+        {"skill": "responsible-ai-use", "importance": "emerging"}
+      ],
+      "evidence": [
+        {"source": "ilo-wp140-genai-exposure-2025", "note": "Graphic and multimedia designers (2166) are in Gradient 2 (mean 0.49)."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Task-level scores: image creation is the most exposed task; client negotiation the least."},
+        {"source": "wef-future-of-jobs-2025", "note": "Graphic designers appear just outside the top ten fastest-declining jobs; UI and UX designers are among the fastest-growing."},
+        {"source": "ilostat-kenya-informal-employment-2019", "note": "Informality context for creative and freelance work in Kenya."}
+      ],
+      "display_order": 5
+    },
+    {
+      "slug": "registered-nurse",
+      "name": "Registered Nurse",
+      "category": "Health professionals",
+      "isco_08_code": "2221",
+      "isco_08_title": "Nursing professionals",
+      "summary": "Plans, provides and evaluates nursing care, administers treatments, coordinates with health teams and educates patients and communities.",
+      "description": "Nursing professionals assess patients, plan and deliver care, give medications and treatments, manage pain and wounds, coordinate with other health workers, and teach patients, families and communities about health. Much of the work is physical, interpersonal and done at the bedside.",
+      "responsibilities": [
+        "Plan, provide and evaluate nursing care according to professional standards",
+        "Coordinate patient care with other health professionals",
+        "Administer medications and treatments and monitor patients' responses",
+        "Clean wounds and apply dressings, and monitor and relieve pain",
+        "Run health education and health promotion activities",
+        "Answer patients' and families' questions about prevention, treatment and care"
+      ],
+      "exposure": {
+        "gradient": "not_exposed",
+        "label": "Not exposed",
+        "mean_score": 0.25,
+        "score_sd": 0.13,
+        "summary": "The ILO's 2025 index classifies nursing professionals as 'Not Exposed'. Hands-on tasks such as wound care (0.0625) and administering treatments (0.11) have very low scores. Research and documentation tasks score higher but still Low. AI is more likely to support nurses with records, information and decision support than to take over care. The WEF expects demand for nursing professionals to grow."
+      },
+      "kenya_context": "WHO describes nurses as the largest occupational group in health and calls for country-level investment to reduce health-worker shortages; its 2025 report compiles data for every WHO region, including Africa. FUTUREPRINT has not yet added verified Kenya-specific nursing workforce statistics. Figures circulating in the media were not checked against the WHO report, so they are excluded.",
+      "limitations": "Low exposure does not mean nursing is unaffected by technology: digital records, telehealth and decision-support tools still change the work. Kenyan nursing workforce data is a known gap in this dataset. The WEF growth projection is global.",
+      "skills": [
+        {"skill": "clinical-care", "importance": "core"},
+        {"skill": "empathy-active-listening", "importance": "core"},
+        {"skill": "professional-judgement", "importance": "core"},
+        {"skill": "clear-communication", "importance": "core"},
+        {"skill": "teaching-mentoring", "importance": "supporting"},
+        {"skill": "health-informatics", "importance": "emerging"},
+        {"skill": "digital-literacy", "importance": "emerging"}
+      ],
+      "evidence": [
+        {"source": "ilo-wp140-genai-exposure-2025", "note": "Nursing professionals (2221) are classified as Not Exposed (mean 0.25)."},
+        {"source": "ilo-genai-task-scores-2025", "note": "Task-level scores: hands-on care tasks are rated Very Low."},
+        {"source": "who-state-of-worlds-nursing-2025", "note": "WHO's 2025 global nursing workforce report: nurses are the largest health occupational group, and shortages require investment."},
+        {"source": "wef-future-of-jobs-2025", "note": "Nursing professionals are among the care-economy jobs expected to grow significantly."}
+      ],
+      "display_order": 6
+    }
+  ]
+}
