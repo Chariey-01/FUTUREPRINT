@@ -1,4 +1,3 @@
-import { AnimatePresence, m } from 'framer-motion';
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DecisionCard } from '../../components/DecisionCard';
@@ -8,40 +7,55 @@ import { useSubmitChoice } from '../../hooks/useSession';
 import { isSessionGone, isStaleStep } from '../../lib/api';
 import type { Scenario, Session } from '../../types/api';
 
+export type SimulatorMessage =
+  { kind: 'saved'; text: string } | { kind: 'problem'; text: string } | null;
+
 interface Props {
   session: Session;
   scenario: Scenario;
-  /** Lives in the parent so it survives the remount when the server sends a new step. */
-  notice: string | null;
-  setNotice: (notice: string | null) => void;
+  /** Owned by the parent so it survives the remount when the server sends a new step. */
+  setMessage: (message: SimulatorMessage) => void;
 }
 
-export function ScenarioView({ session, scenario, notice, setNotice }: Props) {
+export function ScenarioView({ session, scenario, setMessage }: Props) {
   const navigate = useNavigate();
   const submit = useSubmitChoice();
   const [selected, setSelected] = useState<string | null>(null);
   const inFlight = useRef(false);
   const headingId = useId();
   const busy = submit.isPending;
+  const finalStep = scenario.step >= session.totalSteps;
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!selected || inFlight.current) return; // guard against double submits
     inFlight.current = true;
-    setNotice(null);
+    setMessage(null);
+    const label = scenario.options.find((o) => o.id === selected)?.label ?? '';
     submit.mutate(
       { scenarioId: scenario.id, optionId: selected, step: scenario.step },
       {
         onSuccess: (next) => {
-          if (next.status === 'completed') navigate('/report');
+          if (next.status === 'completed') {
+            navigate('/report');
+            return;
+          }
+          setMessage({
+            kind: 'saved',
+            text: `Choice saved — “${label}”. On to chapter ${next.currentStep}.`,
+          });
         },
         onError: (err) => {
           if (isStaleStep(err)) {
-            setNotice(
-              'This step was already answered — perhaps in another tab. We’ve loaded your latest step.',
-            );
+            setMessage({
+              kind: 'problem',
+              text: 'This step was already answered — perhaps in another tab. We’ve loaded your latest step.',
+            });
           } else if (!isSessionGone(err)) {
-            setNotice(err.message || 'We couldn’t save your choice. Please try again.');
+            setMessage({
+              kind: 'problem',
+              text: err.message || 'We couldn’t save your choice. Please try again.',
+            });
           }
         },
         onSettled: () => {
@@ -52,49 +66,24 @@ export function ScenarioView({ session, scenario, notice, setNotice }: Props) {
   };
 
   return (
-    <m.form
-      onSubmit={onSubmit}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.35 }}
-      aria-labelledby={headingId}
-      aria-busy={busy}
-    >
-      <div className="flex flex-col gap-4 border-b border-midnight/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-sm text-midnight/80">
-            Exploring the future of{' '}
-            <strong className="font-semibold text-midnight">{session.occupation.title}</strong>
-          </p>
-        </div>
-        <ProgressSteps current={scenario.step} total={session.totalSteps} />
-      </div>
+    <form onSubmit={onSubmit} aria-labelledby={headingId} aria-busy={busy}>
+      <ProgressSteps current={scenario.step} total={session.totalSteps} />
 
-      <div className="mt-8 max-w-3xl sm:mt-12">
-        <h1 id={headingId} className="text-3xl font-semibold leading-tight sm:text-5xl">
+      <div className="mt-5 max-w-3xl">
+        <h1 id={headingId} className="text-4xl font-bold leading-[1.05] sm:text-6xl">
           {scenario.title}
         </h1>
-        <p className="mt-4 text-lg leading-relaxed sm:text-xl">{scenario.prompt}</p>
-        {scenario.context && <p className="mt-3 text-base text-midnight/80">{scenario.context}</p>}
-      </div>
-
-      <AnimatePresence>
-        {notice && (
-          <m.p
-            role="alert"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-6 rounded-2xl border border-transform-ink/30 bg-transform-soft px-4 py-3 text-midnight"
-          >
-            {notice}
-          </m.p>
+        <p className="mt-5 text-lg leading-relaxed sm:text-xl">{scenario.prompt}</p>
+        {scenario.context && (
+          <p className="mt-3 border-l-2 border-adapt pl-4 text-base italic text-midnight/80">
+            {scenario.context}
+          </p>
         )}
-      </AnimatePresence>
+      </div>
 
       <fieldset className="mt-8 sm:mt-10" disabled={busy}>
         <legend className="sr-only">Choose how you would respond</legend>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+        <div className="grid gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-1 xl:grid-cols-3">
           {scenario.options.map((option, i) => (
             <DecisionCard
               key={option.id}
@@ -110,21 +99,23 @@ export function ScenarioView({ session, scenario, notice, setNotice }: Props) {
         </div>
       </fieldset>
 
-      <div className="mt-8 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
+      <div className="mt-8 flex flex-col-reverse items-stretch gap-3 rounded-4xl bg-ivory-50 p-4 shadow-card sm:flex-row sm:items-center sm:justify-end sm:pl-6">
         <p className="text-sm text-midnight/80 sm:mr-auto" aria-live="polite">
           {busy
             ? 'Saving your choice…'
             : selected
-              ? 'Ready when you are.'
+              ? 'Ready when you are. You can change your mind until you lock it in.'
               : 'Select one option to continue.'}
         </p>
-        <button type="submit" className="btn-primary" disabled={!selected || busy}>
+        <button
+          type="submit"
+          className="btn-primary shrink-0 whitespace-nowrap"
+          disabled={!selected || busy}
+        >
           {busy && <Spinner />}
-          {scenario.step >= session.totalSteps
-            ? 'Lock in & see my Futureprint'
-            : 'Lock in this choice'}
+          {finalStep ? 'Lock in & see my Futureprint' : 'Lock in this choice'}
         </button>
       </div>
-    </m.form>
+    </form>
   );
 }

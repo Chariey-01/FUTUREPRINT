@@ -32,7 +32,7 @@ describe('Future Scenario Simulator', () => {
       await screen.findByRole('heading', { level: 1, name: 'A new tool arrives' }),
     ).toBeInTheDocument();
     expect(screen.getByText(/exploring the future of/i)).toHaveTextContent('Registered Nurse');
-    expect(screen.getByTestId('step-label')).toHaveTextContent('Step 1 of 3');
+    expect(screen.getByTestId('step-label')).toHaveTextContent('Chapter 1 of 3');
     expect(screen.getAllByRole('radio')).toHaveLength(3);
     expect(screen.getByRole('button', { name: /lock in this choice/i })).toBeDisabled();
     expect(await axeViolations(container)).toEqual([]);
@@ -42,11 +42,19 @@ describe('Future Scenario Simulator', () => {
     await startSession();
     const { user } = renderApp('/simulate');
     await choose(user, /master the tool/i);
-    expect(await screen.findByTestId('step-label')).toHaveTextContent('Step 2 of 3');
+    // The previous chapter stays on screen during its short exit transition.
+    await waitFor(() =>
+      expect(screen.getByTestId('step-label')).toHaveTextContent('Chapter 2 of 3'),
+    );
+    expect(
+      await screen.findByText(/choice saved — “master the tool”\. on to chapter 2\./i),
+    ).toBeInTheDocument();
     // Step 2 content is whatever the server returned for the chosen branch.
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('The bar rises');
     await choose(user, /lead the change/i);
-    await waitFor(() => expect(screen.getByTestId('step-label')).toHaveTextContent('Step 3 of 3'));
+    await waitFor(() =>
+      expect(screen.getByTestId('step-label')).toHaveTextContent('Chapter 3 of 3'),
+    );
     await choose(user, /the explorer/i);
     await waitFor(() => expect(screen.getByTestId('location')).toHaveTextContent('/report'));
     expect(
@@ -97,7 +105,7 @@ describe('Future Scenario Simulator', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent(/already answered/i);
     // Shows the server's actual step 2 (Discover branch), not the one this tab tried.
     expect(await screen.findByText('An unexpected door')).toBeInTheDocument();
-    expect(screen.getByTestId('step-label')).toHaveTextContent('Step 2 of 3');
+    expect(screen.getByTestId('step-label')).toHaveTextContent('Chapter 2 of 3');
   });
 
   it('resumes the current step after a page refresh', async () => {
@@ -111,7 +119,7 @@ describe('Future Scenario Simulator', () => {
     sessionToken.reload();
     renderApp('/simulate');
     expect(await screen.findByText('An unexpected door')).toBeInTheDocument();
-    expect(screen.getByTestId('step-label')).toHaveTextContent('Step 2 of 3');
+    expect(screen.getByTestId('step-label')).toHaveTextContent('Chapter 2 of 3');
   });
 
   it('handles an expired session gracefully', async () => {

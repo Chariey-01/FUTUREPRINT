@@ -1,10 +1,11 @@
+/** Journey progress. Uses "Chapter" to match the simulator's story framing. */
 export function ProgressSteps({ current, total }: { current: number; total: number }) {
   const steps = Array.from({ length: total }, (_, i) => i + 1);
   const shown = Math.min(current, total);
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-      <p className="eyebrow text-midnight/80" data-testid="step-label">
-        Step {shown} of {total}
+      <p className="eyebrow text-transform-ink" data-testid="step-label">
+        Chapter {shown} of {total}
       </p>
       <ol className="flex items-center gap-2" aria-label="Progress">
         {steps.map((s) => {
@@ -12,7 +13,7 @@ export function ProgressSteps({ current, total }: { current: number; total: numb
           return (
             <li key={s} aria-current={state === 'current' ? 'step' : undefined}>
               <span className="sr-only">
-                Step {s}:{' '}
+                Chapter {s}:{' '}
                 {state === 'done' ? 'completed' : state === 'current' ? 'current' : 'not started'}
               </span>
               <span

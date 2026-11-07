@@ -57,18 +57,18 @@ test('full visitor journey: Portal → Begin → Occupation → 3 decisions → 
   await page.getByRole('button', { name: /graphic designer/i }).click();
 
   await expect(page).toHaveURL(/\/simulate$/);
-  await expect(page.getByTestId('step-label')).toHaveText('Step 1 of 3');
+  await expect(page.getByTestId('step-label')).toHaveText('Chapter 1 of 3');
   await expectA11y(page);
   await decide(page, /redesign the work/i);
-  await expect(page.getByTestId('step-label')).toHaveText('Step 2 of 3');
+  await expect(page.getByTestId('step-label')).toHaveText('Chapter 2 of 3');
 
   // Refresh mid-journey: resumes the same step.
   await page.reload();
-  await expect(page.getByTestId('step-label')).toHaveText('Step 2 of 3');
+  await expect(page.getByTestId('step-label')).toHaveText('Chapter 2 of 3');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your pilot works');
 
   await decide(page, /lead the change/i);
-  await expect(page.getByTestId('step-label')).toHaveText('Step 3 of 3');
+  await expect(page.getByTestId('step-label')).toHaveText('Chapter 3 of 3');
   await decide(page, /architect of new work/i);
 
   await expect(page).toHaveURL(/\/report$/);
@@ -125,11 +125,11 @@ test('keyboard-only: complete a decision without a mouse', async ({ page }) => {
   await page.goto('/start');
   await page.getByRole('button', { name: /registered nurse/i }).focus();
   await page.keyboard.press('Enter');
-  await expect(page.getByTestId('step-label')).toHaveText('Step 1 of 3');
+  await expect(page.getByTestId('step-label')).toHaveText('Chapter 1 of 3');
   await page.getByRole('radio').first().focus();
   await page.keyboard.press('Space');
   await page.keyboard.press('Tab');
   await expect(page.getByRole('button', { name: /lock in/i })).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.getByTestId('step-label')).toHaveText('Step 2 of 3');
+  await expect(page.getByTestId('step-label')).toHaveText('Chapter 2 of 3');
 });
