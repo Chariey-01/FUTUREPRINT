@@ -73,7 +73,10 @@ export default function PortalPage() {
             <ol className="mt-10 grid gap-8 md:grid-cols-3">
               {STEPS.map((s, i) => (
                 <m.li key={s.title} {...reveal(i)} className="border-t-2 border-midnight/15 pt-5">
-                  <span className="text-5xl font-bold text-midnight/25" aria-hidden="true">
+                  <span
+                    className="font-display text-5xl font-bold text-adapt-ink"
+                    aria-hidden="true"
+                  >
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <h3 className="mt-2 text-2xl font-bold">{s.title}</h3>

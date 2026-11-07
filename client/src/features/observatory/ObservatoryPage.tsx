@@ -133,7 +133,7 @@ export default function ObservatoryPage() {
               ) : (
                 byYear.map(([year, items]) => (
                   <div key={year} className="mb-10 last:mb-0">
-                    <h3 className="font-display text-4xl font-bold text-midnight/30">{year}</h3>
+                    <h3 className="font-display text-4xl font-bold text-adapt-ink">{year}</h3>
                     <ol className="relative mt-4 space-y-5 border-l-2 border-dashed border-midnight/15 pl-6 sm:pl-8">
                       {items.map((e, i) => (
                         <EventCard key={e.id} event={e} index={i} />

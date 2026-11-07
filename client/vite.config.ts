@@ -11,7 +11,8 @@ export default defineConfig({
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
           query: ['@tanstack/react-query'],
-          motion: ['framer-motion'],
+          // framer-motion is deliberately NOT forced into one chunk: its animation features
+          // load lazily (see app/motionFeatures.ts) so they stay out of the initial bundle.
         },
       },
     },

@@ -50,7 +50,7 @@ export default function MethodologyPage() {
         <ol className="mt-6 grid gap-5 md:grid-cols-2">
           {PRINCIPLES.map((p, i) => (
             <li key={p.title} className="rounded-4xl bg-ivory-50 p-6 shadow-card">
-              <span aria-hidden="true" className="font-display text-4xl font-bold text-midnight/25">
+              <span aria-hidden="true" className="font-display text-4xl font-bold text-adapt-ink">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="mt-2 text-xl font-semibold">{p.title}</h3>
