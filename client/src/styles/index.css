@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ivory-100 font-sans text-midnight antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  h1,
+  h2 {
+    @apply font-display;
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+  }
+  h3 {
+    @apply font-sans font-semibold;
+  }
+  :focus-visible {
+    outline: 3px solid #17243b;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-dark :focus-visible {
+    outline-color: #ede7dd;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-midnight text-ivory-50 hover:bg-midnight-700;
+  }
+  .btn-light {
+    @apply btn bg-ivory-50 text-midnight hover:bg-ivory-300;
+  }
+  .btn-accent {
+    @apply btn bg-transform font-bold text-midnight shadow-[0_10px_30px_-12px_rgba(231,161,143,0.75)] hover:bg-[#EDB3A3];
+  }
+  .btn-ghost {
+    @apply btn border border-midnight/25 bg-transparent text-midnight hover:bg-midnight/5;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em];
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Print: the report is a keepsake. Hide site chrome, keep the mock label, show source URLs. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  a[href='#main'] {
+    display: none !important;
+  }
+  [data-section='research'] a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  * {
+    box-shadow: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
