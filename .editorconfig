@@ -1,0 +1,22 @@
+# Shared editor defaults so every teammate's editor produces the same whitespace.
+# These match what the code already uses: Prettier for client/ (2 spaces) and
+# PEP 8 for server/ and the root seed tools (4 spaces).
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.py]
+indent_size = 4
+
+[*.md]
+# Two trailing spaces are a Markdown line break.
+trim_trailing_whitespace = false
+
+[{Makefile,*.mk}]
+indent_style = tab
