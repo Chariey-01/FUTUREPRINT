@@ -75,7 +75,6 @@ def register_request_logging(app: Flask) -> None:
     @app.after_request
     def _finish_request(response: Response) -> Response:
         response.headers["X-Request-ID"] = getattr(g, "request_id", "")
-        response.headers.setdefault("X-Content-Type-Options", "nosniff")
         started = getattr(g, "request_started", None)
         duration_ms = round((time.perf_counter() - started) * 1000, 1) if started else None
         access_log.info(

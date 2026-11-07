@@ -79,3 +79,13 @@ def test_oversized_body_rejected(client):
     response = client.post("/api/v1/sessions", data="x" * (70 * 1024), content_type="application/json")
     assert response.status_code == 413
     assert response.get_json()["error"]["code"] == "request_entity_too_large"
+
+
+def test_security_headers_on_success_and_error_responses(client):
+    for path in ("/api/v1/health", "/api/v1/nope"):
+        headers = client.get(path).headers
+        assert headers["X-Content-Type-Options"] == "nosniff"
+        assert headers["Referrer-Policy"] == "no-referrer"
+        assert headers["X-Frame-Options"] == "DENY"
+        assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
+        assert headers["Cross-Origin-Resource-Policy"] == "same-site"

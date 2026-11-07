@@ -11,6 +11,7 @@ from app.config import Settings, load_settings
 from app.errors import register_error_handlers
 from app.extensions import cors, db, migrate
 from app.logging_config import configure_logging, register_request_logging
+from app.security import register_security_headers
 
 __version__ = "0.1.0"
 
@@ -54,6 +55,7 @@ def create_app(settings: Settings | None = None) -> Flask:
 
     register_error_handlers(flask_app)
     register_request_logging(flask_app)
+    register_security_headers(flask_app)
 
     from app.engine.adapter import load_engine
 

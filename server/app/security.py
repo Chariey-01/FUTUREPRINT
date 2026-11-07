@@ -20,6 +20,8 @@ import re
 import secrets
 import uuid
 
+from flask import Flask, Response
+
 SESSION_TOKEN_PREFIX = "fps_"
 SESSION_TOKEN_PATTERN = re.compile(r"^fps_[A-Za-z0-9_-]{43}$")
 SHARE_TOKEN_PATTERN = re.compile(r"^[A-Za-z0-9_-]{43}$")
@@ -45,3 +47,26 @@ def derive_share_token(secret_key: str, report_id: uuid.UUID) -> str:
 
 def is_well_formed_share_token(token: str) -> bool:
     return bool(SHARE_TOKEN_PATTERN.fullmatch(token))
+
+
+# Applied to every response. The API only serves JSON, so it can use the
+# strictest values: nothing may be framed, loaded or sniffed from it.
+# ``Referrer-Policy: no-referrer`` matters most: report share tokens travel in
+# URLs (``/reports/<share_token>``), and a Referer header must never carry
+# one to a third party.
+SECURITY_HEADERS: dict[str, str] = {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "X-Frame-Options": "DENY",
+    "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+    "Cross-Origin-Resource-Policy": "same-site",
+}
+
+
+def register_security_headers(app: Flask) -> None:
+    @app.after_request
+    def _apply_security_headers(response: Response) -> Response:
+        for name, value in SECURITY_HEADERS.items():
+            # setdefault lets an individual view opt out deliberately if it ever needs to.
+            response.headers.setdefault(name, value)
+        return response
