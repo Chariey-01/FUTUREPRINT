@@ -6,3 +6,5 @@ psycopg[binary]>=3.2,<4.0
 pydantic>=2.10,<3.0
 python-dotenv>=1.0,<2.0
 openai>=1.60,<3.0
+# Production WSGI server (wsgi.py: `gunicorn wsgi:app`). Linux/macOS only; use `flask run` on Windows.
+gunicorn>=23.0,<27.0

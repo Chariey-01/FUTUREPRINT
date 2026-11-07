@@ -323,6 +323,23 @@ The model only explains curated evidence and never decides simulation outcomes. 
 
 ---
 
+## Running in production
+
+`wsgi.py` exposes the app for a WSGI server. `gunicorn` is in `requirements.txt`:
+
+```bash
+cd server
+flask db upgrade && flask seed load    # once per deploy, before starting workers
+gunicorn wsgi:app --bind 0.0.0.0:${PORT:-8000} --workers 2 --timeout 30
+```
+
+In production:
+
+- Set `APP_ENV=production`, a `SECRET_KEY` of at least 32 characters, and `CORS_ORIGINS` to the deployed frontend origin(s). Wildcards are rejected.
+- `SCENARIO_ENGINE_MODULE` must name the real engine. The app refuses to start with the reference stand-in.
+- Point the platform health check at `/api/v1/health/ready`. It returns 503 until migrations have run and content is loaded.
+- Keep `LOG_FORMAT=json` (the default) so logs stay structured and carry `request_id`.
+
 ## Scenario engine integration (for Person 3)
 
 The full guide is in **[docs/engine-integration.md](docs/engine-integration.md)**: how the engine is loaded, the required signatures, input and output structures, error translation, the production guard, `flask engine check`, and the open decisions for Person 3.
