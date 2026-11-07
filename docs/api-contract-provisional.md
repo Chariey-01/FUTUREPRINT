@@ -5,6 +5,8 @@
 > mock mode implements. It needs confirmation or correction from **Person 2 (backend)**,
 > **Person 3 (research)** and **Person 5 (recommendations)**. Once frozen, update
 > `client/src/types/api.ts` first; the UI only consumes those types.
+>
+> **See also:** [api-contract-gaps.md](api-contract-gaps.md) compares this provisional contract with the implemented Flask API, field by field.
 
 ## Conventions
 - Base path `/api/v1`, JSON in and out.
