@@ -69,5 +69,5 @@ def test_create_app_does_not_need_a_database_connection():
 
 def test_unknown_engine_module_fails_fast():
     s = load_settings(env={**BASE, "SCENARIO_ENGINE_MODULE": "does.not.exist"})
-    with pytest.raises(ConfigError, match="SCENARIO_ENGINE_MODULE"):
+    with pytest.raises(ConfigError, match="could not be imported"):
         create_app(s)

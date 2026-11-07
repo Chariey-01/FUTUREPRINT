@@ -17,7 +17,7 @@ from typing import Any
 from sqlalchemy.exc import IntegrityError
 
 from app import get_settings
-from app.engine.adapter import EngineError
+from app.engine.adapter import EngineChoiceRejected, EngineError
 from app.errors import ApiError, Conflict, Unauthorized, ValidationFailed
 from app.repositories import content_repository, session_repository
 from app.services import session_service
@@ -45,6 +45,7 @@ def submit_choice(session_id: uuid.UUID, choice_id: uuid.UUID) -> dict[str, Any]
             raise Conflict("This choice has already been submitted.", code="duplicate_choice")
         if session.status == "completed":
             raise Conflict("This simulation is already complete.", code="session_completed")
+        session_service.ensure_engine_compatible(session)
 
         current_id = session.current_scenario_id
         choice = content_repository.get_choice(choice_id)
@@ -56,8 +57,11 @@ def submit_choice(session_id: uuid.UUID, choice_id: uuid.UUID) -> dict[str, Any]
         content = build_engine_content(session.occupation, session.content_version)
         try:
             result = engine.apply_choice(content, session.state, str(current_id), str(choice_id))
+        except EngineChoiceRejected as exc:
+            # The engine's own rule (e.g. a locked choice); nothing is persisted.
+            raise ValidationFailed("This choice is not available right now.", code="choice_rejected") from exc
         except EngineError as exc:
-            logger.error("engine_rejected_choice", extra={"reason": str(exc)})
+            logger.error("engine_failed_choice", extra={"reason": str(exc)})
             raise EngineFailure() from exc
 
         now = session_service.utcnow()

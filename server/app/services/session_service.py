@@ -6,7 +6,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from app import get_settings
-from app.errors import NotFound, ServiceUnavailable, Unauthorized
+from app.errors import Conflict, NotFound, ServiceUnavailable, Unauthorized
 from app.models import AnonymousSession
 from app.repositories import content_repository, report_repository, session_repository
 from app.security import generate_session_token, is_well_formed_session_token, sha256_hex
@@ -43,6 +43,7 @@ def create_session(occupation_slug: str) -> tuple[str, dict[str, Any]]:
             content_version_id=version.id,
             current_scenario_id=start.id,
             state=engine.start_state(),
+            engine_id=engine.engine_id,
             expires_at=utcnow() + timedelta(hours=settings.session_ttl_hours),
         )
         session_repository.commit()
@@ -68,11 +69,21 @@ def ensure_not_expired(session: AnonymousSession) -> None:
         raise Unauthorized("This session has expired. Start a new session.", code="session_expired")
 
 
+def ensure_engine_compatible(session: AnonymousSession) -> None:
+    """Refuse to feed one engine's state to a different engine (or version)."""
+    if session.engine_id != get_engine().engine_id:
+        raise Conflict(
+            "This session was started with a different version of the simulation. Start a new session.",
+            code="session_engine_mismatch",
+        )
+
+
 def build_view(session: AnonymousSession) -> dict[str, Any]:
     engine = get_engine()
     occupation = session.occupation
     current = None
     if session.current_scenario_id is not None:
+        ensure_engine_compatible(session)
         content = build_engine_content(occupation, session.content_version)
         current = engine.present_scenario(content, str(session.current_scenario_id), session.state)
     history = [
@@ -90,7 +101,7 @@ def build_view(session: AnonymousSession) -> dict[str, Any]:
         "status": session.status,
         "occupation": {"slug": occupation.slug, "name": occupation.name},
         "content_version": session.content_version.version,
-        "engine": {"name": engine.name, "is_reference": engine.is_reference},
+        "engine": engine.describe(),
         "step_count": session.step_count,
         "current_scenario": current,
         "state": session.state,

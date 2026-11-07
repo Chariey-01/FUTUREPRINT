@@ -34,6 +34,7 @@ ENV_VARS: dict[str, str] = {
     "LOG_LEVEL": "log_level",
     "LOG_FORMAT": "log_format",
     "SCENARIO_ENGINE_MODULE": "scenario_engine_module",
+    "ALLOW_REFERENCE_ENGINE": "allow_reference_engine",
     "AI_INSIGHTS_ENABLED": "ai_insights_enabled",
     "OPENAI_API_KEY": "openai_api_key",
     "OPENAI_MODEL": "openai_model",
@@ -64,6 +65,9 @@ class Settings(BaseModel):
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     log_format: Literal["json", "text"] = "json"
     scenario_engine_module: str | None = None
+    # None means "decide by environment": allowed in development/testing,
+    # refused in production. Set explicitly to override.
+    allow_reference_engine: bool | None = None
 
     ai_insights_enabled: bool = False
     openai_api_key: SecretStr | None = None
@@ -132,6 +136,12 @@ class Settings(BaseModel):
             if self.openai_model is None:
                 raise ValueError("OPENAI_MODEL is required when AI_INSIGHTS_ENABLED=true")
         return self
+
+    @property
+    def reference_engine_allowed(self) -> bool:
+        if self.allow_reference_engine is not None:
+            return self.allow_reference_engine
+        return self.app_env != "production"
 
     @property
     def database_name(self) -> str:

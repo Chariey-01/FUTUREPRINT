@@ -7,6 +7,7 @@ from typing import Any
 from flask import current_app
 
 from app.engine.adapter import EngineAdapter
+from app.engine.contract import CONTENT_SCHEMA_VERSION
 from app.errors import ServiceUnavailable
 from app.models import ContentVersion, Occupation
 from app.repositories import content_repository
@@ -26,6 +27,7 @@ def build_engine_content(occupation: Occupation, content_version: ContentVersion
     if start is None:
         raise ServiceUnavailable("The simulation has no start scenario.", code="simulation_unavailable")
     return {
+        "schema_version": CONTENT_SCHEMA_VERSION,
         "content_version": content_version.version,
         "occupation": {"id": str(occupation.id), "slug": occupation.slug, "name": occupation.name},
         "start_scenario_id": str(start.id),

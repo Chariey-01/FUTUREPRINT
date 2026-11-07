@@ -57,7 +57,9 @@ def create_app(settings: Settings | None = None) -> Flask:
 
     from app.engine.adapter import load_engine
 
-    flask_app.extensions[ENGINE_KEY] = load_engine(settings.scenario_engine_module)
+    flask_app.extensions[ENGINE_KEY] = load_engine(
+        settings.scenario_engine_module, allow_reference=settings.reference_engine_allowed
+    )
 
     from app.api import api_v1
 

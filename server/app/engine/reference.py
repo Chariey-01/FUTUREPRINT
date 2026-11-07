@@ -16,6 +16,13 @@ from typing import Any
 
 PATHWAY_ORDER = ("adapt", "transform", "discover")
 
+# No ENGINE_VERSION on purpose: sessions created before engine identity was
+# recorded default to the bare module name "app.engine.reference".
+
+
+class InvalidChoiceError(ValueError):
+    """Raised when a choice does not belong to the current scenario (contract convention)."""
+
 
 def start_state() -> dict[str, Any]:
     return {
@@ -29,11 +36,11 @@ def start_state() -> dict[str, Any]:
 def _find_choice(content: dict[str, Any], scenario_id: str, choice_id: str) -> dict[str, Any]:
     scenario = content["scenarios"].get(scenario_id)
     if scenario is None:
-        raise ValueError("unknown scenario")
+        raise InvalidChoiceError("unknown scenario")
     for choice in scenario["choices"]:
         if choice["id"] == choice_id:
             return choice
-    raise ValueError("choice does not belong to scenario")
+    raise InvalidChoiceError("choice does not belong to scenario")
 
 
 def apply_choice(

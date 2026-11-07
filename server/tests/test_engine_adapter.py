@@ -26,9 +26,14 @@ def module_with(**overrides):
     return module
 
 
-def test_default_engine_is_reference():
-    engine = load_engine(None)
+def test_reference_engine_only_when_allowed():
+    engine = load_engine(None, allow_reference=True)
     assert engine.is_reference and engine.name == "app.engine.reference"
+    assert engine.engine_id == "app.engine.reference"
+    with pytest.raises(ConfigError, match="development stand-in"):
+        load_engine(None)
+    with pytest.raises(ConfigError, match="development stand-in"):
+        load_engine("app.engine.reference", allow_reference=False)
 
 
 def test_missing_module_or_functions_fail_fast(monkeypatch):
@@ -37,7 +42,7 @@ def test_missing_module_or_functions_fail_fast(monkeypatch):
     incomplete = types.ModuleType("incomplete_engine")
     incomplete.start_state = reference.start_state
     monkeypatch.setitem(__import__("sys").modules, "incomplete_engine", incomplete)
-    with pytest.raises(ConfigError, match="apply_choice"):
+    with pytest.raises(ConfigError, match="missing function apply_choice"):
         load_engine("incomplete_engine")
 
 

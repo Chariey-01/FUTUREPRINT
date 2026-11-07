@@ -2,12 +2,18 @@
 
 The adapter is the only place the backend touches engine code. It:
 
-* imports the engine module named by ``SCENARIO_ENGINE_MODULE`` (or the
-  in-repo reference implementation when unset) and checks the contract;
+* imports the engine module named by ``SCENARIO_ENGINE_MODULE`` (or, when
+  explicitly allowed, the in-repo reference stand-in) and checks the
+  contract at start-up: functions present, signatures compatible, and a
+  smoke call of ``start_state()``;
+* refuses to run the reference stand-in unless it is allowed (by default it
+  is allowed in development/testing and refused in production);
 * deep-copies inputs so an engine cannot mutate backend data;
 * validates outputs (shape, JSON-serialisable, referential sanity) before
   anything is persisted; and
-* converts engine exceptions into :class:`EngineError`.
+* converts engine exceptions into :class:`EngineError`, or into
+  :class:`EngineChoiceRejected` when the engine raises its own
+  ``InvalidChoiceError``.
 """
 
 from __future__ import annotations
@@ -15,21 +21,26 @@ from __future__ import annotations
 import copy
 import dataclasses
 import importlib
+import inspect
 import json
 import logging
 from types import ModuleType
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.config import ConfigError
-from app.engine.contract import REQUIRED_FUNCTIONS, StepResult
+from app.engine.contract import REFERENCE_ENGINE_MODULE, REQUIRED_ARITY, REQUIRED_FUNCTIONS, StepResult
 
 logger = logging.getLogger(__name__)
 
 
 class EngineError(RuntimeError):
     """The scenario engine failed or returned output that breaks the contract."""
+
+
+class EngineChoiceRejected(EngineError):
+    """The engine deliberately rejected a choice by raising its InvalidChoiceError."""
 
 
 class _StepResultModel(BaseModel):
@@ -39,6 +50,22 @@ class _StepResultModel(BaseModel):
     next_scenario_id: str | None = None
     completed: bool
     feedback: str | None = None
+
+
+class _PresentedChoice(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str
+    label: str
+
+
+class _PresentedScenario(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str
+    title: str
+    narrative: str
+    choices: list[_PresentedChoice] = Field(min_length=1)
 
 
 def _to_plain(value: Any) -> Any:
@@ -59,10 +86,28 @@ def _ensure_json(value: Any, what: str) -> Any:
 
 
 class EngineAdapter:
-    def __init__(self, module: ModuleType, *, is_reference: bool) -> None:
+    def __init__(self, module: ModuleType, *, is_reference: bool | None = None) -> None:
         self._module = module
         self.name = module.__name__
-        self.is_reference = is_reference
+        self.is_reference = module.__name__ == REFERENCE_ENGINE_MODULE if is_reference is None else is_reference
+        version = getattr(module, "ENGINE_VERSION", None)
+        self.version = str(version) if version is not None else None
+        rejected = getattr(module, "InvalidChoiceError", None)
+        self._choice_errors: tuple[type[BaseException], ...] = (
+            (rejected,) if isinstance(rejected, type) and issubclass(rejected, Exception) else ()
+        )
+
+    @property
+    def module(self) -> ModuleType:
+        return self._module
+
+    @property
+    def engine_id(self) -> str:
+        """Identity stored on sessions: state from one engine is never fed to another."""
+        return f"{self.name}@{self.version}" if self.version else self.name
+
+    def describe(self) -> dict[str, Any]:
+        return {"name": self.name, "version": self.version, "is_reference": self.is_reference}
 
     def _call(self, func: str, *args: Any) -> Any:
         try:
@@ -70,7 +115,10 @@ class EngineAdapter:
         except EngineError:
             raise
         except Exception as exc:  # engine bugs must not leak to clients
-            logger.exception("engine_call_failed", extra={"engine": self.name, "function": func})
+            if func == "apply_choice" and isinstance(exc, self._choice_errors):
+                logger.info("engine_rejected_choice", extra={"engine": self.engine_id, "reason": str(exc)[:200]})
+                raise EngineChoiceRejected(str(exc)) from exc
+            logger.exception("engine_call_failed", extra={"engine": self.engine_id, "function": func})
             raise EngineError(f"engine.{func} raised {type(exc).__name__}") from exc
 
     def start_state(self) -> dict[str, Any]:
@@ -104,10 +152,19 @@ class EngineAdapter:
         )
 
     def present_scenario(self, content: dict[str, Any], scenario_id: str, state: dict[str, Any]) -> dict[str, Any]:
-        presented = _to_plain(self._call("present_scenario", content, scenario_id, state))
+        presented = _ensure_json(_to_plain(self._call("present_scenario", content, scenario_id, state)), "present_scenario result")
         if not isinstance(presented, dict):
             raise EngineError("present_scenario must return a dict")
-        return _ensure_json(presented, "present_scenario result")
+        try:
+            parsed = _PresentedScenario.model_validate(presented)
+        except ValidationError as exc:
+            raise EngineError(f"present_scenario returned an invalid scenario: {exc.error_count()} error(s)") from exc
+        if parsed.id != scenario_id:
+            raise EngineError("present_scenario returned a different scenario id")
+        known = {c["id"] for c in content["scenarios"][scenario_id]["choices"]}
+        if any(choice.id not in known for choice in parsed.choices):
+            raise EngineError("present_scenario returned a choice that is not in the scenario's content")
+        return presented
 
     def generate_report(
         self,
@@ -122,19 +179,58 @@ class EngineAdapter:
         return _ensure_json(report, "generate_report result")
 
 
-def load_engine(module_path: str | None) -> EngineAdapter:
-    """Load and contract-check the engine module. Fails fast at start-up."""
-    if module_path:
+def check_signatures(module: ModuleType) -> list[str]:
+    """Return problems with the module's public contract (empty list if compatible)."""
+    problems = []
+    for name in REQUIRED_FUNCTIONS:
+        func = getattr(module, name, None)
+        if not callable(func):
+            problems.append(f"missing function {name}()")
+            continue
         try:
-            module = importlib.import_module(module_path)
-        except ImportError as exc:
-            raise ConfigError(f"SCENARIO_ENGINE_MODULE '{module_path}' could not be imported: {exc}") from exc
-        is_reference = False
-    else:
-        from app.engine import reference as module
+            inspect.signature(func).bind(*([None] * REQUIRED_ARITY[name]))
+        except TypeError:
+            problems.append(f"{name}() cannot be called with {REQUIRED_ARITY[name]} positional argument(s)")
+        except ValueError:  # builtins without introspectable signatures
+            continue
+    rejected = getattr(module, "InvalidChoiceError", None)
+    if rejected is not None and not (isinstance(rejected, type) and issubclass(rejected, Exception)):
+        problems.append("InvalidChoiceError must be an Exception subclass")
+    version = getattr(module, "ENGINE_VERSION", None)
+    if version is not None and not isinstance(version, str):
+        problems.append("ENGINE_VERSION must be a string")
+    return problems
 
-        is_reference = True
-    missing = [name for name in REQUIRED_FUNCTIONS if not callable(getattr(module, name, None))]
-    if missing:
-        raise ConfigError(f"Scenario engine '{module.__name__}' is missing: {', '.join(missing)}")
-    return EngineAdapter(module, is_reference=is_reference)
+
+def load_engine(module_path: str | None, *, allow_reference: bool = False) -> EngineAdapter:
+    """Load and contract-check the engine module. Fails fast at start-up."""
+    path = module_path or REFERENCE_ENGINE_MODULE
+    if path == REFERENCE_ENGINE_MODULE and not allow_reference:
+        raise ConfigError(
+            "The reference scenario engine is a development stand-in and is not allowed in this "
+            "environment. Set SCENARIO_ENGINE_MODULE to the real engine, or set "
+            "ALLOW_REFERENCE_ENGINE=true to override deliberately."
+        )
+    try:
+        module = importlib.import_module(path)
+    except Exception as exc:  # ImportError, SyntaxError or errors raised at import time
+        raise ConfigError(f"Scenario engine '{path}' could not be imported: {type(exc).__name__}: {exc}") from exc
+
+    problems = check_signatures(module)
+    if problems:
+        raise ConfigError(f"Scenario engine '{path}' is incompatible with the contract: " + "; ".join(problems))
+
+    adapter = EngineAdapter(module)
+    try:
+        adapter.start_state()
+    except EngineError as exc:
+        raise ConfigError(f"Scenario engine '{path}' failed its start-up check: {exc}") from exc
+
+    if adapter.is_reference:
+        logger.warning(
+            "engine_reference_in_use",
+            extra={"engine": adapter.engine_id, "hint": "development stand-in; set SCENARIO_ENGINE_MODULE"},
+        )
+    else:
+        logger.info("engine_loaded", extra={"engine": adapter.engine_id})
+    return adapter
