@@ -1,0 +1,17 @@
+# Normalise line endings in the repository to LF, whatever the contributor's OS.
+# Without this, a Windows checkout with core.autocrlf=false can commit CRLF and
+# produce whole-file diffs, and shell scripts break inside WSL and Linux CI.
+* text=auto eol=lf
+
+# Binary assets: never touch line endings or try to diff them as text.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.gif  binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
+
+# Generated lockfile: collapsed by default in GitHub PR diffs (still diffable locally).
+client/package-lock.json linguist-generated=true
