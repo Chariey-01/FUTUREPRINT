@@ -1,0 +1,74 @@
+# Backend checks: the full pytest suite against a real PostgreSQL 16, plus
+# validation of the curated seed data. The suite needs PostgreSQL (row locks,
+# JSONB, the report-immutability trigger), so SQLite is not a substitute.
+name: Server
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "server/**"
+      - "seed_schema.py"
+      - "validate_seed.py"
+      - "test_validate_seed.py"
+      - "software-developer.json"
+      - ".python-version"
+      - ".github/workflows/server.yml"
+  pull_request:
+    paths:
+      - "server/**"
+      - "seed_schema.py"
+      - "validate_seed.py"
+      - "test_validate_seed.py"
+      - "software-developer.json"
+      - ".python-version"
+      - ".github/workflows/server.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: server-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: futureprint
+          POSTGRES_PASSWORD: futureprint
+          # The suite refuses to run unless the database name ends in "_test".
+          POSTGRES_DB: futureprint_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U futureprint"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # CI-only throwaway credentials for the service container above.
+      TEST_DATABASE_URL: postgresql://futureprint:futureprint@localhost:5432/futureprint_test
+      DATABASE_URL: postgresql://futureprint:futureprint@localhost:5432/futureprint_test
+      SECRET_KEY: ci-only-secret-key-not-used-anywhere-else
+      APP_ENV: testing
+      SCENARIO_ENGINE_MODULE: app.services.scenario_engine.plugin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: server/requirements*.txt
+      - run: pip install -r server/requirements-dev.txt
+      - name: Validate curated seed data
+        working-directory: server
+        run: flask seed validate
+      - name: Server test suite
+        working-directory: server
+        run: pytest
+      - name: Software-developer seed validator tests
+        run: python -m pytest -q -p no:cacheprovider test_validate_seed.py
