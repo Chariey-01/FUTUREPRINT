@@ -29,16 +29,16 @@ Visual QA against a running dev server: `node scripts/shoot.mjs http://localhost
 
 ## Routes
 
-| Route | Screen |
-|---|---|
-| `/` | Future Portal |
-| `/start` | Occupation selection (search, "door" cards) |
-| `/simulate` | Scenario simulator (3 server-driven chapters) |
-| `/report` | My Futureprint (printable) |
-| `/observatory` | Workforce Observatory (sample data until research arrives) |
-| `/occupations/:slug` | Task Scanner |
-| `/methodology` | Methodology framework |
-| `/signin` | Sign in / create account, a **design preview only** (sends and stores nothing) |
+| Route                | Screen                                                                         |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `/`                  | Future Portal                                                                  |
+| `/start`             | Occupation selection (search, "door" cards)                                    |
+| `/simulate`          | Scenario simulator (3 server-driven chapters)                                  |
+| `/report`            | My Futureprint (printable)                                                     |
+| `/observatory`       | Workforce Observatory (sample data until research arrives)                     |
+| `/occupations/:slug` | Task Scanner                                                                   |
+| `/methodology`       | Methodology framework                                                          |
+| `/signin`            | Sign in / create account, a **design preview only** (sends and stores nothing) |
 
 ## Structure
 
