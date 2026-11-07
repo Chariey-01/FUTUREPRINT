@@ -50,7 +50,7 @@ export default function OccupationsPage() {
   return (
     <div className="container-page pb-24 pt-6 sm:pt-10">
       <PageHeader
-        eyebrow="Step one · Choose a door"
+        eyebrow="Step one · Choose your path"
         title="Which future would you like to explore?"
         intro="Pick an occupation — yours, one you’re curious about, or one you’re heading toward. Then make three decisions about how its future could unfold."
       />
