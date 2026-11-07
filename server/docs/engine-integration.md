@@ -176,3 +176,28 @@ pytest            # full suite
 5. **Report output:** what shape will `generate_report` return? The frontend renders `report.insights`, so this needs agreeing with the frontend team.
 6. **Versioning:** set `ENGINE_VERSION`, and bump it when the `state` format changes.
 7. **Packaging:** the module path for `SCENARIO_ENGINE_MODULE`, and any third-party dependencies (they need adding to `server/requirements.txt`).
+
+## 9. The FUTUREPRINT engine (Person 3)
+
+The real engine lives in three pure-Python packages under `app/services/`. They import only each other and the standard library: no Flask, SQLAlchemy, clock or randomness (a test enforces this).
+
+| Package | Job |
+|---|---|
+| `scenario_engine/engine.py` | `start_state`, `apply_choice`, `present_scenario`, `dominant_pathway`, `rebuild_state` (undo) |
+| `recommendation_engine/rules.py` | `recommend(content, state)`: data rules with a `tag` / `pathway` / `choice` / `all` / `any` condition grammar |
+| `report_generator/generator.py` | `generate_report(...)`: the explainable report stored under `report.insights` |
+| `scenario_engine/plugin.py` | The module the backend loads: `SCENARIO_ENGINE_MODULE=app.services.scenario_engine.plugin` |
+
+**State.** `{"pathway_weights": {"adapt", "transform", "discover"}, "capabilities": [...], "trade_offs": [...], "history": [{"scenario_id", "choice_id"}]}`. Each choice adds its weights and appends new tags in order of first appearance. Ties in the dominant pathway resolve Adapt, Transform, Discover.
+
+**Answers to section 8.**
+
+1. Transitions follow the content's `next_scenario_id`.
+2. A choice may carry `pathway_weights`, `capabilities` and `trade_offs`. When it does not (content schema version 1), its `pathway_kind` becomes a weight of 1 and its positive `effects` become capability tags, so the current seed data works unchanged.
+3. Optional content fields the engine uses when present: `scenario.prompt_variants` (narrative per dominant pathway), `occupation.tasks[].skills` (transferable skills), `pathways[].evidence_ids`, `tags` (labels), `rules` and `evidence` (keyed by id, each with a `url`). Without `rules`, generic learning-activity rules in `recommendation_engine/default_rules.py` apply. Until the backend adds `occupation.tasks`, `rules` and `evidence` to `content`, `transferable_skills` and `research` in the engine report are empty; the snapshot's own `evidence` and `pathways` are unaffected.
+4. No locked choices. `InvalidChoiceError` is raised for a choice that is not in the current scenario.
+5. Report keys: `schema_version`, `engine_version`, `content_version`, `occupation`, `choices`, `pathway`, `capabilities`, `trade_offs`, `suggestions`, `transferable_skills`, `research`, `other_pathways`. Every item has `origin` (`user_choice`, `suggestion` or `research`) and `because: {"rule", "choices"}`. There are no timestamps, random ids or floating-point scores.
+6. `ENGINE_VERSION = "1.0.0"`.
+7. No third-party dependencies.
+
+**Tests.** `pytest tests/simulator` runs without a database, on the real `seed_data` only: all 27 paths of all six occupations, determinism, tie-breaks, the rule grammar, the report shape, and the backend's own conformance checker. Signals the seed data does not have yet (explicit weights, trade-offs, prompt variants, rules) are added inside the individual tests that cover them.

@@ -74,7 +74,7 @@ All settings are environment variables, validated at start-up; see [`.env.exampl
 | `SECRET_KEY` | Required. At least 32 characters in production. It also derives report share tokens, so rotating it breaks existing share links. |
 | `CORS_ORIGINS` | Comma-separated frontend origins. `*` is rejected in production. |
 | `SESSION_TTL_HOURS` | Default 72. Extended each time a choice is submitted. |
-| `SCENARIO_ENGINE_MODULE` | Import path of Person 3's engine. When empty, the reference stand-in is used, but only where it is allowed. |
+| `SCENARIO_ENGINE_MODULE` | Import path of the scenario engine: `app.services.scenario_engine.plugin`. When empty, the reference stand-in is used, but only where it is allowed. |
 | `ALLOW_REFERENCE_ENGINE` | When unset, the stand-in is allowed in development and testing and **refused in production** (the app won't start). Set `true` or `false` to override. |
 | `AI_INSIGHTS_ENABLED` | Default `false`. When `true`, `OPENAI_API_KEY` and `OPENAI_MODEL` are required. |
 
@@ -105,7 +105,7 @@ Tests run against real PostgreSQL. They rely on behaviour SQLite cannot reproduc
 ```bash
 cd server
 export TEST_DATABASE_URL=postgresql://futureprint:<password>@localhost:5432/futureprint_test
-pytest                       # 115 tests
+pytest                       # 1008 tests (893 of them in tests/simulator, no database needed)
 pytest --cov=app             # with coverage
 pytest tests/test_engine_integration.py   # scenario-engine integration tests only
 ```
