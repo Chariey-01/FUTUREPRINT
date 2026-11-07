@@ -1,0 +1,202 @@
+{
+  "scenarios": [
+    {
+      "occupation": "customer-service-agent", "key": "cs-1", "is_start": true, "display_order": 1, "task": "handle-incoming-contacts",
+      "title": "The new AI assistant arrives",
+      "narrative": "You work in a busy Nairobi contact centre. Management announces an AI assistant that will suggest replies and summarise every chat. Some colleagues worry it is the first step to replacing agents. Your supervisor asks how you want to approach the roll-out.",
+      "choices": [
+        {"key": "a", "label": "Become an early expert user", "description": "Volunteer for the pilot, learn the tool deeply and check every suggestion before sending.", "feedback": "Early users often shape how a tool is used. Checking suggestions protects customers from wrong answers and builds your reputation for quality.", "pathway_kind": "adapt", "effects": {"ai_fluency": 2, "judgement": 1}, "next": "cs-2"},
+        {"key": "b", "label": "Help design how it answers", "description": "Offer to collect the questions it gets wrong and help improve the knowledge base behind it.", "feedback": "Someone has to teach automated systems what good answers look like. That work draws on your frontline knowledge.", "pathway_kind": "transform", "effects": {"ai_fluency": 1, "adaptability": 2}, "next": "cs-2"},
+        {"key": "c", "label": "Look at the data behind the calls", "description": "Ask whether you can study the patterns in what customers contact the centre about.", "feedback": "Contact data shows where products and services fail. Analysing it is a different kind of customer work.", "pathway_kind": "discover", "effects": {"technical_depth": 2, "learning_mindset": 1}, "next": "cs-2"}
+      ],
+      "evidence": [{"source": "nber-w31161-genai-at-work", "note": "Real-world study of AI assistance for customer-support agents (outside Africa)."}]
+    },
+    {
+      "occupation": "customer-service-agent", "key": "cs-2", "display_order": 2, "task": "send-customer-documents",
+      "title": "Routine messages go automatic",
+      "narrative": "Three months later, standard letters and payment confirmations are generated automatically. Your queue now holds fewer simple requests and more complicated, emotional cases. A customer who has been charged twice is furious and switches between English and Kiswahili.",
+      "choices": [
+        {"key": "a", "label": "Take the hard cases", "description": "Calm the customer, solve the double charge and ask to specialise in escalations.", "feedback": "When routine work is automated, the remaining human work is often harder and more valuable. Empathy and problem-solving become the core of the job.", "pathway_kind": "adapt", "effects": {"human_connection": 2, "judgement": 1}, "next": "cs-3"},
+        {"key": "b", "label": "Fix the cause", "description": "Resolve the case, then write up why the automated system double-charged and propose a fix.", "feedback": "Turning individual complaints into process improvements is the core of quality and customer-experience roles.", "pathway_kind": "transform", "effects": {"adaptability": 1, "judgement": 2}, "next": "cs-3"},
+        {"key": "c", "label": "Count how often it happens", "description": "Resolve the case and pull a report on how many double-charge complaints came in this month.", "feedback": "Quantifying a problem makes it visible to decision-makers and builds practical data skills.", "pathway_kind": "discover", "effects": {"technical_depth": 2, "learning_mindset": 1}, "next": "cs-3"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Sending standard documents is the most exposed task in this occupation."}]
+    },
+    {
+      "occupation": "customer-service-agent", "key": "cs-3", "display_order": 3,
+      "title": "Planning your next year",
+      "narrative": "Your employer offers each agent a small training budget. You can choose one course for the year ahead.",
+      "choices": [
+        {"key": "a", "label": "Advanced customer care and AI tools", "description": "A course on handling complex cases with AI support, including checking AI output.", "feedback": "This deepens your current role and makes you the person colleagues turn to when the AI is not enough.", "pathway_kind": "adapt", "effects": {"ai_fluency": 1, "human_connection": 1}, "next": null},
+        {"key": "b", "label": "Conversation design", "description": "A course on designing chatbot flows and knowledge bases.", "feedback": "This prepares you to move from answering conversations to designing them.", "pathway_kind": "transform", "effects": {"ai_fluency": 1, "adaptability": 1}, "next": null},
+        {"key": "c", "label": "Introduction to data analysis", "description": "A course on spreadsheets, SQL and dashboards.", "feedback": "This opens a route into data and operations roles that use what you know about customers.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "learning_mindset": 1}, "next": null}
+      ],
+      "evidence": []
+    },
+    {
+      "occupation": "accountant", "key": "acc-1", "is_start": true, "display_order": 1, "task": "prepare-financial-statements",
+      "title": "Month-end, automated",
+      "narrative": "You are an accountant at a mid-sized firm serving small businesses in Kisumu and Nairobi. A new system can draft monthly statements from bank and mobile-money records. A partner asks what your role should become.",
+      "choices": [
+        {"key": "a", "label": "Own the review", "description": "Become the reviewer who checks automated drafts and signs off with confidence.", "feedback": "Drafting can be automated; certification carries professional accountability that stays with qualified people.", "pathway_kind": "adapt", "effects": {"judgement": 2, "ai_fluency": 1}, "next": "acc-2"},
+        {"key": "b", "label": "Hunt for anomalies", "description": "Use the time saved to examine unusual transactions across all clients.", "feedback": "Investigative work is the least exposed part of accountancy and benefits from analytics.", "pathway_kind": "transform", "effects": {"judgement": 1, "technical_depth": 2}, "next": "acc-2"},
+        {"key": "c", "label": "Learn how the system works", "description": "Ask to work with the vendor on how the system reads mobile-money data.", "feedback": "Understanding financial technology from the inside is a step toward fintech roles.", "pathway_kind": "discover", "effects": {"technical_depth": 2, "learning_mindset": 1}, "next": "acc-2"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Preparing financial statements is the most exposed accountancy task."}]
+    },
+    {
+      "occupation": "accountant", "key": "acc-2", "display_order": 2, "task": "investigate-fraud-insolvency",
+      "title": "Something does not add up",
+      "narrative": "The system flags a small retailer whose supplier payments have grown faster than its sales. The client says it is nothing. The automated report cannot tell you why.",
+      "choices": [
+        {"key": "a", "label": "Advise the client directly", "description": "Meet the owner, explain the risk and recommend tighter controls.", "feedback": "Explaining financial risk so that a client acts on it is advisory work that tools support but do not replace.", "pathway_kind": "adapt", "effects": {"human_connection": 2, "judgement": 1}, "next": "acc-3"},
+        {"key": "b", "label": "Investigate properly", "description": "Trace the transactions, document evidence and interview staff.", "feedback": "This is forensic work: scepticism, evidence and interviews.", "pathway_kind": "transform", "effects": {"judgement": 2, "technical_depth": 1}, "next": "acc-3"},
+        {"key": "c", "label": "Build a better alert", "description": "Analyse why the pattern was flagged and design a dashboard to catch similar cases.", "feedback": "Designing financial analytics is a bridge into business intelligence and fintech.", "pathway_kind": "discover", "effects": {"technical_depth": 2, "learning_mindset": 1}, "next": "acc-3"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Financial investigations are the least exposed accountancy task."}]
+    },
+    {
+      "occupation": "accountant", "key": "acc-3", "display_order": 3,
+      "title": "Your next qualification",
+      "narrative": "You have time and some savings to invest in one qualification this year.",
+      "choices": [
+        {"key": "a", "label": "Advanced tax specialisation", "description": "Deepen tax expertise, where judgement and representation matter.", "feedback": "Tax rules and disputes need interpretation and representation, which keeps this specialism valuable.", "pathway_kind": "adapt", "effects": {"judgement": 1, "learning_mindset": 1}, "next": null},
+        {"key": "b", "label": "Forensic accounting or audit analytics", "description": "Study fraud examination and data-driven audit.", "feedback": "This moves you toward the least automatable parts of the profession.", "pathway_kind": "transform", "effects": {"judgement": 1, "technical_depth": 1}, "next": null},
+        {"key": "c", "label": "Data analytics for finance", "description": "Learn SQL, BI tools and financial data modelling.", "feedback": "This opens fintech and financial data roles.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "learning_mindset": 1}, "next": null}
+      ],
+      "evidence": []
+    },
+    {
+      "occupation": "software-developer", "key": "dev-1", "is_start": true, "display_order": 1, "task": "design-and-build-software",
+      "title": "Your team adopts an AI coding assistant",
+      "narrative": "You are a junior developer at a Nairobi start-up. The team adopts an AI coding assistant. It writes code fast, but last week a generated function shipped with a security bug. Your lead asks you to propose how the team should use it.",
+      "choices": [
+        {"key": "a", "label": "Use it, but review everything", "description": "Propose rules: every AI suggestion is reviewed and tested before merging.", "feedback": "AI speeds up coding, but responsibility for correctness and security stays with developers.", "pathway_kind": "adapt", "effects": {"ai_fluency": 2, "judgement": 1}, "next": "dev-2"},
+        {"key": "b", "label": "Build with AI, not just using it", "description": "Suggest the start-up adds an AI feature for customers, in Kiswahili.", "feedback": "Building AI-powered products for local languages is where much new demand lies.", "pathway_kind": "transform", "effects": {"technical_depth": 2, "adaptability": 1}, "next": "dev-2"},
+        {"key": "c", "label": "Own security", "description": "Volunteer to set up automated security scanning for all code.", "feedback": "Security and DevOps are fast-growing specialisms that every software team needs.", "pathway_kind": "discover", "effects": {"technical_depth": 2, "judgement": 1}, "next": "dev-2"}
+      ],
+      "evidence": [{"source": "arxiv-copilot-developer-productivity-2023", "note": "Evidence on AI-assisted coding speed (outside Africa)."}]
+    },
+    {
+      "occupation": "software-developer", "key": "dev-2", "display_order": 2, "task": "test-and-validate",
+      "title": "Tests in minutes",
+      "narrative": "The assistant can now generate a full test suite in minutes. A senior colleague says testing is 'solved'. You notice the generated tests mostly check the easy cases.",
+      "choices": [
+        {"key": "a", "label": "Strengthen the tests", "description": "Add tests for edge cases and failures the AI missed, and document why they matter.", "feedback": "Deciding what must be tested is the skilled part of testing, the most exposed developer task.", "pathway_kind": "adapt", "effects": {"judgement": 2, "technical_depth": 1}, "next": "dev-3"},
+        {"key": "b", "label": "Evaluate the AI itself", "description": "Measure how good the generated tests are and build tooling to evaluate them.", "feedback": "Evaluating AI systems is a core machine-learning engineering skill.", "pathway_kind": "transform", "effects": {"technical_depth": 2, "learning_mindset": 1}, "next": "dev-3"},
+        {"key": "c", "label": "Automate the pipeline", "description": "Wire tests, scans and deployments into a reliable CI/CD pipeline.", "feedback": "Reliable delivery pipelines are DevOps work, a fast-growing area.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "adaptability": 2}, "next": "dev-3"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Testing and validation is the most exposed software development task."}]
+    },
+    {
+      "occupation": "software-developer", "key": "dev-3", "display_order": 3,
+      "title": "Choosing what to learn next",
+      "narrative": "You can dedicate evenings for six months to one learning goal.",
+      "choices": [
+        {"key": "a", "label": "Software architecture and code review", "description": "Become the developer who designs systems and reviews code well.", "feedback": "Design and review grow in importance as more code is generated.", "pathway_kind": "adapt", "effects": {"judgement": 1, "technical_depth": 1}, "next": null},
+        {"key": "b", "label": "Machine learning engineering", "description": "Learn to build, evaluate and deploy AI models.", "feedback": "This moves you toward the fastest-growing technology roles.", "pathway_kind": "transform", "effects": {"technical_depth": 1, "ai_fluency": 1}, "next": null},
+        {"key": "c", "label": "Cloud security certification", "description": "Study for an entry-level security or cloud certification.", "feedback": "Security and cloud skills open roles across every industry.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "learning_mindset": 1}, "next": null}
+      ],
+      "evidence": []
+    },
+    {
+      "occupation": "secondary-school-teacher", "key": "tch-1", "is_start": true, "display_order": 1, "task": "design-curricula",
+      "title": "Lesson plans in seconds",
+      "narrative": "You teach Biology and Chemistry at a county secondary school. A colleague shows you an AI tool that drafts schemes of work in seconds. One draft contained a scientific error and examples that did not fit your students' lives.",
+      "choices": [
+        {"key": "a", "label": "Use it carefully", "description": "Use AI drafts as a starting point, then check and localise every lesson.", "feedback": "AI can save preparation time, but accuracy and relevance remain the teacher's responsibility.", "pathway_kind": "adapt", "effects": {"ai_fluency": 1, "judgement": 2}, "next": "tch-2"},
+        {"key": "b", "label": "Design better materials", "description": "Build a digital unit with local examples and test it with your class.", "feedback": "Designing digital learning that works in real classrooms is instructional design.", "pathway_kind": "transform", "effects": {"adaptability": 2, "technical_depth": 1}, "next": "tch-2"},
+        {"key": "c", "label": "Teach the teachers", "description": "Offer a workshop for colleagues on what AI gets right and wrong.", "feedback": "Training adults is a transferable skill used well beyond schools.", "pathway_kind": "discover", "effects": {"human_connection": 2, "learning_mindset": 1}, "next": "tch-2"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Curriculum design is the most exposed teaching task."}]
+    },
+    {
+      "occupation": "secondary-school-teacher", "key": "tch-2", "display_order": 2, "task": "assess-students",
+      "title": "Students and AI homework",
+      "narrative": "Several students hand in essays clearly written by an AI tool. Parents ask what the school's policy is. There isn't one yet.",
+      "choices": [
+        {"key": "a", "label": "Redesign assessment", "description": "Shift some assessment to in-class work, oral questions and projects that show students' thinking.", "feedback": "Assessment that shows thinking is harder to outsource and better for learning.", "pathway_kind": "adapt", "effects": {"judgement": 2, "human_connection": 1}, "next": "tch-3"},
+        {"key": "b", "label": "Draft a school AI policy", "description": "Work with the head teacher on a policy covering privacy, age limits and acceptable use.", "feedback": "UNESCO's guidance highlights data protection and age limits. Policy work is a growing area in education.", "pathway_kind": "transform", "effects": {"judgement": 1, "adaptability": 2}, "next": "tch-3"},
+        {"key": "c", "label": "Run a parents' session", "description": "Explain to parents how AI tools work and how they can support learning at home.", "feedback": "Explaining technology to adults builds training and communication skills.", "pathway_kind": "discover", "effects": {"human_connection": 2, "learning_mindset": 1}, "next": "tch-3"}
+      ],
+      "evidence": [{"source": "unesco-genai-education-guidance-2023", "note": "Guidance on privacy and age limits for generative AI in education."}]
+    },
+    {
+      "occupation": "secondary-school-teacher", "key": "tch-3", "display_order": 3,
+      "title": "Professional development",
+      "narrative": "The county offers teachers a professional development opportunity. You can choose one.",
+      "choices": [
+        {"key": "a", "label": "Digital pedagogy for your subject", "description": "Learn to use digital and AI tools well in science teaching.", "feedback": "This strengthens your classroom practice, which remains low exposure.", "pathway_kind": "adapt", "effects": {"ai_fluency": 1, "human_connection": 1}, "next": null},
+        {"key": "b", "label": "Instructional design certificate", "description": "Learn to design digital and blended courses.", "feedback": "This prepares you for digital learning design roles.", "pathway_kind": "transform", "effects": {"technical_depth": 1, "adaptability": 1}, "next": null},
+        {"key": "c", "label": "Adult learning and training", "description": "Learn how to design training for workplaces.", "feedback": "This opens learning-and-development roles where reskilling demand is high.", "pathway_kind": "discover", "effects": {"human_connection": 1, "learning_mindset": 1}, "next": null}
+      ],
+      "evidence": []
+    },
+    {
+      "occupation": "graphic-designer", "key": "gd-1", "is_start": true, "display_order": 1, "task": "formulate-concepts",
+      "title": "The client brings AI images",
+      "narrative": "You are a freelance designer in Mombasa. A client arrives with a dozen AI-generated logo ideas and asks why they should pay you at all.",
+      "choices": [
+        {"key": "a", "label": "Show what AI misses", "description": "Walk the client through brand meaning, originality, usage rights and how the logo works across media.", "feedback": "Understanding the brief, cultural fit and rights are the parts of design AI does poorly.", "pathway_kind": "adapt", "effects": {"human_connection": 2, "judgement": 1}, "next": "gd-2"},
+        {"key": "b", "label": "Redesign the experience", "description": "Suggest the real problem is the client's confusing booking website, and offer to fix that.", "feedback": "Moving from visuals to user experience is a route into a fast-growing field.", "pathway_kind": "transform", "effects": {"adaptability": 2, "technical_depth": 1}, "next": "gd-2"},
+        {"key": "c", "label": "Ask about their audience", "description": "Ask who the customers are and what the brand needs to achieve before talking about logos.", "feedback": "Starting from audience and strategy is how brand strategists work.", "pathway_kind": "discover", "effects": {"judgement": 2, "learning_mindset": 1}, "next": "gd-2"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Agreeing briefs and negotiating with clients are low-exposure design tasks."}]
+    },
+    {
+      "occupation": "graphic-designer", "key": "gd-2", "display_order": 2, "task": "create-2d-3d-images",
+      "title": "Production goes fast",
+      "narrative": "A new project needs forty social media images in a week. With generative tools you could produce them in a day, but you are unsure about the licensing terms of the tool.",
+      "choices": [
+        {"key": "a", "label": "Use AI responsibly", "description": "Check the tool's licence, disclose AI use to the client and art-direct every image.", "feedback": "Responsible use protects your clients and your reputation.", "pathway_kind": "adapt", "effects": {"ai_fluency": 2, "judgement": 1}, "next": "gd-3"},
+        {"key": "b", "label": "Design the system", "description": "Create a design system and templates so the client's team can produce consistent images themselves.", "feedback": "Designing systems rather than single assets is a step toward product and UX design.", "pathway_kind": "transform", "effects": {"technical_depth": 1, "adaptability": 2}, "next": "gd-3"},
+        {"key": "c", "label": "Measure what works", "description": "Produce fewer images and track which ones perform best with the audience.", "feedback": "Linking creative work to results is content-strategy thinking.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "learning_mindset": 2}, "next": "gd-3"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Creating 2D and 3D images is the most exposed design task."}]
+    },
+    {
+      "occupation": "graphic-designer", "key": "gd-3", "display_order": 3,
+      "title": "Investing in your skills",
+      "narrative": "You have saved enough to take one serious course this year.",
+      "choices": [
+        {"key": "a", "label": "Advanced brand identity and AI workflows", "description": "Deepen craft and learn professional AI-assisted workflows.", "feedback": "This strengthens your position as a designer clients trust.", "pathway_kind": "adapt", "effects": {"ai_fluency": 1, "human_connection": 1}, "next": null},
+        {"key": "b", "label": "UX and product design", "description": "Learn user research, prototyping and accessibility.", "feedback": "UI and UX design is among the fastest-growing jobs in the WEF's projections.", "pathway_kind": "transform", "effects": {"technical_depth": 1, "adaptability": 1}, "next": null},
+        {"key": "c", "label": "Marketing and content strategy", "description": "Learn audience research, planning and analytics.", "feedback": "This opens brand and content strategy roles.", "pathway_kind": "discover", "effects": {"judgement": 1, "learning_mindset": 1}, "next": null}
+      ],
+      "evidence": []
+    },
+    {
+      "occupation": "registered-nurse", "key": "rn-1", "is_start": true, "display_order": 1, "task": "coordinate-care",
+      "title": "Digital records on the ward",
+      "narrative": "You are a nurse at a county referral hospital. The hospital is moving from paper files to an electronic records system with built-in alerts. Some colleagues find it slow and want to keep paper.",
+      "choices": [
+        {"key": "a", "label": "Master the system", "description": "Learn the system well and help it fit the ward's workflow without losing time at the bedside.", "feedback": "Digital confidence lets you spend less time on records and more with patients.", "pathway_kind": "adapt", "effects": {"ai_fluency": 1, "human_connection": 1, "adaptability": 1}, "next": "rn-2"},
+        {"key": "b", "label": "Train colleagues", "description": "Run short sessions for other nurses and students on using the system safely.", "feedback": "Teaching colleagues builds nurse-educator skills.", "pathway_kind": "transform", "effects": {"human_connection": 2, "learning_mindset": 1}, "next": "rn-2"},
+        {"key": "c", "label": "Join the implementation team", "description": "Work with the IT team on configuring the system and its alerts.", "feedback": "Combining clinical knowledge with systems work is health informatics.", "pathway_kind": "discover", "effects": {"technical_depth": 2, "judgement": 1}, "next": "rn-2"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Coordinating care is a low-exposure nursing task."}]
+    },
+    {
+      "occupation": "registered-nurse", "key": "rn-2", "display_order": 2, "task": "administer-treatments",
+      "title": "The alert that might be wrong",
+      "narrative": "The system flags a possible medication interaction for a patient. From your assessment at the bedside, you think the alert does not apply. The doctor is busy in theatre.",
+      "choices": [
+        {"key": "a", "label": "Use your judgement and escalate", "description": "Hold the dose, document your assessment and escalate through the proper channel.", "feedback": "Decision-support tools help, but accountable clinical judgement stays with the professional.", "pathway_kind": "adapt", "effects": {"judgement": 2, "human_connection": 1}, "next": "rn-3"},
+        {"key": "b", "label": "Turn it into learning", "description": "Afterwards, use the case to teach students when to question an alert.", "feedback": "Real cases make powerful teaching material.", "pathway_kind": "transform", "effects": {"human_connection": 1, "learning_mindset": 2}, "next": "rn-3"},
+        {"key": "c", "label": "Report the alert design", "description": "Report the false alert so the rules can be reviewed.", "feedback": "Improving how alerts are designed is informatics work that protects patients.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "judgement": 2}, "next": "rn-3"}
+      ],
+      "evidence": [{"source": "ilo-genai-task-scores-2025", "note": "Administering treatments is rated Very Low exposure."}]
+    },
+    {
+      "occupation": "registered-nurse", "key": "rn-3", "display_order": 3,
+      "title": "Your next step",
+      "narrative": "A scholarship becomes available for further study. You can apply for one programme.",
+      "choices": [
+        {"key": "a", "label": "Advanced clinical specialisation", "description": "Specialise in an area such as critical care or midwifery.", "feedback": "Specialist clinical skills remain in demand and are low exposure.", "pathway_kind": "adapt", "effects": {"judgement": 1, "human_connection": 1}, "next": null},
+        {"key": "b", "label": "Nursing education", "description": "Train to become a clinical instructor or nurse educator.", "feedback": "Educating nurses addresses workforce shortages.", "pathway_kind": "transform", "effects": {"human_connection": 1, "learning_mindset": 1}, "next": null},
+        {"key": "c", "label": "Health informatics", "description": "Study health information systems and data.", "feedback": "This opens digital health roles that need clinical insight.", "pathway_kind": "discover", "effects": {"technical_depth": 1, "learning_mindset": 1}, "next": null}
+      ],
+      "evidence": []
+    }
+  ]
+}

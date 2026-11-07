@@ -1,0 +1,49 @@
+{
+  "dataset_version": "2026.11.07",
+  "retrieved_through": "2026-11-07",
+  "description": "FUTUREPRINT curated research dataset: six occupations with ISCO-08 tasks, ILO 2025 generative-AI exposure scores, skills, Adapt/Transform/Discover pathways, illustrative simulation scenarios, verified workforce events and fully cited evidence sources. Kenyan and African evidence is prioritised and evidence from outside Africa is labelled.",
+  "validation_rules": {
+    "min_tasks_per_occupation": 5,
+    "require_all_pathway_kinds": true,
+    "require_simulation_per_occupation": true
+  },
+  "methodology": {
+    "purpose": "FUTUREPRINT helps people explore how work may change. It does not predict individual job losses, forecast layoffs at specific companies, or monitor employees.",
+    "glossary": {
+      "ai_exposure": "How much of an occupation's or task's content generative AI could potentially perform, as assessed by the ILO. Exposure measures potential, not adoption and not job loss.",
+      "task_automation": "AI or software performing a task with little human involvement. Automating some tasks does not mean the whole job disappears.",
+      "employment_displacement": "Actual loss of jobs or hours. Only verified events or labour statistics can show displacement; exposure scores cannot.",
+      "job_transformation": "The mix of tasks in a job changing, with some tasks automated or augmented and others becoming more important. The ILO concludes this is the most likely impact of generative AI."
+    },
+    "exposure_scale": {
+      "source": "ILO Working Paper 140 (2025), Table 5",
+      "gradient_4": "Mean task score at least 0.6 and mean minus SD at least 0.5: highest exposure, low task variability",
+      "gradient_3": "Mean between 0.5 and 0.6 and mean plus SD at least 0.5: significant exposure, high task variability",
+      "gradient_2": "Mean between 0.4 and 0.5 and mean plus SD at least 0.5: moderate exposure, high task variability",
+      "gradient_1": "Low overall exposure but significant variability across tasks",
+      "minimal_exposure": "Some interaction with GenAI may occur without significantly altering the role",
+      "not_exposed": "GenAI currently has no observable potential to automate the occupation's tasks",
+      "task_labels": "Task labels (Very Low, Low, Medium, High) and scores (0 to 1) are reproduced as published in the ILO companion dataset."
+    },
+    "sources_and_selection": [
+      "Primary sources were preferred: ILO, ILOSTAT, IMF, WEF, WHO, UNESCO, peer-reviewed or working papers, and official company statements.",
+      "Every factual record stores the organisation, title, URL, publication date, retrieval date, findings (marked verbatim or not), geographic scope, category, confidence and limitations.",
+      "Statements were included only if they were read on the source page or document itself on the retrieval date. Claims that appeared only in media coverage and could not be verified were excluded.",
+      "When a primary source was inaccessible (Kenyan government sites with certificate errors), a reputable secondary report was used, labelled 'secondary' with medium confidence."
+    ],
+    "editorial_content": [
+      "Task titles are plain-language paraphrases of the official ISCO-08 task statements, which are stored verbatim.",
+      "The 'likely change' classification and transformation notes are FUTUREPRINT editorial assessments informed by the cited evidence; they are labelled as editorial.",
+      "Pathways and simulation scenarios are illustrative. They contain no statistics and are not predictions."
+    ],
+    "geographic_coverage": "Global exposure research applied to Kenya, with Kenyan labour statistics (ILOSTAT; KNBS through a secondary report) and Kenyan or African examples where verified. Evidence from outside Africa is labelled with region 'outside_africa'.",
+    "known_gaps": [
+      "No verified Kenya-specific statistics on employment in the six occupations.",
+      "No verified data on AI adoption by Kenyan employers.",
+      "KNBS primary documents could not be retrieved securely on 2026-11-07; Kenyan job-creation figures come from a secondary report.",
+      "The ILOSTAT informality figure is from 2019.",
+      "WEF projections cover formal jobs and large employers, which understates Kenya's informal economy.",
+      "Only three workforce events met the verification standard, and two of them are from outside Africa."
+    ]
+  }
+}
