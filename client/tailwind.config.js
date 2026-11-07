@@ -26,7 +26,7 @@ export default {
         discover: { DEFAULT: '#8DB89B', soft: '#DCEBE0', ink: '#2E5B3E' },
       },
       fontFamily: {
-        display: ['Figtree', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', 'Figtree', 'system-ui', 'Segoe UI', 'sans-serif'],
         sans: ['Figtree', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       boxShadow: {

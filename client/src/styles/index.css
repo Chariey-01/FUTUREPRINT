@@ -15,11 +15,13 @@
     overflow-x: hidden;
   }
   h1,
-  h2,
-  h3 {
+  h2 {
     @apply font-display;
     font-optical-sizing: auto;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+  }
+  h3 {
+    @apply font-sans font-semibold;
   }
   :focus-visible {
     outline: 3px solid #17243b;
@@ -40,6 +42,9 @@
   }
   .btn-light {
     @apply btn bg-ivory-50 text-midnight hover:bg-ivory-300;
+  }
+  .btn-accent {
+    @apply btn bg-transform font-bold text-midnight shadow-[0_10px_30px_-12px_rgba(231,161,143,0.75)] hover:bg-[#EDB3A3];
   }
   .btn-ghost {
     @apply btn border border-midnight/25 bg-transparent text-midnight hover:bg-midnight/5;
