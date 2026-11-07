@@ -1,4 +1,5 @@
 import { m } from 'framer-motion';
+import { occupationPhoto } from '../lib/occupationImages';
 import type { Occupation } from '../types/api';
 import { Spinner } from './LoadingState';
 
@@ -10,8 +11,9 @@ interface Props {
   onSelect: (occupation: Occupation) => void;
 }
 
-/** An occupation as a door into its future. */
+/** An occupation card: a photo of the work when we have one, otherwise a door into its future. */
 export function OccupationCard({ occupation, index, pending, disabled, onSelect }: Props) {
+  const photo = occupationPhoto(occupation.id);
   return (
     <m.li
       initial={{ opacity: 0, y: 16 }}
@@ -23,10 +25,14 @@ export function OccupationCard({ occupation, index, pending, disabled, onSelect 
         onClick={() => onSelect(occupation)}
         disabled={disabled}
         aria-busy={pending}
-        className="group flex h-full w-full items-stretch gap-5 rounded-4xl bg-ivory-50 p-4 text-left shadow-card transition-shadow duration-200 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60 sm:gap-6 sm:p-5"
+        className={`group flex h-full w-full gap-5 rounded-4xl bg-ivory-50 text-left shadow-card transition-shadow duration-200 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60 sm:gap-6 ${
+          photo ? 'flex-col p-3 sm:flex-row sm:items-stretch sm:pr-6' : 'items-stretch p-4 sm:p-5'
+        }`}
       >
-        <Door />
-        <span className="flex min-w-0 flex-1 flex-col py-1">
+        {photo ? <Photo src={photo} /> : <Door />}
+        <span
+          className={`flex min-w-0 flex-1 flex-col ${photo ? 'px-2 pb-3 sm:px-0 sm:py-4' : 'py-1'}`}
+        >
           {occupation.sector && (
             <span className="eyebrow text-midnight/80">{occupation.sector}</span>
           )}
@@ -54,6 +60,26 @@ export function OccupationCard({ occupation, index, pending, disabled, onSelect 
         </span>
       </button>
     </m.li>
+  );
+}
+
+/**
+ * Decorative photo: the occupation title sits right beside it, so alt="" avoids repeating it
+ * to screen readers. Lazy-loaded with intrinsic size to prevent layout shift.
+ */
+function Photo({ src }: { src: string }) {
+  return (
+    <span className="relative block aspect-[16/10] w-full shrink-0 overflow-hidden rounded-3xl bg-midnight/10 sm:aspect-auto sm:w-[40%] sm:min-h-[200px]">
+      <img
+        src={src}
+        alt=""
+        width={322}
+        height={290}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover object-[50%_25%] transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.03]"
+      />
+    </span>
   );
 }
 
