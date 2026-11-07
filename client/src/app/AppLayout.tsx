@@ -14,17 +14,17 @@ const TITLES: Record<string, string> = {
 export function AppLayout() {
   const { pathname } = useLocation();
   const mainRef = useRef<HTMLElement>(null);
-  const first = useRef(true);
+  // Compare against the previous path (not a "first run" flag): StrictMode runs effects twice
+  // in development, which made a flag-based check move focus — and scroll — on first load.
+  const previousPath = useRef(pathname);
 
   useEffect(() => {
     document.title = TITLES[pathname] ?? 'FUTUREPRINT';
+    if (previousPath.current === pathname) return;
+    previousPath.current = pathname;
+    // Client-side navigation: start at the top and move focus to the new page for screen readers.
     window.scrollTo?.(0, 0);
-    // Move focus to the new page on client-side navigation (not on first load).
-    if (first.current) {
-      first.current = false;
-      return;
-    }
-    mainRef.current?.focus();
+    mainRef.current?.focus({ preventScroll: true });
   }, [pathname]);
 
   const dark = pathname === '/';
