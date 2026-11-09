@@ -88,9 +88,33 @@ Every SHA below is copied from `git log`. Test results are from runs actually ex
 - **Tests:** typecheck ✓, lint ✓, **unit 51/51** (5 new navbar tests), **Playwright 10/10** functional and accessibility.
 - **LCP:** the throttled-4G test failed at the end of the full suite (median 3196ms) under machine load. In isolation this commit measured 1932ms against 2220ms for the previous commit, so there's no regression.
 
+## Real API integration · `e0c95e1`, `1c54f60`, `294ef22`
+- **Contract:** the client now follows the implemented Flask API (`server/README.md`). The provisional contract is marked superseded. This resolves the gaps listed in `docs/api-contract-gaps.md` on Clyde's `chore/tooling-ci-and-docs` branch.
+- **Architecture:** `types/server.ts` holds the wire types and `lib/mapping.ts` is the single translation layer; components keep their UI types. Mocks return the server's exact shapes and validation.
+- **Server code checked:** the real engine (PR #6) does expose each option's `pathway` and `total_steps`, so the decision-card pathway labels stay. The gaps doc was based on the reference stand-in engine.
+- **UI changes driven by real data:**
+  - Choice feedback in the simulator and the report.
+  - Report sections from the real report generator, each with its reason, plus the mandatory disclaimer.
+  - New `/r/:token` shared-report page and copy-share-link.
+  - Task Scanner uses `likely_change` and exposure levels.
+  - Observatory uses `/workforce-events`, with confidence and region labels.
+  - Methodology uses the server's classifications.
+- **Real-backend verification:** `scripts/real-backend-docker.sh` (Postgres 16, migrations, seed data, real engine `is_reference: false`) plus `scripts/real-api-smoke.mjs`. Results:
+  - 6 real occupations.
+  - Journey of 3 chapters, with refresh-resume at chapter 2.
+  - Report "Customer Service / Contact Centre Agent: the Adapt pathway" with 5 real research links and 6/6 reasoned items.
+  - Report idempotency confirmed (201 then 200); the shared link opened without a session.
+  - Observatory showed 3 events; the Task Scanner showed 7 tasks.
+  - **No console errors.**
+- **Visual fixes from real-content screenshots:** capabilities used half the width; "Other futures" cards blended into the section background.
+- **Tests:** typecheck ✓, lint ✓, prettier ✓, **unit 69/69** (new `mapping.test.ts`).
+  - **Playwright:** 10/10 functional and accessibility tests. 3 initially timed out under a load average of about 10 from other projects running in WSL (UJUZILINK Next.js dev server, safal-logistic uvicorn), then passed when re-run with a longer timeout.
+  - **LCP:** not meaningful under that load (measured 5.4s); re-measure when the machine is idle.
+
 ---
 
 ## Known issues
+- **Real backend on this machine:** the Docker containers `futureprint-db` and `futureprint-api` may still be running; stop them with `client/scripts/real-backend-docker.sh down`.
 0. **The LCP test is load-sensitive.** On this WSL machine it fails when run straight after the full suite and passes in isolation. Run it alone (`npx playwright test -g LCP --workers=1`) for a meaningful number.
 1. **API not confirmed.** All endpoints, including the research ones, are provisional (see the contract doc's questions for Persons 2–5).
 2. **Research and recommendation content is placeholder.** Real findings, events, tasks and suggestion rules come from Persons 3 and 5.
