@@ -1,34 +1,33 @@
 /**
- * MOCK CONTENT — placeholders only.
+ * MOCK CONTENT — placeholders in the Flask API's wire format (types/server.ts).
  *
- * Final occupations and scenarios come from Person 4; research findings and sources
- * from Person 3; suggestions from Person 5's recommendation engine. Nothing here is
- * real research and every mock source points at example.org on purpose.
+ * Real content lives in server/seed_data and is served by the backend. Nothing here is real
+ * research: every mock source points at example.org. Slugs match the backend seed so the UI
+ * (photos, links) behaves the same against mock and real data.
  */
 import type {
-  ChoiceOption,
-  Occupation,
-  PathwayId,
-  ResearchFinding,
-  Scenario,
-  Suggestion,
-} from '../types/api';
+  ServerOccupationListItem,
+  ServerPathwayKind,
+  ServerScenario,
+  ServerSourceSummary,
+} from '../types/server';
 
-interface OccupationSeed extends Occupation {
-  flavor: {
-    tool: string;
-    routineTask: string;
-    output: string;
-    adjacent: string;
-  };
+export const PATHWAY_ORDER: ServerPathwayKind[] = ['adapt', 'transform', 'discover'];
+
+interface OccupationSeed {
+  slug: string;
+  name: string;
+  category: string;
+  summary: string;
+  flavor: { tool: string; routineTask: string; output: string; adjacent: string };
 }
 
 export const OCCUPATIONS: OccupationSeed[] = [
   {
-    id: 'graphic-designer',
-    title: 'Graphic Designer',
+    slug: 'graphic-designer',
+    name: 'Graphic Designer',
+    category: 'Creative industries',
     summary: 'Shapes how brands, products and ideas look and feel across print and screen.',
-    sector: 'Creative industries',
     flavor: {
       tool: 'an image-generation assistant',
       routineTask: 'first-draft layouts and asset resizing',
@@ -37,10 +36,10 @@ export const OCCUPATIONS: OccupationSeed[] = [
     },
   },
   {
-    id: 'accountant',
-    title: 'Accountant',
+    slug: 'accountant',
+    name: 'Accountant',
+    category: 'Finance',
     summary: 'Keeps organisations financially healthy through reporting, compliance and advice.',
-    sector: 'Finance',
     flavor: {
       tool: 'an automated bookkeeping platform',
       routineTask: 'reconciliations and routine reporting',
@@ -49,10 +48,10 @@ export const OCCUPATIONS: OccupationSeed[] = [
     },
   },
   {
-    id: 'nurse',
-    title: 'Registered Nurse',
+    slug: 'registered-nurse',
+    name: 'Registered Nurse',
+    category: 'Healthcare',
     summary: 'Provides and coordinates patient care, education and support in clinical settings.',
-    sector: 'Healthcare',
     flavor: {
       tool: 'an AI-assisted charting system',
       routineTask: 'documentation and shift handover notes',
@@ -61,10 +60,10 @@ export const OCCUPATIONS: OccupationSeed[] = [
     },
   },
   {
-    id: 'customer-support',
-    title: 'Customer Support Specialist',
+    slug: 'customer-service-agent',
+    name: 'Customer Support Specialist',
+    category: 'Services',
     summary: 'Helps people solve problems with products and services, by chat, phone and email.',
-    sector: 'Services',
     flavor: {
       tool: 'a conversational support assistant',
       routineTask: 'answering common questions',
@@ -74,17 +73,30 @@ export const OCCUPATIONS: OccupationSeed[] = [
   },
 ];
 
-export const publicOccupation = ({ id, title, summary, sector }: OccupationSeed): Occupation => ({
-  id,
-  title,
-  summary,
-  sector,
+export const findOccupation = (slug: string) => OCCUPATIONS.find((o) => o.slug === slug);
+
+export const listItem = (o: OccupationSeed): ServerOccupationListItem => ({
+  slug: o.slug,
+  name: o.name,
+  category: o.category,
+  summary: o.summary,
+  isco_08_code: '0000',
+  exposure: {
+    gradient: 'gradient_2',
+    gradient_label: 'Exposed: Gradient 2 (moderate exposure, high task variability)',
+    ilo_mean_score: 0.5,
+  },
+  task_count: 4,
+  pathway_kinds: [...PATHWAY_ORDER],
+  simulation_available: true,
 });
 
 export const TOTAL_STEPS = 3;
 
-function options(scenarioId: string, defs: Record<PathwayId, [string, string]>): ChoiceOption[] {
-  return (Object.keys(defs) as PathwayId[]).map((pathway) => ({
+type ChoiceDefs = Record<ServerPathwayKind, [string, string]>;
+
+function choices(scenarioId: string, defs: ChoiceDefs) {
+  return PATHWAY_ORDER.map((pathway) => ({
     id: `${scenarioId}.${pathway}`,
     pathway,
     label: defs[pathway][0],
@@ -92,22 +104,28 @@ function options(scenarioId: string, defs: Record<PathwayId, [string, string]>):
   }));
 }
 
-/** Mock "server-side" scenario graph: step 2 branches on the pathway chosen in step 1. */
+/** Mock scenario graph in the engine's `present_scenario` shape; step 2 branches on step 1. */
 export function scenarioFor(
   occ: OccupationSeed,
   step: number,
-  previous: PathwayId[],
-): Scenario | null {
+  previous: ServerPathwayKind[],
+): ServerScenario | null {
   const f = occ.flavor;
+  const task = {
+    slug: 'routine-work',
+    title: f.routineTask.charAt(0).toUpperCase() + f.routineTask.slice(1),
+    exposure_level: 'medium',
+  };
+  const base = { step_number: step, total_steps: TOTAL_STEPS, task };
   if (step === 1) {
-    const id = `${occ.id}.s1`;
+    const id = `${occ.slug}.s1`;
     return {
+      ...base,
       id,
-      step,
+      key: 's1',
       title: 'A new tool arrives',
-      prompt: `Your team adopts ${f.tool} that can take on ${f.routineTask}. How do you respond?`,
-      context: 'Nobody knows yet exactly how the work will change. Your first move sets the tone.',
-      options: options(id, {
+      narrative: `Your team adopts ${f.tool} that can take on ${f.routineTask}. How do you respond?`,
+      choices: choices(id, {
         adapt: [
           'Master the tool',
           'Learn its strengths and limits, and become the person colleagues turn to.',
@@ -125,26 +143,27 @@ export function scenarioFor(
   }
   if (step === 2) {
     const branch = previous[0] ?? 'adapt';
-    const id = `${occ.id}.s2.${branch}`;
-    const copy: Record<PathwayId, { title: string; prompt: string }> = {
+    const id = `${occ.slug}.s2.${branch}`;
+    const copy: Record<ServerPathwayKind, { title: string; narrative: string }> = {
       adapt: {
         title: 'The bar rises',
-        prompt: `Now that the tool is routine, people expect more from ${f.output}. Where do you invest your growth?`,
+        narrative: `Now that the tool is routine, people expect more from ${f.output}. Where do you invest your growth?`,
       },
       transform: {
         title: 'Your pilot works',
-        prompt: 'Leadership notices your redesign and asks what should happen next.',
+        narrative: 'Leadership notices your redesign and asks what should happen next.',
       },
       discover: {
         title: 'An unexpected door',
-        prompt: `Someone working in ${f.adjacent} invites you to join a short project.`,
+        narrative: `Someone working in ${f.adjacent} invites you to join a short project.`,
       },
     };
     return {
+      ...base,
       id,
-      step,
+      key: `s2.${branch}`,
       ...copy[branch],
-      options: options(id, {
+      choices: choices(id, {
         adapt: [
           'Deepen your craft',
           'Specialise in the judgement-heavy work the tool cannot do well.',
@@ -158,14 +177,14 @@ export function scenarioFor(
     };
   }
   if (step === 3) {
-    const id = `${occ.id}.s3`;
+    const id = `${occ.slug}.s3`;
     return {
+      ...base,
       id,
-      step,
+      key: 's3',
       title: 'Five years on',
-      prompt: 'Looking ahead, which kind of future do you want to build toward?',
-      context: 'There is no right answer — each path is a plausible, valuable future.',
-      options: options(id, {
+      narrative: 'Looking ahead, which kind of future do you want to build toward?',
+      choices: choices(id, {
         adapt: [
           'The trusted expert',
           'Known for depth, quality and sound judgement in your field.',
@@ -178,112 +197,63 @@ export function scenarioFor(
   return null;
 }
 
-export const PATHWAY_SUMMARIES: Record<PathwayId, string> = {
+export const FEEDBACK: Record<ServerPathwayKind, string> = {
   adapt:
-    'Your choices lean toward Adapt: growing within your occupation by combining new tools with the human judgement that makes your work valuable.',
-  transform:
-    'Your choices lean toward Transform: reshaping how work gets done, and helping the people around you change with it.',
-  discover:
-    'Your choices lean toward Discover: following curiosity into neighbouring fields and building a career that crosses boundaries.',
+    '[Mock feedback] Building on your strengths keeps your experience valuable as tools change.',
+  transform: '[Mock feedback] Reshaping the work spreads the benefit of new tools across the team.',
+  discover: '[Mock feedback] Exploring a neighbouring field widens the options open to you.',
 };
 
-export const MOCK_FINDINGS: ResearchFinding[] = [
-  {
-    id: 'mock-f1',
-    statement:
-      '[Mock finding] Placeholder for an evidence-backed statement about how tasks in this occupation are changing.',
-    source: {
-      id: 'mock-src-1',
-      title: 'Mock source A — placeholder for the research team',
-      publisher: 'Example Research Institute (mock)',
-      year: 2025,
-      url: 'https://example.org/futureprint/mock-source-a',
-    },
+export const PATHWAY_CONTENT: Record<
+  ServerPathwayKind,
+  { title: string; summary: string; steps: string[] }
+> = {
+  adapt: {
+    title: 'Adapt: grow within your role',
+    summary:
+      'Your choices lean toward Adapt: growing within your occupation by combining new tools with the human judgement that makes your work valuable.',
+    steps: [
+      '[Mock step] Learn the tools your team uses',
+      '[Mock step] Specialise in judgement-heavy work',
+    ],
   },
-  {
-    id: 'mock-f2',
-    statement:
-      '[Mock finding] Placeholder for a finding on which skills are growing in demand alongside new tools.',
-    source: {
-      id: 'mock-src-2',
-      title: 'Mock source B — placeholder for the research team',
-      publisher: 'Example Labour Observatory (mock)',
-      year: 2024,
-      url: 'https://example.org/futureprint/mock-source-b',
-    },
+  transform: {
+    title: 'Transform: reshape the work',
+    summary:
+      'Your choices lean toward Transform: reshaping how work gets done, and helping the people around you change with it.',
+    steps: [
+      '[Mock step] Map how work flows today',
+      '[Mock step] Pilot one improvement with your team',
+    ],
   },
-];
+  discover: {
+    title: 'Discover: cross into new fields',
+    summary:
+      'Your choices lean toward Discover: following curiosity into neighbouring fields and building a career that crosses boundaries.',
+    steps: [
+      '[Mock step] Shadow someone in a neighbouring field',
+      '[Mock step] Take a short course',
+    ],
+  },
+};
 
-export const MOCK_LIMITATIONS = [
-  'This is mock data for frontend development. It is not research and should not inform real decisions.',
-  'Real reports will describe the limits of the underlying studies, such as regional coverage and timeframes.',
-];
+export const mockSource = (
+  n: number,
+  organisation: string,
+  year: number,
+  region = 'global',
+): ServerSourceSummary => ({
+  key: `mock-source-${n}`,
+  organisation: `${organisation} (mock)`,
+  title: `Mock source ${String.fromCharCode(64 + n)} — placeholder for the research team`,
+  url: `https://example.org/futureprint/mock-source-${n}`,
+  publication_date: `${year}-01-01`,
+  region,
+  is_african_evidence: region === 'kenya' || region === 'africa',
+  evidence_category: 'ai_exposure_research',
+  source_type: 'primary',
+  confidence: 'medium',
+});
 
-export function suggestionsFor(
-  pathway: PathwayId,
-  occupationTitle: string,
-  choiceLabels: string[],
-): Suggestion[] {
-  const because = (i: number) =>
-    choiceLabels[i] ? `You chose “${choiceLabels[i]}” in step ${i + 1}.` : 'Based on your choices.';
-  const byPathway: Record<PathwayId, Omit<Suggestion, 'id' | 'reason'>[]> = {
-    adapt: [
-      {
-        category: 'skill',
-        title: 'Critical evaluation of AI output',
-        description: 'Practise reviewing and correcting tool-generated work.',
-      },
-      {
-        category: 'career_direction',
-        title: `Senior ${occupationTitle}`,
-        description: 'A path built on depth and quality.',
-      },
-    ],
-    transform: [
-      {
-        category: 'skill',
-        title: 'Workflow and process design',
-        description: 'Map how work flows and where tools fit best.',
-      },
-      {
-        category: 'career_direction',
-        title: 'Change or operations lead',
-        description: 'Guide teams through new ways of working.',
-      },
-    ],
-    discover: [
-      {
-        category: 'skill',
-        title: 'Rapid learning in a new domain',
-        description: 'Build a habit of short, structured learning sprints.',
-      },
-      {
-        category: 'career_direction',
-        title: 'Hybrid or cross-disciplinary role',
-        description: 'Combine your field with an adjacent one.',
-      },
-    ],
-  };
-  const common: Omit<Suggestion, 'id' | 'reason'>[] = [
-    {
-      category: 'transferable_capability',
-      title: 'Communicating complex ideas',
-      description: 'Valued across every pathway you explored.',
-    },
-    {
-      category: 'learning_activity',
-      title: 'Shadow someone for a day',
-      description: 'Spend time with a person already doing the work you are curious about.',
-    },
-    {
-      category: 'next_step',
-      title: 'Write down one experiment',
-      description: 'Pick one small action from this report to try in the next month.',
-    },
-  ];
-  return [...byPathway[pathway], ...common].map((s, i) => ({
-    ...s,
-    id: `mock-sg-${i + 1}`,
-    reason: `[Mock reason] ${because(i % Math.max(choiceLabels.length, 1))}`,
-  }));
-}
+export const MOCK_DISCLAIMER =
+  '[Mock] This report reflects the choices you made in an illustrative simulation using sample data. It is not a prediction about your job or career, and the sources are placeholders.';

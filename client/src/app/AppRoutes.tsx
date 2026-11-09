@@ -9,6 +9,7 @@ const LAZY_ROUTES: [string, LazyExoticComponent<ComponentType>][] = [
   ['start', lazy(() => import('../features/occupations/OccupationsPage'))],
   ['simulate', lazy(() => import('../features/simulator/SimulatorPage'))],
   ['report', lazy(() => import('../features/report/ReportPage'))],
+  ['r/:token', lazy(() => import('../features/report/SharedReportPage'))],
   ['observatory', lazy(() => import('../features/observatory/ObservatoryPage'))],
   ['occupations/:slug', lazy(() => import('../features/task-scanner/TaskScannerPage'))],
   ['methodology', lazy(() => import('../features/methodology/MethodologyPage'))],

@@ -5,12 +5,31 @@ import type {
   CreateSessionResponse,
   ObservatoryResponse,
   OccupationListResponse,
-  TaskBreakdown,
   Report,
   Session,
   SubmitChoiceRequest,
+  SubmitChoiceResponse,
+  TaskBreakdown,
 } from '../types/api';
+import type {
+  ServerCreateSessionResponse,
+  ServerOccupationDetail,
+  ServerOccupationList,
+  ServerReportResponse,
+  ServerSessionEnvelope,
+  ServerSharedReport,
+  ServerSubmitChoiceResponse,
+  ServerWorkforceEventList,
+} from '../types/server';
 import { config } from './config';
+import {
+  mapErrorCode,
+  mapOccupation,
+  mapReport,
+  mapSession,
+  mapTaskBreakdown,
+  mapWorkforceEvents,
+} from './mapping';
 import { sessionToken } from './sessionToken';
 
 export class ApiRequestError extends Error {
@@ -99,10 +118,14 @@ function fallbackError(status: number): { code: ApiErrorCode; message: string } 
   return { code: 'UNKNOWN', message: 'Something unexpected happened.' };
 }
 
+/** The journey can't continue: expired, unknown token, or started under a different engine. */
 export function isSessionGone(err: unknown): err is ApiRequestError {
   return (
     err instanceof ApiRequestError &&
-    (err.code === 'SESSION_EXPIRED' || err.code === 'SESSION_NOT_FOUND' || err.status === 401)
+    (err.code === 'SESSION_EXPIRED' ||
+      err.code === 'SESSION_NOT_FOUND' ||
+      err.code === 'SESSION_ENGINE_MISMATCH' ||
+      err.status === 401)
   );
 }
 
@@ -153,32 +176,88 @@ export async function request<T>(path: string, opts: RequestOptions = {}): Promi
   const parsed = isErrorEnvelope(res.body) ? res.body.error : fallbackError(res.status);
   const error = new ApiRequestError(
     res.status,
-    parsed.code,
+    isErrorEnvelope(res.body) ? mapErrorCode(parsed.code) : parsed.code,
     parsed.message,
     'details' in parsed ? parsed.details : undefined,
   );
   if (auth && isSessionGone(error)) {
-    sessionToken.clear(error.code === 'SESSION_EXPIRED' ? 'expired' : null);
+    sessionToken.clear(error.code === 'SESSION_NOT_FOUND' ? null : 'expired');
   }
   throw error;
 }
 
+/**
+ * Typed API surface. Each call speaks the Flask API's wire format (types/server.ts) and
+ * returns UI types (types/api.ts) via lib/mapping.ts. Contract: server/README.md.
+ */
 export const api = {
-  listOccupations: (signal?: AbortSignal) =>
-    request<OccupationListResponse>('/api/v1/occupations', { signal }),
-  createSession: (body: CreateSessionRequest) =>
-    request<CreateSessionResponse>('/api/v1/sessions', { method: 'POST', body }),
-  getCurrentSession: (signal?: AbortSignal) =>
-    request<Session>('/api/v1/sessions/current', { auth: true, signal }),
-  submitChoice: (body: SubmitChoiceRequest) =>
-    request<Session>('/api/v1/sessions/current/choices', { method: 'POST', body, auth: true }),
-  createReport: () =>
-    request<Report>('/api/v1/sessions/current/report', { method: 'POST', auth: true }),
-  // Provisional research endpoints (see docs/api-contract-provisional.md).
-  listWorkforceEvents: (signal?: AbortSignal) =>
-    request<ObservatoryResponse>('/api/v1/observatory/events', { signal }),
-  getOccupationTasks: (occupationId: string, signal?: AbortSignal) =>
-    request<TaskBreakdown>(`/api/v1/occupations/${encodeURIComponent(occupationId)}/tasks`, {
+  listOccupations: async (signal?: AbortSignal): Promise<OccupationListResponse> => {
+    const res = await request<ServerOccupationList>('/api/v1/occupations', { signal });
+    return { items: res.occupations.map(mapOccupation) };
+  },
+
+  createSession: async (body: CreateSessionRequest): Promise<CreateSessionResponse> => {
+    const res = await request<ServerCreateSessionResponse>('/api/v1/sessions', {
+      method: 'POST',
+      body: { occupation_slug: body.occupationId },
+    });
+    return { token: res.session_token, session: mapSession(res.session) };
+  },
+
+  getCurrentSession: async (signal?: AbortSignal): Promise<Session> => {
+    const res = await request<ServerSessionEnvelope>('/api/v1/sessions/current', {
+      auth: true,
       signal,
-    }),
+    });
+    return mapSession(res.session);
+  },
+
+  /** Sends only `choice_id`: the server decides which scenario and step it belongs to. */
+  submitChoice: async (body: SubmitChoiceRequest): Promise<SubmitChoiceResponse> => {
+    const res = await request<ServerSubmitChoiceResponse>('/api/v1/sessions/current/choices', {
+      method: 'POST',
+      body: { choice_id: body.optionId },
+      auth: true,
+    });
+    return { session: mapSession(res.session), feedback: res.accepted_choice.feedback };
+  },
+
+  /** Idempotent on the server: repeat calls return the same report and share token. */
+  createReport: async (): Promise<Report> => {
+    const res = await request<ServerReportResponse>('/api/v1/sessions/current/report', {
+      method: 'POST',
+      auth: true,
+    });
+    return mapReport(res.report, {
+      reportId: res.report_id,
+      shareToken: res.share_token,
+      createdAt: res.created_at,
+    });
+  },
+
+  getSharedReport: async (shareToken: string, signal?: AbortSignal): Promise<Report> => {
+    const res = await request<ServerSharedReport>(
+      `/api/v1/reports/${encodeURIComponent(shareToken)}`,
+      { signal },
+    );
+    return mapReport(res.report, {
+      reportId: res.report_id,
+      shareToken,
+      createdAt: res.created_at,
+    });
+  },
+
+  listWorkforceEvents: async (signal?: AbortSignal): Promise<ObservatoryResponse> => {
+    const res = await request<ServerWorkforceEventList>('/api/v1/workforce-events', { signal });
+    return mapWorkforceEvents(res.events);
+  },
+
+  /** Tasks come with the occupation detail (`GET /occupations/{slug}`). */
+  getOccupationTasks: async (slug: string, signal?: AbortSignal): Promise<TaskBreakdown> => {
+    const res = await request<ServerOccupationDetail>(
+      `/api/v1/occupations/${encodeURIComponent(slug)}`,
+      { signal },
+    );
+    return mapTaskBreakdown(res);
+  },
 };

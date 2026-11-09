@@ -27,7 +27,9 @@ export function DecisionCard({
   submitting,
   onSelect,
 }: Props) {
-  const p = PATHWAYS[option.pathway];
+  // Options with no leading pathway (or from an engine that hides it) get a neutral style.
+  const p = option.pathway ? PATHWAYS[option.pathway] : null;
+  const letter = String.fromCharCode(65 + index);
   const descId = `${option.id}-desc`;
   return (
     <m.label
@@ -36,7 +38,7 @@ export function DecisionCard({
       transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
       className={`group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-4xl border-2 p-5 text-left transition-[border-color,box-shadow,background-color] duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-midnight sm:p-6 ${
         checked
-          ? `border-midnight ${p.soft} shadow-lift`
+          ? `border-midnight ${p ? p.soft : 'bg-ivory-200'} shadow-lift`
           : 'border-transparent bg-ivory-50 shadow-card hover:border-midnight/25 hover:shadow-lift'
       } ${disabled ? 'cursor-not-allowed' : ''} ${disabled && !checked ? 'opacity-55' : ''}`}
       data-testid="decision-card"
@@ -55,13 +57,19 @@ export function DecisionCard({
       <span className="flex items-start justify-between gap-3">
         <span className="flex items-center gap-3">
           <span
-            className={`flex h-12 w-12 items-center justify-center rounded-2xl text-midnight transition-transform duration-300 motion-reduce:transition-none ${p.accent} ${
-              checked ? 'scale-105' : 'group-hover:scale-105'
-            }`}
+            className={`flex h-12 w-12 items-center justify-center rounded-2xl text-midnight transition-transform duration-300 motion-reduce:transition-none ${
+              p ? p.accent : 'bg-midnight/10 font-display text-xl font-bold'
+            } ${checked ? 'scale-105' : 'group-hover:scale-105'}`}
           >
-            <PathwayIcon pathway={option.pathway} />
+            {option.pathway ? (
+              <PathwayIcon pathway={option.pathway} />
+            ) : (
+              <span aria-hidden="true">{letter}</span>
+            )}
           </span>
-          <span className={`eyebrow ${p.ink}`}>{p.name}</span>
+          <span className={`eyebrow ${p ? p.ink : 'text-midnight/80'}`}>
+            {p ? p.name : `Option ${letter}`}
+          </span>
         </span>
         <span
           aria-hidden="true"

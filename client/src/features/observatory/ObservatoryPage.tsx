@@ -11,12 +11,12 @@ import { PageHeader } from '../../components/ui/PageHeader';
 import { SearchInput } from '../../components/ui/SearchInput';
 import { api } from '../../lib/api';
 import { config } from '../../lib/config';
-import { EVENT_TYPE_LABELS, EVIDENCE_LABELS } from '../../lib/evidence';
 import type { WorkforceEvent } from '../../types/api';
 
 const ALL = 'All industries';
 
-function formatDate(date: string) {
+function formatDate(date: string | null) {
+  if (!date) return 'Date not recorded';
   const d = new Date(date.length === 7 ? `${date}-01` : date);
   return Number.isNaN(d.getTime())
     ? date
@@ -44,7 +44,7 @@ export default function ObservatoryPage() {
   const byYear = useMemo(() => {
     const groups = new Map<string, WorkforceEvent[]>();
     visible.forEach((e) => {
-      const year = e.date.slice(0, 4);
+      const year = e.date?.slice(0, 4) ?? 'Undated';
       groups.set(year, [...(groups.get(year) ?? []), e]);
     });
     return [...groups.entries()];
@@ -56,7 +56,7 @@ export default function ObservatoryPage() {
         eyebrow="Workforce Observatory"
         eyebrowClass="text-adapt-ink"
         title="How work is changing, event by event"
-        intro="A timeline of documented changes across industries — each event linked to its source and labelled with the strength of its evidence."
+        intro="A timeline of documented changes across industries — each event linked to its source and labelled with its confidence and region."
       />
       {config.useMocks && (
         <p className="mt-6">
@@ -160,7 +160,6 @@ export default function ObservatoryPage() {
 }
 
 function EventCard({ event, index }: { event: WorkforceEvent; index: number }) {
-  const evidence = EVIDENCE_LABELS[event.evidenceLevel];
   return (
     <m.li
       initial={{ opacity: 0, y: 12 }}
@@ -173,18 +172,24 @@ function EventCard({ event, index }: { event: WorkforceEvent; index: number }) {
         className="absolute -left-[33px] top-7 h-3 w-3 rounded-full bg-adapt ring-4 ring-ivory-100 sm:-left-[41px]"
       />
       <p className="text-sm font-semibold text-midnight/80">
-        <time dateTime={event.date}>{formatDate(event.date)}</time>
+        <time dateTime={event.date ?? undefined}>{formatDate(event.date)}</time>
         {event.organisation && <> · {event.organisation}</>}
       </p>
       <h4 className="mt-2 font-display text-xl font-bold leading-snug sm:text-2xl">
         {event.title}
       </h4>
       <p className="mt-2 text-midnight/80">{event.summary}</p>
+      {event.interpretationNote && (
+        <p className="mt-3 border-l-2 border-adapt pl-3 text-sm text-midnight/80">
+          <span className="font-semibold text-midnight">How to read this: </span>
+          {event.interpretationNote}
+        </p>
+      )}
       <div className="mt-4 flex flex-wrap gap-2">
         <Badge>{event.industry}</Badge>
-        <Badge tone="adapt">{EVENT_TYPE_LABELS[event.eventType]}</Badge>
+        <Badge tone="adapt">{event.eventTypeLabel}</Badge>
         <Badge tone="discover">
-          <span>Evidence: {evidence.label}</span>
+          <span>Evidence: {event.evidenceLabel}</span>
         </Badge>
       </div>
       <p className="mt-4">

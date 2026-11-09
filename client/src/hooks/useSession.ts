@@ -34,7 +34,7 @@ export function useSubmitChoice() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (body: SubmitChoiceRequest) => api.submitChoice(body),
-    onSuccess: (session) => {
+    onSuccess: ({ session }) => {
       qc.setQueryData<Session>(queryKeys.session, session);
     },
     onError: (err) => {

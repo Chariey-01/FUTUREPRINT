@@ -68,21 +68,29 @@ export function StoryRail({ session }: { session: Session }) {
 }
 
 function ChoiceItem({ choice, withDot = false }: { choice: Choice; withDot?: boolean }) {
-  const p = PATHWAYS[choice.pathway];
+  const p = choice.pathway ? PATHWAYS[choice.pathway] : null;
   return (
     <li className="relative flex gap-3">
-      {withDot && <Dot className={p.accent} />}
+      {withDot && <Dot className={p ? p.accent : 'bg-midnight/40'} />}
       <span
-        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${p.soft} ${p.ink}`}
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+          p ? `${p.soft} ${p.ink}` : 'bg-midnight/10 text-midnight'
+        }`}
       >
-        <PathwayIcon pathway={choice.pathway} className="h-4 w-4" />
+        {choice.pathway ? (
+          <PathwayIcon pathway={choice.pathway} className="h-4 w-4" />
+        ) : (
+          <span aria-hidden="true" className="text-xs font-bold">
+            {choice.step}
+          </span>
+        )}
       </span>
       <span className="min-w-0">
         <span className="block text-xs text-midnight/80">
           Chapter {choice.step} · {choice.scenarioTitle}
         </span>
         <span className="block font-semibold leading-snug">{choice.optionLabel}</span>
-        <span className={`text-xs font-semibold ${p.ink}`}>{p.name}</span>
+        {p && <span className={`text-xs font-semibold ${p.ink}`}>{p.name}</span>}
       </span>
     </li>
   );
