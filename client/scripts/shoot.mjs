@@ -3,7 +3,8 @@
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
-const [base = 'http://localhost:6173', out = 'qa-shots', routeArg = '/', ...flags] = process.argv.slice(2);
+const [base = 'http://localhost:6173', out = 'qa-shots', routeArg = '/', ...flags] =
+  process.argv.slice(2);
 const full = flags.includes('--full');
 const menu = flags.includes('--menu');
 const widths = [
@@ -22,7 +23,10 @@ for (const route of routeArg.split(',')) {
     if (menu && width < 768) await page.getByRole('button', { name: 'Menu' }).click();
     const slug = route === '/' ? 'portal' : route.replace(/\W+/g, '-').replace(/^-|-$/g, '');
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-    await page.screenshot({ path: `${out}/${name}-${slug}${menu ? '-menu' : ''}.png`, fullPage: full });
+    await page.screenshot({
+      path: `${out}/${name}-${slug}${menu ? '-menu' : ''}.png`,
+      fullPage: full,
+    });
     console.log(`${name} ${route} overflow=${overflow}`);
     await page.close();
   }

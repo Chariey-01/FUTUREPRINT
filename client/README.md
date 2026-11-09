@@ -13,6 +13,23 @@ npm run dev          # real API: set VITE_API_BASE_URL in .env.local (see .env.e
 
 Mock mode shows a "Mock mode · sample data, not real research" strip on every page.
 
+### API contract
+
+The client follows the Flask API in [`server/README.md`](../server/README.md#api-reference-apiv1):
+
+- **`src/types/server.ts`**: the server's wire types (snake_case, envelopes, lower_snake error codes).
+- **`src/lib/mapping.ts`**: the **only** place that translates server shapes into UI types (`src/types/api.ts`), including error codes. For example, `invalid_choice` and `duplicate_choice` become `STALE_STEP`, which re-syncs the simulator.
+- **`src/mocks/`**: returns the server's exact shapes and validation, so mock mode exercises the real contract.
+
+### Against the real backend (Docker, no local Postgres needed)
+
+```bash
+scripts/real-backend-docker.sh                                   # Postgres 16 + Flask API on :5055, seed loaded
+VITE_USE_MOCKS=false VITE_API_BASE_URL=http://localhost:5055 npx vite --port 6174
+node scripts/real-api-smoke.mjs                                  # full journey, report, share link, research pages
+scripts/real-backend-docker.sh down                              # stop
+```
+
 ## Scripts
 
 | Script                          | What it does                                                                                                     |
@@ -29,16 +46,17 @@ Visual QA against a running dev server: `node scripts/shoot.mjs http://localhost
 
 ## Routes
 
-| Route | Screen |
-|---|---|
-| `/` | Future Portal |
-| `/start` | Occupation selection (search, "door" cards) |
-| `/simulate` | Scenario simulator (3 server-driven chapters) |
-| `/report` | My Futureprint (printable) |
-| `/observatory` | Workforce Observatory (sample data until research arrives) |
-| `/occupations/:slug` | Task Scanner |
-| `/methodology` | Methodology framework |
-| `/signin` | Sign in / create account, a **design preview only** (sends and stores nothing) |
+| Route                | Screen                                                                         |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `/`                  | Future Portal                                                                  |
+| `/start`             | Occupation selection (search, "door" cards)                                    |
+| `/simulate`          | Scenario simulator (3 server-driven chapters)                                  |
+| `/report`            | My Futureprint (printable, with a share link)                                  |
+| `/r/:token`          | Read-only shared report (`GET /reports/{share_token}`)                         |
+| `/observatory`       | Workforce Observatory (sample data until research arrives)                     |
+| `/occupations/:slug` | Task Scanner                                                                   |
+| `/methodology`       | Methodology framework                                                          |
+| `/signin`            | Sign in / create account, a **design preview only** (sends and stores nothing) |
 
 ## Structure
 
