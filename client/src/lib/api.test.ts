@@ -56,7 +56,7 @@ describe('API client', () => {
   it('marks the session as expired on SESSION_EXPIRED', async () => {
     setTransport(async () => ({
       status: 401,
-      body: { error: { code: 'SESSION_EXPIRED', message: 'gone' } },
+      body: { error: { code: 'session_expired', message: 'gone' } },
     }));
     sessionToken.set('t');
     await request('/api/v1/sessions/current', { auth: true }).catch(() => {});

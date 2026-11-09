@@ -8,7 +8,9 @@ import { isSessionGone, isStaleStep } from '../../lib/api';
 import type { Scenario, Session } from '../../types/api';
 
 export type SimulatorMessage =
-  { kind: 'saved'; text: string } | { kind: 'problem'; text: string } | null;
+  | { kind: 'saved'; text: string; feedback?: string | null }
+  | { kind: 'problem'; text: string }
+  | null;
 
 interface Props {
   session: Session;
@@ -33,9 +35,9 @@ export function ScenarioView({ session, scenario, setMessage }: Props) {
     setMessage(null);
     const label = scenario.options.find((o) => o.id === selected)?.label ?? '';
     submit.mutate(
-      { scenarioId: scenario.id, optionId: selected, step: scenario.step },
+      { optionId: selected },
       {
-        onSuccess: (next) => {
+        onSuccess: ({ session: next, feedback }) => {
           if (next.status === 'completed') {
             navigate('/report');
             return;
@@ -43,6 +45,7 @@ export function ScenarioView({ session, scenario, setMessage }: Props) {
           setMessage({
             kind: 'saved',
             text: `Choice saved — “${label}”. On to chapter ${next.currentStep}.`,
+            feedback,
           });
         },
         onError: (err) => {

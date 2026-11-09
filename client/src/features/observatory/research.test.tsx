@@ -31,15 +31,19 @@ describe('Workforce Observatory', () => {
 
 describe('Task Scanner', () => {
   it('explains each task classification with text, not colour alone', async () => {
-    const { container } = renderApp('/occupations/nurse');
+    const { container } = renderApp('/occupations/registered-nurse');
     expect(
       await screen.findByRole('heading', { level: 1, name: 'Registered Nurse' }),
     ).toBeInTheDocument();
     const tasks = screen.getByRole('region', { name: /tasks in this occupation/i });
-    ['Routine', 'Augmented', 'Human-led', 'Emerging'].forEach((label) =>
-      expect(within(tasks).getByText(label)).toBeInTheDocument(),
-    );
+    // Server `likely_change` and `exposure.level`, shown as text.
+    expect(within(tasks).getByText('Partly automated')).toBeInTheDocument();
+    expect(within(tasks).getByText('Augmented')).toBeInTheDocument();
+    expect(within(tasks).getAllByText('Mostly human')).toHaveLength(2);
+    expect(within(tasks).getByText('High exposure')).toBeInTheDocument();
     expect(within(tasks).getAllByText(/associated skills/i).length).toBeGreaterThan(0);
+    // The server's own caveat: exposure is not job loss.
+    expect(screen.getByText(/not job loss/i)).toBeInTheDocument();
     expect(await axeViolations(container)).toEqual([]);
   });
 
@@ -47,7 +51,7 @@ describe('Task Scanner', () => {
     const { user } = renderApp('/occupations/accountant');
     await user.click(await screen.findByRole('button', { name: /simulate this occupation/i }));
     await waitFor(() => expect(screen.getByTestId('location')).toHaveTextContent('/simulate'));
-    expect(sessionToken.get()).toMatch(/^mocktok_/);
+    expect(sessionToken.get()).toMatch(/^fps_/);
   });
 
   it('handles an unknown occupation', async () => {

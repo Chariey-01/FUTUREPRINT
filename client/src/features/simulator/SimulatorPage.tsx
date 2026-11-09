@@ -115,22 +115,28 @@ function MessageBanner({ message }: { message: SimulatorMessage }) {
     <>
       <div role="status" aria-live="polite">
         {message?.kind === 'saved' && (
-          <m.p
+          <m.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full bg-discover-soft px-4 py-2 text-sm font-semibold text-discover-ink"
+            className="mb-6 max-w-3xl rounded-3xl bg-discover-soft px-4 py-3 text-discover-ink"
           >
-            <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden="true">
-              <path
-                d="M3.5 8.5l3 3 6-7"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {message.text}
-          </m.p>
+            <p className="inline-flex items-center gap-2 text-sm font-semibold">
+              <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0" fill="none" aria-hidden="true">
+                <path
+                  d="M3.5 8.5l3 3 6-7"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {message.text}
+            </p>
+            {/* What the server says this choice means. */}
+            {message.feedback && (
+              <p className="mt-1 pl-6 text-sm text-midnight">{message.feedback}</p>
+            )}
+          </m.div>
         )}
       </div>
       {message?.kind === 'problem' && (

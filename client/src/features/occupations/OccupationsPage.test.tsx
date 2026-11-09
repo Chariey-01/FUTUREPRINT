@@ -19,7 +19,7 @@ describe('Occupation selection', () => {
     const { user } = renderApp('/start');
     await user.click(await screen.findByRole('button', { name: /accountant/i }));
     await waitFor(() => expect(screen.getByTestId('location')).toHaveTextContent('/simulate'));
-    expect(sessionToken.get()).toMatch(/^mocktok_/);
+    expect(sessionToken.get()).toMatch(/^fps_/);
     expect(await screen.findByText(/exploring the future of/i)).toHaveTextContent('Accountant');
   });
 

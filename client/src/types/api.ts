@@ -1,18 +1,21 @@
 /**
- * FUTUREPRINT API types.
+ * UI domain types. Components use only these.
  *
- * ⚠️ PROVISIONAL CONTRACT — not yet agreed with Persons 2 (backend), 3 (research) and
- * 5 (recommendations). See docs/api-contract-provisional.md. When the frozen contract
- * lands, update this file first; the UI consumes only these types.
+ * The contract is the Flask API documented in server/README.md. Its wire shapes live in
+ * ./server.ts and are converted to these types in lib/mapping.ts, the single place that
+ * knows about snake_case, envelopes and server error codes.
  */
 
 export type PathwayId = 'adapt' | 'transform' | 'discover';
 
 export interface Occupation {
+  /** The server's slug. */
   id: string;
   title: string;
   summary: string;
   sector?: string;
+  /** False when the server has no scenarios for this occupation yet. */
+  simulationAvailable?: boolean;
 }
 
 export interface OccupationListResponse {
@@ -23,7 +26,8 @@ export interface ChoiceOption {
   id: string;
   label: string;
   description: string;
-  pathway: PathwayId;
+  /** Leading pathway for this option, or null when the engine doesn't expose one. */
+  pathway: PathwayId | null;
 }
 
 export interface Scenario {
@@ -32,6 +36,7 @@ export interface Scenario {
   step: number;
   title: string;
   prompt: string;
+  /** The real work task this scenario is about, when the server provides it. */
   context?: string;
   options: ChoiceOption[];
 }
@@ -43,22 +48,24 @@ export interface Choice {
   scenarioTitle: string;
   optionId: string;
   optionLabel: string;
-  pathway: PathwayId;
+  pathway: PathwayId | null;
+  feedback?: string | null;
 }
 
 export type SessionStatus = 'in_progress' | 'completed';
 
 export interface Session {
-  id: string;
   status: SessionStatus;
   occupation: Occupation;
-  /** 1-based step the visitor is currently on. Equals totalSteps + 1 once completed. */
+  /** 1-based step the visitor is currently on. */
   currentStep: number;
+  /** Server's longest-route estimate; can change as the scenario graph branches. */
   totalSteps: number;
   /** null once the session is completed. */
   currentScenario: Scenario | null;
   choices: Choice[];
-  expiresAt: string;
+  expiresAt: string | null;
+  reportGenerated: boolean;
 }
 
 export interface CreateSessionRequest {
@@ -72,71 +79,86 @@ export interface CreateSessionResponse {
 }
 
 export interface SubmitChoiceRequest {
-  scenarioId: string;
   optionId: string;
-  /** The step the client believes it is answering; the server rejects mismatches (STALE_STEP). */
-  step: number;
+}
+
+export interface SubmitChoiceResponse {
+  session: Session;
+  /** Server feedback on the accepted choice. */
+  feedback: string | null;
 }
 
 export interface Source {
-  id: string;
+  id?: string;
   title: string;
   publisher: string;
-  year?: number;
+  year?: number | null;
   url: string;
+  /** e.g. "Kenya", "Africa", "Outside Africa". Used to label evidence from outside Africa. */
+  region?: string;
 }
 
 export interface ResearchFinding {
   id: string;
   statement: string;
   source: Source;
+  reason?: string;
 }
-
-export type SuggestionCategory =
-  'skill' | 'transferable_capability' | 'career_direction' | 'learning_activity' | 'next_step';
 
 export interface Suggestion {
   id: string;
-  category: SuggestionCategory;
+  category: string;
   title: string;
   description: string;
   /** Why FUTUREPRINT suggests this. Always shown to the visitor. */
   reason: string;
 }
 
+export interface ReasonedItem {
+  title: string;
+  description?: string;
+  reason: string;
+}
+
 export interface Report {
-  sessionId: string;
+  reportId: string;
   generatedAt: string;
-  occupation: Occupation;
+  shareToken: string | null;
+  occupation: Occupation & { exposureLabel?: string };
   choices: Choice[];
   pathway: {
     id: PathwayId;
+    title: string;
     summary: string;
+    reason: string;
+    steps: string[];
   };
+  capabilities: ReasonedItem[];
+  tradeOffs: ReasonedItem[];
+  transferableSkills: ReasonedItem[];
+  otherPathways: (ReasonedItem & { id: PathwayId })[];
   research: {
     findings: ResearchFinding[];
     limitations: string[];
   };
   suggestions: Suggestion[];
+  /** Mandatory server disclaimer. Always displayed. */
+  disclaimer: string;
 }
 
-/* ---------- Research interfaces (PROVISIONAL — no contract yet; owner: Person 3) ---------- */
-
-export type EvidenceLevel =
-  'official_statistics' | 'peer_reviewed' | 'industry_report' | 'news_report';
-
-export type WorkforceEventType = 'adoption' | 'restructuring' | 'new_role' | 'policy' | 'training';
+/* ---------- Research interfaces ---------- */
 
 export interface WorkforceEvent {
   id: string;
-  /** ISO date (YYYY-MM or YYYY-MM-DD). */
-  date: string;
+  date: string | null;
   title: string;
   summary: string;
   industry: string;
   organisation?: string;
-  eventType: WorkforceEventType;
-  evidenceLevel: EvidenceLevel;
+  eventTypeLabel: string;
+  /** e.g. "High confidence · Kenya". */
+  evidenceLabel: string;
+  interpretationNote?: string | null;
   source: Source;
 }
 
@@ -145,19 +167,26 @@ export interface ObservatoryResponse {
   industries: string[];
 }
 
-export type TaskClassification = 'routine' | 'augmented' | 'human_led' | 'emerging';
+export type TaskExposureLevel = 'very_low' | 'low' | 'medium' | 'high';
+export type LikelyChange = 'mostly_human' | 'augmentation' | 'partial_automation';
 
 export interface OccupationTask {
   id: string;
   name: string;
-  classification: TaskClassification;
+  exposureLevel: TaskExposureLevel | string;
+  likelyChange: LikelyChange | string;
   explanation: string;
   skills: string[];
-  source?: Source;
+  sources: Source[];
 }
 
 export interface TaskBreakdown {
-  occupation: Occupation;
+  occupation: Occupation & {
+    exposureLabel?: string;
+    exposureSummary?: string | null;
+    exposureMeasures?: string;
+    kenyaContext?: string | null;
+  };
   tasks: OccupationTask[];
   limitations: string[];
 }
@@ -169,19 +198,23 @@ export type ApiErrorCode =
   | 'SESSION_EXPIRED'
   | 'SESSION_COMPLETED'
   | 'SESSION_INCOMPLETE'
+  | 'SESSION_ENGINE_MISMATCH'
   | 'STALE_STEP'
+  | 'CHOICE_REJECTED'
   | 'RATE_LIMITED'
+  | 'SERVICE_UNAVAILABLE'
   | 'INTERNAL_ERROR'
   // Client-side only codes:
   | 'NETWORK_ERROR'
   | 'INVALID_RESPONSE'
   | 'UNKNOWN';
 
-/** Error envelope returned by every non-2xx response. */
+/** Error envelope shape (server codes are lower_snake; see lib/mapping.ts). */
 export interface ApiError {
   error: {
-    code: ApiErrorCode | string;
+    code: string;
     message: string;
     details?: unknown;
+    request_id?: string;
   };
 }

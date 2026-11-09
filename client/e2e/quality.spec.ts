@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Browser } from '@playwright/test';
 
-const PAGES = ['/observatory', '/occupations/nurse', '/methodology', '/signin'];
+const PAGES = ['/observatory', '/occupations/registered-nurse', '/methodology', '/signin'];
 
 for (const path of PAGES) {
   test(`a11y + no overflow at 360px: ${path}`, async ({ page }) => {

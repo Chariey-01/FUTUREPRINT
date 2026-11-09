@@ -4,7 +4,7 @@ import { sessionToken } from '../../lib/sessionToken';
 import { mockControl } from '../../mocks/mockServer';
 import { axeViolations, renderApp } from '../../test/utils';
 
-async function startSession(occupationId = 'nurse') {
+async function startSession(occupationId = 'registered-nurse') {
   const res = await api.createSession({ occupationId });
   sessionToken.set(res.token);
   return res;
@@ -94,12 +94,10 @@ describe('Future Scenario Simulator', () => {
     await screen.findByText('A new tool arrives');
     // Another tab answers step 1 behind this tab's back.
     const s = await api.getCurrentSession();
-    await api.submitChoice({
-      scenarioId: s.currentScenario!.id,
-      optionId: s.currentScenario!.options[2]!.id,
-      step: 1,
-    });
+    await api.submitChoice({ optionId: s.currentScenario!.options[2]!.id });
 
+    // This tab's choice no longer belongs to the current scenario: the server answers
+    // 422 invalid_choice, which the client treats as a stale step and re-syncs.
     await choose(user, /master the tool/i);
     expect(await screen.findByRole('alert')).toHaveTextContent(/already answered/i);
     // Shows the server's actual step 2 (Discover branch), not the one this tab tried.

@@ -1,6 +1,12 @@
 # FUTUREPRINT API contract — PROVISIONAL (frontend assumption)
 
-> **Status: NOT AGREED.** No API contract existed in the repository when the frontend was started.
+> **⚠️ SUPERSEDED (2026-11-09).** The client now follows the implemented Flask API documented in
+> [`server/README.md`](../server/README.md#api-reference-apiv1). Wire types are in
+> `client/src/types/server.ts`, and the single translation layer is in `client/src/lib/mapping.ts`.
+> Mock mode returns the server's exact shapes. Verified end to end against the real backend with
+> `client/scripts/real-api-smoke.mjs`. The text below is kept for history only.
+
+> **Status (historical): NOT AGREED.** No API contract existed in the repository when the frontend was started.
 > This is the interface the frontend currently codes against (`client/src/types/api.ts`) and that
 > mock mode implements. It needs confirmation or correction from **Person 2 (backend)**,
 > **Person 3 (research)** and **Person 5 (recommendations)**. Once frozen, update
